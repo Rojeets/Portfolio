@@ -116,6 +116,10 @@ body {
     padding-bottom: 0%;
 }
 /*Page 2*/
+.about{
+    width: 100%;
+    height: 100vh;
+}
 .about a{
     text-decoration: none;
     font-size: 20px;
