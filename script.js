@@ -9,7 +9,7 @@ function about(){
 }
 
 function link(){
-    window.location.href = 'https://www.rojitpokharel.com.np/';
+    window.location.href = 'https://rojeets.github.io/personal_profile/';
 }
 
 function project(){
