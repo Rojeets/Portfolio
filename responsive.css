@@ -33,10 +33,6 @@
     height: 90vh;
   }
 
-  .logo {
-    display: none;
-  }
-
   .home .home-text {
     justify-content: baseline;
     align-items: center;
