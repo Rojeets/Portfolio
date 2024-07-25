@@ -177,6 +177,10 @@ h5 {
 .about {
     width: 100%;
     height: auto;
+    background-color: black;
+    margin: -1%;
+    padding: 50px;
+    display: flex;
 }
 
 .about a {
@@ -211,17 +215,6 @@ h5 {
     font-size: 50px;
     color: white;
     font-family: 'Times New Roman', Times, serif;
-}
-
-.about {
-    background-color: rgb(10, 9, 9);
-    margin: -1%;
-
-}
-
-.about {
-    padding: 50px;
-    display: flex;
 }
 
 .about-img,
@@ -276,7 +269,7 @@ table {
     border-radius: 10px;
     border: 3px solid rgba(255, 255, 255, 0.4);
     margin: 5%;
-    width: 80%;
+    width: 60%;
     padding: 5%;
     justify-content: center;
 }
