@@ -1,0 +1,207 @@
+*{
+    color: white;
+}
+body {
+    background-image: url(img.avif);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+/*top at page*/
+.navbar {
+    display: inline-flex;
+}
+
+.logo {
+    border-radius: 50%;
+    width: 100px;
+}
+
+.navbar a {
+    color: white;
+    text-decoration: none;
+    padding: 10px;
+    font-size: 50px;
+    font-family: 'Times New Roman', Times, serif;
+    margin-left: 100px;
+}
+
+.navbar a:hover {
+    color: black;
+    background-color: white;
+    border-radius: 10px;
+}
+
+.navbar ul {
+    display: inline-flex;
+}
+/*Content first page*/
+.home {
+    width: 100%;
+    height: 90vh;
+    display:block;
+    align-items: center;
+    justify-content: center;
+}
+
+.home .home-text {
+    margin: 8% 15%;
+    background-color: rgba(49, 33, 33, 0.4);
+    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
+    padding: 80px 500px;
+    border-radius: 40px;
+}
+
+.home-text h1 {
+    font-size: 50px;
+    color: white;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.home-text h3 {
+    font-size: 30px;
+    color: white;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.home-text h5 {
+    font-size: 20px;
+    color: white;
+    font-family: 'Times New Roman', Times, serif;
+}
+.home-text h1, h3, h5{
+    padding: none;
+    display: block;
+}
+.home-text button{
+    background-color: white;
+    color: black;
+    border: 2px solid black;
+    padding: 10px 20px;
+    font-size: 20px;
+    border-radius: 20px;
+    margin-top: 20px;
+    cursor: pointer;
+    transition: 0.5s;
+
+}
+.home-text button:hover{
+    background-color: black;
+    color: white;
+    border: 2px solid white;
+    padding: 10px 20px;
+    font-size: 20px;
+    border-radius: 20px;
+    margin-top: 20px;
+    cursor: pointer;
+    transition: 0.5s;
+}
+.home-text hr{
+    margin-bottom:-18% ;
+    border: 5px solid orangered;
+    border-radius: 50px;
+}
+
+.home .contact-img{
+    padding: 3px;
+    margin-top: 10%;
+}
+.contact-img img{
+    border-radius: 50%;
+}
+.insta,.facebook ,.github, .linkedIn{
+    width: 50px;
+    padding-bottom: 0%;
+}
+/*Page 2*/
+.about a{
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: bold;
+}
+.about .mail, .location{
+    width: 50px;
+    border-radius: 4px;
+}
+.about-img img{
+    border-radius: 30px;
+}
+.about-text h3{
+    font-size: 30px;
+    color: white;
+    font-family: 'Times New Roman', Times, serif;
+}
+.about-text h5{
+    font-size: 20px;
+    color: white;
+    font-family: 'Times New Roman', Times, serif;
+}
+.about-text h1{
+    font-size: 50px;
+    color: white;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.about .container{
+    background-color: rgb(10, 9, 9);
+    margin: -1%;
+
+}
+.about .container .row{
+    padding: 50px;
+    display: flex;
+}
+.row .about-img ,.about-text{
+    background-color: rgb(53, 52, 52);
+    padding: 3%;
+    border-radius: 20px;
+}
+.about-img{
+    margin-right: 5%;
+}
+.about-text{
+    width: 70%;
+    display: block;
+}
+.about-text p{
+    font-size: 25px;
+}
+.about-text .col1{
+    display: flex;
+    justify-content: space-between;
+
+}
+.collom2 img{
+    margin-top: 5px;
+    border-radius: 5px;
+    width: 50px;
+    display: inline-flex;
+}
+.collom1 p{
+    font-size: 20px;
+    width: 70%;
+}
+#project{
+    background-color: rgb(10, 9, 9);
+    display: none;
+    width: 100%;
+    margin: -1%;
+    justify-content: center;
+    align-items: center;
+}
+table{
+    background-color: rgba(22, 19, 19, 0.4);
+    border-radius: 10px;
+    border: 3px solid rgba(255, 255, 255, 0.4);
+    margin: 5%;
+    width: 80%;
+    padding: 5%;
+    justify-content: center;
+}
+tr{
+    padding: 5px;
+    border: 3px solid green;
+
+}
