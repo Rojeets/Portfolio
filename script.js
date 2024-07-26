@@ -1,6 +1,6 @@
 function about(){
     var about = document.getElementById("about");
-    about.style.display="block";
+    about.style.display="flex";
     var project = document.getElementById("project");
     project.style.display="none";
     scrollTo(about);
@@ -15,8 +15,8 @@ function link(){
 function project(){
     var about = document.getElementById("about");
     var project = document.getElementById("project");
-    project.style.display="none";
-    about.style.display="block";
+    project.style.display="inline";
+    about.style.display="none";
     scrollTo(project);
 
 }
