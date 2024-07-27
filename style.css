@@ -11,24 +11,12 @@ body {
 }
 
 /*top at page*/
-.drop{
-    margin: 30px 2px;
-    display: none;
-}
-.drop .div {
-    width: 35px;
-    height: 5px;
-    background-color: black;
-    margin: 6px 6px;
-}
-
 .navcontainer {
     display: inline-flex;
 }
 
 .topnav {
     margin-left: 80px;
-    overflow: hidden;
     text-align: center;
 }
 
@@ -52,39 +40,10 @@ body {
     border-radius: 50%;
     width: 100px;
 }
-.dropbtn {
-    color: white;
-    padding: 16px;
-    font-size: 16px;
-    border: none;
-    cursor: pointer;
-  }
-  
-  .dropdown {
-    position: relative;
-    display: none;
-  }
-  
-  .dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #f1f1f1;
-    min-width: 160px;
-    overflow: auto;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-  }
-  
-  .dropdown-content a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-  }  
-  .show {display: block;}
 /*Content first page*/
 .home {
-    width: 100%;
+margin: 0% 10%;
+    width: 80%;
     height: 90vh;
     display: block;
     align-items: center;
@@ -92,13 +51,21 @@ body {
 }
 
 .home .home-text {
-    margin: 8% 15%;
     background-color: rgba(49, 33, 33, 0.4);
     -webkit-backdrop-filter: blur(5px);
     backdrop-filter: blur(5px);
-    padding: 80px 500px;
     border-radius: 40px;
+    padding: 20px;
+    width: 80%;
+    margin: 15% 10%;
+    text-align: center;
 }
+.home .contact-img {
+    padding: 3px;
+    margin-top: 10%;
+    margin-right: -10%;
+}
+
 
 .home-text h1 {
     font-size: 50px;
@@ -156,10 +123,6 @@ h5 {
     border-radius: 50px;
 }
 
-.home .contact-img {
-    padding: 3px;
-    margin-top: 10%;
-}
 
 .contact-img img {
     border-radius: 50%;
@@ -175,11 +138,12 @@ h5 {
 
 /*Page 2*/
 .about {
-    width: 100%;
+    padding-left: 6%;
+    margin: -1% -2%;
+    width: 90%;
     height: auto;
     background-color: black;
-    margin: -2%;
-    padding: 50px;
+    padding: 5% 5%;
     display: flex;
 }
 
@@ -226,6 +190,7 @@ h5 {
 
 .about-img {
     margin-right: 5%;
+    width: 20%;
 }
 
 .about-text {
@@ -234,10 +199,11 @@ h5 {
 }
 
 .about-text p {
-    font-size: 25px;
+    font-size: 30px;
 }
 
 .about-text .col1 {
+    width: 100%;
     display: flex;
     justify-content: space-between;
 
@@ -251,8 +217,8 @@ h5 {
 }
 
 .collom1 p {
-    font-size: 20px;
-    width: 70%;
+    font-size: 30px;
+    width: 100%;
 }
 
 .about-text table {
@@ -260,48 +226,7 @@ h5 {
     border-radius: 10px;
     border: 3px solid rgba(255, 255, 255, 0.4);
     margin: 5%;
-    width: 40%;
+    width: 90%;
     padding: 5%;
     justify-content: center;
 }
-
-.dropbtn {
-    background-color: #4CAF50;
-    color: white;
-    padding: 16px;
-    font-size: 16px;
-    border: none;
-    cursor: pointer;
-  }
-  
-  .dropdown {
-    position: relative;
-    display: inline-block;
-  }
-  
-  .dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #f9f9f9;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-  }
-  
-  .dropdown-content a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-  }
-  
-  .dropdown-content a:hover {background-color: #f1f1f1}
-  
-  .dropdown:hover .dropdown-content {
-    display: block;
-  }
-  
-  .dropdown:hover .dropbtn {
-    background-color: red;
-  }
-
