@@ -14,7 +14,9 @@ body {
 .navcontainer {
     display: inline-flex;
 }
-
+.navbar{
+    display: inline-block;
+}
 .topnav {
     margin-left: 80px;
     text-align: center;
@@ -40,6 +42,13 @@ body {
     border-radius: 50%;
     width: 100px;
 }
+.div {
+    width: 35px;
+    height: 5px;
+    background-color: black;
+    margin: 6px 0;
+    display: none;
+  }
 /*Content first page*/
 .home {
 margin: 0% 10%;
@@ -138,15 +147,33 @@ h5 {
 
 /*Page 2*/
 .about {
-    padding-left: 6%;
+    position: relative;
     margin: -1% -2%;
-    width: 90%;
+    width: 93%;
     height: auto;
     background-color: black;
     padding: 5% 5%;
     display: flex;
 }
+.about-img,
+.about-text {
+    background-color: rgb(53, 52, 52);
+    padding: 3%;
+    border-radius: 20px;
+}
 
+.about-img {
+    margin-right: 5%;
+    width: 20%;
+}
+
+.about-text {
+    width: 70%;
+    display: block;
+}
+.about-img .discription{
+    width: auto;
+}
 .about a {
     text-decoration: none;
     font-size: 20px;
@@ -155,12 +182,31 @@ h5 {
 
 .about .mail,
 .location {
-    width: 50px;
+    width: 100%;
     border-radius: 4px;
 }
 
 .about-img img {
     border-radius: 30px;
+    height: auto;
+    width: 100%;
+}
+.about-text .col1 {
+    width: 100%;
+    display: flex;
+}
+.col1 .collom1{
+    width: 80%;
+}
+.col1 .collom2{
+    width: 20%;
+    margin-top: 20%;
+}
+.collom2 img {
+    margin-top: 5px;
+    border-radius: 5px;
+    width: 50px;
+    display: inline-flex;
 }
 
 .about-text h3 {
@@ -181,52 +227,20 @@ h5 {
     font-family: 'Times New Roman', Times, serif;
 }
 
-.about-img,
-.about-text {
-    background-color: rgb(53, 52, 52);
-    padding: 3%;
-    border-radius: 20px;
-}
-
-.about-img {
-    margin-right: 5%;
-    width: 20%;
-}
-
-.about-text {
-    width: 70%;
-    display: block;
-}
-
 .about-text p {
     font-size: 30px;
 }
 
-.about-text .col1 {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-
-}
-
-.collom2 img {
-    margin-top: 5px;
-    border-radius: 5px;
-    width: 50px;
-    display: inline-flex;
-}
 
 .collom1 p {
     font-size: 30px;
     width: 100%;
 }
 
-.about-text table {
+.about-img .discription table {
     background-color: rgba(22, 19, 19, 0.4);
     border-radius: 10px;
     border: 3px solid rgba(255, 255, 255, 0.4);
-    margin: 5%;
-    width: 90%;
-    padding: 5%;
+    width: auto;
     justify-content: center;
 }
