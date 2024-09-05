@@ -50,7 +50,7 @@ button:focus {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    max-width: 1200px;
+    max-width: 100%;
     margin: auto;
     padding: 0 20px;
 }
@@ -240,9 +240,12 @@ footer {
 }
 
 /* Responsive Styles */
-@media (max-width: 768px) {
+@media (max-width: 768px) and (max-width: 1024px) {
     .navbar, footer {
         padding: 10px;
+    }
+    .navbutton{
+        display: inline-block;
     }
 
     .hero-content h1 {
@@ -266,5 +269,23 @@ footer {
     }
     .know{
         display: none;
+    }
+    .social-media{
+        display: flex;
+        justify-content: right;
+        align-items: right;
+        margin-top: -70px;
+        position: relative;
+    }
+    .social-media .icon{
+        margin: 0%;
+        padding: 0%;
+        display: flex;
+        justify-content: right;
+        width: 30%
+
+    }
+    .social-media img{
+        padding: 0% 5px;
     }
 }
