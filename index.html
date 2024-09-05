@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rojit's Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://kit.fontawesome.com/f04ff11a35.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="responsive.css">
+</head>
+
+<body>
+    <header class="navbar">
+        <div class="navcontainer">
+            <a href="#" class="logo">
+                <img src="img/logo.png" alt="Logo">
+            </a>
+            <nav class="nav-links">
+                <a href="#home" class="navbutton">Home</a>
+                <a href="#about" class="navbutton">About</a>
+                <a href="#projects" class="navbutton">Projects</a>
+                <a href="#contact" class="navbutton">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <section id="home">
+        <div class="hero">
+            <div class="hero-content">
+                <h1>Hi, I'm Rojit</h1>
+                <p>Freelance Developer & Enthusiast</p>
+                <a href="img/Resume.pdf" class="button" download>Download Resume</a>
+            </div>
+        </div>
+        <div class="social-media">
+            <div class="icon">
+                <a href="https://www.facebook.com/profile.php?id=100087936281420"><img src="img/face.png" alt=""></a>
+                <a href="https://www.instagram.com/rojit_404/?hl=en"> <img src="img/git.png" alt=""></a>
+                <a href="https://github.com/Rojeets"><img src="img/insta.png" alt=""></a>
+                <a href="https://np.linkedin.com/in/rojit-pokharel-250957313"><img src="img/link.png" alt=""></a>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="about">
+        <div class="about-info">
+            <strong>
+                <h2>About Me</h2>
+            </strong>
+            <p>I am a versatile freelance developer with expertise in various technologies. My skills span frontend,
+                backend, and systems programming.</p>
+            <strong>
+                <h2 class="know">What I Know</h2>
+            </strong>
+            <p class="know">As a versatile freelancer, I bring a robust skill set across various domains. On the
+                frontend, I excel in crafting engaging user interfaces using HTML and CSS, ensuring seamless user
+                experiences. In backend development, my proficiency lies in JavaScript, empowering dynamic and scalable
+                web applications. Leveraging PHP and MySQL, I adeptly design and manage databases, ensuring efficient
+                data handling. My operating system expertise spans Windows, Linux, and Kali Linux, facilitating
+                adaptable development environments. Additionally, I possess cybersecurity acumen with tools like
+                Wireshark and GitHub for secure code management. Furthermore, my knowledge extends to machine-level
+                languages such as C and C++, enabling me to optimize software performance at a foundational level.</p>
+        </div>
+        <div class="about-image">
+            <img src="img/about.jpg" alt="">
+        </div>
+    </section>
+
+    <section id="projects" class="projects">
+        <strong>
+            <h1>Projects</h1>
+        </strong><br><br>
+        <div class="project-carousel">
+            <div class="project-card">
+                <div class="project-img">
+                    <img src="img/simtoolkit.png" alt="Project 1">
+                </div>
+                <div class="project-info">
+                    <strong>
+                        <h2>SimToolkit (STK)</h2>
+                    </strong>
+                    <p>The primary goal of this project is to create a simple Web-Application of a SIM Toolkit that
+                        allows users to perform various operations related to their mobile accounts. <a
+                            href="">more.</a></p>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-img">
+                    <img src="img/tic_tac_toe.png" alt="Project 2">
+                </div>
+                <div class="project-info">
+                    <strong>
+                        <h2>Console Based Tic_Tac_Toe</h2>
+                    </strong>
+                    <p>A console-based Tic Tac Toe in C++ is a simple text-based game where two players take turns
+                        marking a 3x3 grid with Xs and Os. The program checks for winning conditions and handles invalid
+                        moves, displaying the game state and outcome on the console until a player wins or the game ends
+                        in a draw. <a href="">more.</a></p>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-img">
+                    <img src="img/bot.png" alt="Project 2">
+                </div>
+                <div class="project-info">
+                    <strong>
+                        <h2>chat Bot</h2>
+                    </strong>
+                    <p>A chatbot created in Python using the Gemini API and Flask framework provides conversational
+                        interactions through a web interface. Flask handles HTTP requests and routes them to the chatbot
+                        logic, which uses Gemini's API for natural language processing. Responses are generated and sent
+                        back to users, enabling dynamic, real-time conversations. <a href="">more.</a></p>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-img">
+                    <img src="img/fire.jpg" alt="Project 2">
+                </div>
+                <div class="project-info">
+                    <strong>
+                        <h2>Fire Alarm</h2>
+                    </strong>
+                    <p>Fire alarm detection using Python involves using machine learning models and libraries to
+                        identify fire-related features in video feeds. Libraries like OpenCV handle image processing and
+                        deploying deep learning models for fire detection. The system can trigger alarms upon detecting
+                        flames. <a href="">more.</a></p>
+                </div>
+            </div>
+            <!-- Add more project cards as needed -->
+        </div>
+    </section>
+    <section id="contacts" class="contacts">
+
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Rojit Pokharel. All rights reserved.</p>
+    </footer>
+    <script src="script.js"></script>
+
+</body>
+
+</html>
