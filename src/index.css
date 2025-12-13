@@ -55,4 +55,3 @@ body {
 .card-hover {
   @apply transition-all duration-300 hover:shadow-lg hover:shadow-accent/20;
 }
-
