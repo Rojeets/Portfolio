@@ -1,0 +1,381 @@
+{
+  "meta": {
+    "siteTitle": "Rojit Pokharel - Full Stack Developer",
+    "description": "Portfolio of Rojit Pokharel, a Full Stack Developer specializing in Laravel, React & Next.js"
+  },
+  "personal": {
+    "name": "Rojit Pokharel",
+    "logoTag": "<Rojit />",
+    "title": "Full Stack Developer",
+    "subtitle": "Full Stack Developer | Backend Specialist",
+    "tagline": "Crafting enterprise-grade applications with Laravel, React & Next.js. Specialized in scalable architectures, RBAC systems, and performance optimization.",
+    "footerDescription": "Full Stack Developer specializing in enterprise-grade applications with Laravel and React.",
+    "copyright": "Rojit Pokharel"
+  },
+  "social": {
+    "github": {
+      "label": "GitHub",
+      "url": "https://github.com/rojeets",
+      "display": "github.com/rojeets"
+    },
+    "linkedin": {
+      "label": "LinkedIn",
+      "url": "https://www.linkedin.com/in/rojit-pokharel/",
+      "display": "linkedin.com/in/rojit-pokharel"
+    },
+    "gitlab": {
+      "label": "GitLab",
+      "url": "https://gitlab.com/rojeets",
+      "display": "gitlab.com/rojeets"
+    },
+    "email": {
+      "label": "Email",
+      "value": "pokharelrojit45@gmail.com",
+      "url": "pokharelrojit45@gmail.com",
+      "display": "pokharelrojit45@gmail.com"
+    },
+    "website": {
+      "label": "Portfolio",
+      "url": "https://rojitpokharel.com.np",
+      "display": "rojitpokharel.com.np"
+    }
+  },
+  "navigation": {
+    "items": [
+      { "name": "Home", "href": "#home" },
+      { "name": "About", "href": "#about" },
+      { "name": "Skills", "href": "#skills" },
+      { "name": "Projects", "href": "#projects" },
+      { "name": "Contact", "href": "#contact" }
+    ]
+  },
+  "hero": {
+    "badgeText": "Full Stack Developer",
+    "backgroundImage": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1920&q=80",
+    "ctaButtons": [
+      { "text": "View My Work", "href": "#projects", "style": "primary" },
+      { "text": "Get In Touch", "href": "#contact", "style": "outline" }
+    ],
+    "socialLinks": ["github", "linkedin", "gitlab"],
+    "scrollText": "Scroll to explore"
+  },
+  "about": {
+    "sectionTitle": "About Me",
+    "backgroundImage": "https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=1920&q=80",
+    "bio": [
+      {
+        "text": "I'm a <highlight>Full Stack Developer</highlight> with a strong focus on building <accent>scalable backend architectures</accent> and crafting dynamic frontend experiences. With deep expertise in the <accent>Laravel ecosystem</accent> and modern JavaScript frameworks like <accent>React/Next.js</accent>, I've delivered enterprise-grade solutions that make a real impact."
+      },
+      {
+        "text": "My passion lies in solving complex problems through clean, maintainable code. I specialize in designing <highlight>Role-Based Access Control systems</highlight>, building <highlight>automated financial platforms</highlight>, and creating <highlight>multi-tenant content management systems</highlight> that scale beautifully."
+      }
+    ],
+    "highlights": [
+      {
+        "number": "01",
+        "title": "Security by Design",
+        "description": "Fine-grained RBAC systems and secure authentication protocols"
+      },
+      {
+        "number": "02",
+        "title": "Performance First",
+        "description": "Database optimization, query aggregation, and API standardization"
+      },
+      {
+        "number": "03",
+        "title": "Scalable Architecture",
+        "description": "Modular design patterns and ready-to-scale infrastructure"
+      }
+    ],
+    "stats": [
+      { "label": "Projects Completed", "value": "15+" },
+      { "label": "Years Experience", "value": "3+" },
+      { "label": "Tech Stack", "value": "10+" },
+      { "label": "Happy Clients", "value": "100%" }
+    ]
+  },
+  "skills": {
+    "sectionTitle": "Technical",
+    "sectionTitleHighlight": "Arsenal",
+    "sectionSubtitle": "Depth over breadth. Expert-level competencies built through production systems and real-world challenges.",
+    "filters": [
+      { "id": "all", "label": "All" },
+      { "id": "backend", "label": "Backend" },
+      { "id": "frontend", "label": "Frontend" },
+      { "id": "devops", "label": "DevOps" },
+      { "id": "specializations", "label": "Specializations" }
+    ],
+    "categories": [
+      {
+        "id": "backend",
+        "title": "Backend Engineering",
+        "icon": "Code2",
+        "technologies": [
+          {
+            "name": "Laravel",
+            "level": "Expert",
+            "levelColor": "text-emerald-400",
+            "subSkills": ["Filament Resources & Panels", "Model Observers & Relationships", "Custom Middleware & Authentication"]
+          },
+          {
+            "name": "PHP",
+            "level": "Expert",
+            "levelColor": "text-emerald-400",
+            "subSkills": ["OOP Patterns & SOLID", "Namespacing & PSR Standards", "Error Handling & Exceptions"]
+          },
+          {
+            "name": "Django",
+            "level": "Advanced",
+            "levelColor": "text-sky-400",
+            "subSkills": ["Django REST Framework", "ORM & Migrations", "Authentication & Permissions"]
+          },
+          {
+            "name": "Flask",
+            "level": "Advanced",
+            "levelColor": "text-sky-400",
+            "subSkills": ["Blueprints & Extensions", "SQLAlchemy Integration", "RESTful Route Design"]
+          },
+          {
+            "name": "Node.js",
+            "level": "Advanced",
+            "levelColor": "text-sky-400",
+            "subSkills": ["Express.js Framework", "Async/Await Patterns", "Event Loop & Streams"]
+          },
+          {
+            "name": "RESTful APIs",
+            "level": "Advanced",
+            "levelColor": "text-sky-400",
+            "subSkills": ["JWT Authentication", "Swagger Documentation", "CORS & Security Headers"]
+          },
+          {
+            "name": "PostgreSQL",
+            "level": "Advanced",
+            "levelColor": "text-sky-400",
+            "subSkills": ["Query Optimization", "Complex Joins & Indexing", "Foreign Keys & Constraints"]
+          }
+        ]
+      },
+      {
+        "id": "frontend",
+        "title": "Frontend Development",
+        "icon": "Layers",
+        "technologies": [
+          {
+            "name": "React.js",
+            "level": "Advanced",
+            "levelColor": "text-sky-400",
+            "subSkills": ["Component Composition", "Custom Hooks & State", "Performance Optimization"]
+          },
+          {
+            "name": "Next.js",
+            "level": "Advanced",
+            "levelColor": "text-sky-400",
+            "subSkills": ["SSR & SSG Rendering", "API Routes & Middleware", "Image & Font Optimization"]
+          },
+          {
+            "name": "TypeScript",
+            "level": "Advanced",
+            "levelColor": "text-sky-400",
+            "subSkills": ["Type Safety & Generics", "Interface Design", "Advanced Type Utilities"]
+          },
+          {
+            "name": "Tailwind CSS",
+            "level": "Expert",
+            "levelColor": "text-emerald-400",
+            "subSkills": ["Custom Config & Themes", "Glass-morphism Effects", "Responsive Design Patterns"]
+          }
+        ]
+      },
+      {
+        "id": "devops",
+        "title": "DevOps & Tools",
+        "icon": "Cog",
+        "technologies": [
+          {
+            "name": "Docker",
+            "level": "Proficient",
+            "levelColor": "text-indigo-400",
+            "subSkills": ["Multi-stage Builds", "Container Networking", "Volume Management"]
+          },
+          {
+            "name": "Git/GitHub",
+            "level": "Expert",
+            "levelColor": "text-emerald-400",
+            "subSkills": ["Branching Strategies", "Merge Conflict Resolution", "Collaborative Workflows"]
+          },
+          {
+            "name": "Linux",
+            "level": "Advanced",
+            "levelColor": "text-sky-400",
+            "subSkills": ["File Permissions & Users", "Process Management", "Shell Scripting"]
+          },
+          {
+            "name": "CI/CD",
+            "level": "Proficient",
+            "levelColor": "text-indigo-400",
+            "subSkills": ["GitHub Actions", "Automated Testing", "Deployment Pipelines"]
+          }
+        ]
+      },
+      {
+        "id": "specializations",
+        "title": "Specializations",
+        "icon": "Zap",
+        "technologies": [
+          {
+            "name": "RBAC Systems",
+            "level": "Expert",
+            "levelColor": "text-emerald-400",
+            "subSkills": ["Policy-based Authorization", "Permission Caching", "Role Inheritance Patterns"]
+          },
+          {
+            "name": "Database Design",
+            "level": "Expert",
+            "levelColor": "text-emerald-400",
+            "subSkills": ["Schema Normalization", "Sequential UUIDs", "Indexing Strategy"]
+          },
+          {
+            "name": "Performance Optimization",
+            "level": "Advanced",
+            "levelColor": "text-sky-400",
+            "subSkills": ["Query Caching", "N+1 Prevention", "Load Testing & Profiling"]
+          },
+          {
+            "name": "Multi-tenancy Architecture",
+            "level": "Expert",
+            "levelColor": "text-emerald-400",
+            "subSkills": ["Tenant Isolation", "Global Scopes", "Shared vs Isolated Data"]
+          }
+        ]
+      }
+    ],
+    "realWorldApplications": [
+      "Enterprise RBAC",
+      "Multi-tenant Systems",
+      "Invoice Generation",
+      "Leave Management",
+      "CMS Platforms",
+      "API Design",
+      "Performance Tuning",
+      "Database Architecture"
+    ],
+    "realWorldTitle": "Real-World Applications",
+    "realWorldSubtitle": "These competencies have been applied to production systems managing real users, complex business logic, and performance-critical operations:"
+  },
+  "projects": {
+    "sectionTitle": "Featured Projects",
+    "sectionSubtitle": "Enterprise solutions showcasing full-stack expertise",
+    "backgroundImage": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1920&q=80",
+    "ctaText": "Want to see more? Check out my GitHub",
+    "ctaButtonText": "Explore GitHub 🐙",
+    "items": [
+      {
+        "title": "Enterprise Leave Management System",
+        "description": "Comprehensive employee leave system with automated balance tracking, multi-stage approval workflows, and document attachment support.",
+        "tech": ["Laravel", "React", "MySQL", "Filament"],
+        "highlights": ["RBAC Implementation", "Workflow Automation", "Document Management"],
+        "headerType": "workflow",
+        "icon": "ClipboardList",
+        "metric": "Workflow Active"
+      },
+      {
+        "title": "Automated Financial Invoicing Platform",
+        "description": "Unique sequential invoice generation system using UUIDs and global database scopes ensuring data integrity and professional financial tracking.",
+        "tech": ["Laravel", "PostgreSQL", "REST API", "Eloquent ORM"],
+        "highlights": ["UUID Management", "Global Scopes", "Financial Logic"],
+        "headerType": "code",
+        "icon": "Receipt",
+        "metric": "Integrity: ✓"
+      },
+      {
+        "title": "Multi-tenant Content Management System",
+        "description": "Modular CMS using Repeater patterns enabling administrators to build complex page layouts without code. Supports timelines, FAQs, and service grids.",
+        "tech": ["Laravel", "React", "Filament", "MongoDB"],
+        "highlights": ["Dynamic Builder", "Multi-tenant", "Repeater Patterns"],
+        "headerType": "layers",
+        "icon": "Palette",
+        "metric": "Tenants: 50+"
+      },
+      {
+        "title": "Vendor Management & Analytics Dashboard",
+        "description": "Implemented vendor identification protocols and automated earnings dashboards with optimized aggregation queries for high-performance reporting.",
+        "tech": ["Laravel", "Next.js", "PostgreSQL", "Redis"],
+        "highlights": ["Advanced Queries", "Real-time Dashboards", "Performance Optimization"],
+        "headerType": "metrics",
+        "icon": "BarChart3",
+        "metric": "Query Time: 120ms"
+      },
+      {
+        "title": "Recruitment & Career Portal",
+        "description": "End-to-end job application engine with dynamic form builders, candidate tracking, and automated validation for high-volume data entry.",
+        "tech": ["Laravel", "Vue.js", "MySQL", "Queue System"],
+        "highlights": ["Dynamic Forms", "Candidate Tracking", "Automation"],
+        "headerType": "terminal",
+        "icon": "Users",
+        "terminal": "npm run test:applications -- --all"
+      },
+      {
+        "title": "Newsletter & Email Marketing System",
+        "description": "Full-featured newsletter platform with rich-text template editors, subscription management, and automated mailer queues.",
+        "tech": ["Laravel", "React", "Redis", "SendGrid"],
+        "highlights": ["Template Editor", "Queue Management", "Subscriptions"],
+        "headerType": "blueprint",
+        "icon": "Mail",
+        "metric": "Queue Status: OK"
+      }
+    ]
+  },
+  "contact": {
+    "sectionTitle": "Get In Touch",
+    "sectionSubtitle": "Let's work together on something amazing",
+    "backgroundImage": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1920&q=80",
+    "contactMethods": ["linkedin", "github", "email"],
+    "availability": {
+      "title": "Currently",
+      "text": "Open to freelance projects and full-time opportunities where I can contribute to building scalable, enterprise-grade applications."
+    },
+    "form": {
+      "submitText": "Send Message",
+      "successText": "Message Sent!",
+      "thankYouText": "Thanks for reaching out! I'll get back to you soon.",
+      "fields": [
+        { "name": "name", "label": "Name", "type": "text", "placeholder": "Your name" },
+        { "name": "email", "label": "Email", "type": "email", "placeholder": "your@email.com" },
+        { "name": "message", "label": "Message", "type": "textarea", "placeholder": "Your message...", "rows": 5 }
+      ]
+    }
+  },
+  "footer": {
+    "quickLinks": ["Home", "About", "Skills", "Projects", "Contact"],
+    "socialLinks": ["github", "linkedin", "gitlab"],
+    "builtWith": "Built with React & Tailwind CSS"
+  },
+  "experience": {
+    "title": "Full Stack Developer (Freelance)",
+    "period": "2021 - Present",
+    "location": "Remote",
+    "achievements": [
+      "Built 15+ enterprise applications",
+      "Delivered complex RBAC systems",
+      "Architected multi-tenant platforms",
+      "Optimized databases for 100k+ queries/day",
+      "Led technical teams through project phases"
+    ],
+    "expertiseAreas": [
+      "Enterprise Architecture",
+      "API Design & Implementation",
+      "Database Optimization",
+      "Security & RBAC",
+      "Performance Engineering",
+      "Team Leadership"
+    ]
+  },
+  "terminal": {
+    "asciiArt": "\n  ██████╗  ██████╗      ██╗██╗████████╗\n  ██╔══██╗██╔═══██╗     ██║██║╚══██╔══╝\n  ██████╔╝██║   ██║     ██║██║   ██║   \n  ██╔══██╗██║   ██║██   ██║██║   ██║   \n  ██║  ██║╚██████╔╝╚█████╔╝██║   ██║   \n  ╚═╝  ╚═╝ ╚═════╝  ╚════╝ ╚═╝   ╚═╝   \n",
+    "welcomeMessage": "Welcome to Rojit's Terminal Portfolio",
+    "helpTip": "Type \"help\" to see available commands.",
+    "prompt": "visitor@portfolio:~$",
+    "headerTitle": "portfolio@rojit ~ terminal",
+    "footerText": "Built with React, Tailwind & Framer Motion"
+  }
+}
