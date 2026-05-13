@@ -1,13 +1,12 @@
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { useState } from 'react'
-import { Code2, Layers, Cog, Zap, ChevronDown, ChevronUp } from 'lucide-react'
+import { Code2, Layers, Cog, Zap } from 'lucide-react'
 import data from '../data/portfolio.json'
 
 const iconMap = { Code2, Layers, Cog, Zap }
 
-export default function Skills() {
+export default function Skills({ pinnedTech, onPinTech }) {
   const [activeFilter, setActiveFilter] = useState('all')
-  const [expandedCard, setExpandedCard] = useState(null)
 
   const { skills } = data
 
@@ -48,7 +47,7 @@ export default function Skills() {
   }
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 10 },
+    hidden: { opacity: 1, y: 10 },
     visible: { opacity: 1, y: 0 },
   }
 
@@ -122,46 +121,28 @@ export default function Skills() {
                   >
                     {category.technologies.map((tech, tidx) => {
                       const cardId = `${category.id}-${tidx}`
-                      const isExpanded = expandedCard === cardId
+                      const isPinned = pinnedTech?.cardId === cardId
+                      if (isPinned) return null
                       return (
                         <motion.div
-                          key={tidx}
+                          key={cardId}
+                          layout
+                          layoutId={cardId}
                           variants={itemVariants}
-                          className={`${getLevelBg(tech.level)} ${getLevelStyle(tech.level)} rounded-lg border border-slate-700 hover:border-slate-600 transition-all cursor-pointer`}
-                          onClick={() => setExpandedCard(isExpanded ? null : cardId)}
+                          className={`${getLevelBg(tech.level)} ${getLevelStyle(tech.level)} rounded-lg border border-slate-700 hover:border-slate-600 hover:shadow-lg hover:shadow-slate-900/50 transition-all cursor-pointer group`}
+                          onClick={() => onPinTech({ ...tech, cardId })}
                         >
-                          <div className="flex items-center justify-between p-4">
-                            <div>
+                          <div className="p-4">
+                            <div className="flex items-center justify-between">
                               <h4 className="text-base font-bold text-slate-100 font-mono">{tech.name}</h4>
-                              <span className={`text-xs font-bold tracking-wider uppercase ${tech.levelColor}`}>
-                                {tech.level}
+                              <span className="text-xs text-slate-600 group-hover:text-slate-400 transition-colors font-mono">
+                                details →
                               </span>
                             </div>
-                            <div className={`transition-transform ${isExpanded ? 'rotate-180' : ''}`}>
-                              <ChevronDown size={18} className="text-slate-500" />
-                            </div>
+                            <span className={`text-xs font-bold tracking-wider uppercase ${tech.levelColor}`}>
+                              {tech.level}
+                            </span>
                           </div>
-                          
-                          <AnimatePresence>
-                            {isExpanded && (
-                              <motion.div
-                                initial={{ height: 0, opacity: 0 }}
-                                animate={{ height: 'auto', opacity: 1 }}
-                                exit={{ height: 0, opacity: 0 }}
-                                transition={{ duration: 0.3 }}
-                                className="overflow-hidden border-t border-slate-700"
-                              >
-                                <div className="p-4 space-y-2">
-                                  {tech.subSkills.map((subSkill, sidx) => (
-                                    <div key={sidx} className="flex items-start gap-2">
-                                      <span className="text-slate-600 text-xs mt-0.5">▪</span>
-                                      <span className="text-xs text-slate-400 font-mono">{subSkill}</span>
-                                    </div>
-                                  ))}
-                                </div>
-                              </motion.div>
-                            )}
-                          </AnimatePresence>
                         </motion.div>
                       )
                     })}

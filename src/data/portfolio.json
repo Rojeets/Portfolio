@@ -110,7 +110,7 @@
         "id": "backend",
         "title": "Backend Engineering",
         "icon": "Code2",
-        "c": [
+        "technologies": [
           {
             "name": "Laravel",
             "level": "Expert",
