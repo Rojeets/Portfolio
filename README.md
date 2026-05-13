@@ -1,134 +1,65 @@
-# �️ Terminal-Based Portfolio
+# Rojit Pokharel
+**Full Stack Developer | Backend Specialist**
 
-An interactive terminal/CLI-style portfolio built with React, Tailwind CSS, and Framer Motion. Inspired by retro computer interfaces with a modern twist.
+[Portfolio](https://rojitpokharel.com.np/) | [LinkedIn](https://www.linkedin.com/in/rojit-pokharel/) | [GitHub](https://github.com/rojeets) | [GitLab](https://gitlab.com/rojeets)
 
-## 🎨 Features
+---
 
-- **Interactive Terminal Interface**: Type commands to explore your portfolio
-- **Command-based Navigation**: No scrolling needed - just type!
-- **Command History**: Use arrow keys to navigate previous commands
-- **Tab Autocomplete**: Press Tab to autocomplete commands
-- **Smooth Animations**: Framer Motion for elegant transitions
-- **Retro Aesthetic**: Classic terminal/CLI design with modern colors
-- **Responsive**: Works on desktop and mobile devices
+## Technical Profile
 
-## 📦 Available Commands
+Highly skilled Full Stack Developer with a strong focus on building scalable backend architectures and dynamic frontend experiences. Expert in the **Laravel ecosystem (PHP)** and **Modern JavaScript frameworks (React/Next.js)**. Proven track record of delivering enterprise-grade functionalities including complex RBAC systems, automated financial invoicing, and multi-tenant content management systems.
 
-| Command | Description |
-|---------|-------------|
-| `help` | Show all available commands |
-| `about` | Learn more about Rojit |
-| `skills` | View technical skills with proficiency levels |
-| `projects` | See 6 featured enterprise projects |
-| `experience` | Show professional experience |
-| `contact` | Get contact information |
-| `social` | View social media links |
-| `clear` | Clear the terminal |
+---
 
-## 🚀 Installation
+## Core Technical Skills
 
-1. Install dependencies:
-```bash
-npm install
-```
+### Backend Engineering
+- **Frameworks:** Laravel (Expert), PHP.
+- **Admin Interfaces:** Filament (Advanced Resource & Policy Customization).
+- **Database:** MySQL, PostgreSQL (Eloquent ORM, complex migrations, query optimization, database indexing).
+- **Architecture:** RESTful API Design, Role-Based Access Control (RBAC), Service Providers, Observers, and Global Scopes.
+- **Integrations:** SMTP/Mail Integration, Payment Gateway Logic, File Storage (S3/Local).
 
-2. Start development server:
-```bash
-npm run dev
-```
+### Frontend Development
+- **Frameworks:** React.js, Next.js.
+- **Language:** TypeScript.
+- **State & Data:** Async data fetching, Fetch API optimization, Suspense boundaries, and standardized request/response handling.
+- **UI/UX:** Dynamic component rendering, Repeater patterns for modular content, and responsive design.
 
-3. Build for production:
-```bash
-npm run build
-```
+### Tooling & DevOps
+- **Version Control:** Git, GitHub, GitLab (CI/CD workflows).
+- **Dependency Management:** Composer, NPM/Yarn.
+- **Environment:** Docker, Linux server management.
 
-## 🏗️ Project Structure
+---
 
-```
-src/
-├── components/
-│   └── Terminal.jsx        # Main terminal interface
-├── App.jsx                 # Main app component
-├── index.css               # Global styles + Tailwind
-└── main.jsx                # React entry point
-```
+## Key Functionalities & Engineering Achievements
 
-## 🎯 How It Works
+### 1. Enterprise Management & Workflow Systems
+*   **Leave Management Infrastructure:** Architected a comprehensive employee leave system featuring automated balance tracking, multi-stage approval workflows, and document attachment support.
+*   **Document Management System:** Built a secure file handling module allowing multi-document uploads with foreign key associations and automated cleanup via database observers.
+*   **Recruitment & Career Portals:** Engineered end-to-end job application engines with dynamic form builders, candidate tracking, and automated validation for high-volume data entry.
 
-The terminal component features:
+### 2. Financial & E-commerce Logic
+*   **Automated Invoicing Engine:** Developed a unique, sequential invoice generation system using UUIDs and global database scopes to ensure data integrity and professional financial tracking.
+*   **Vendor Management Ecosystem:** Implemented unique vendor identification protocols and automated earnings dashboards with optimized aggregation queries for high-performance reporting.
+*   **Payment & Booking Logic:** Refined complex transactional logic for booking engines, including departure-based relationship management and multi-currency payment processing.
 
-- **Command Parser**: Routes user input to appropriate command handlers
-- **Output System**: Displays results as terminal text lines
-- **History System**: Keeps track of previous commands (↑↓)
-- **Autocomplete**: Smart Tab completion for commands
-- **Interactive Input**: Real-time cursor and text input
+### 3. Security & Access Control
+*   **Granular RBAC System:** Implemented fine-grained Role-Based Access Control using model-specific authorization policies (view, update, delete, forceDelete) to secure sensitive enterprise data.
+*   **Authentication Security:** Developed secure password management modules and multi-role middleware for protected admin panel access.
 
-## 🎨 Customization
+### 4. Content & Marketing Automation
+*   **Dynamic Page Builder (CMS):** Created a modular content management system using Repeater patterns, allowing administrators to build complex page layouts (timelines, FAQs, service grids) without code.
+*   **Newsletter & Email Marketing:** Built a full-featured newsletter system including rich-text template editors, subscription management, and automated mailer queues.
+*   **Multi-Regional Content Logic:** Developed logic to serve dynamic, country-specific content through unified API endpoints, optimizing data delivery for global platforms.
 
-### Colors
-Edit terminal theme in [Terminal.jsx](src/components/Terminal.jsx):
-- Border & text: `text-green-400`
-- Command prompt: `text-cyan-400`
-- Cursor: `text-green-400`
+### 5. Performance & Quality Engineering
+*   **API Standardization:** Refactored legacy fetch calls into standardized utility patterns, implementing consistent error handling and request deduplication across large-scale frontend applications.
+*   **Database Optimization:** Optimized N+1 query issues through strategic eager loading and implemented idempotent database seeders for safe environment deployments.
+*   **Image Handling & Optimization:** Integrated polymorphic image relationships with automated fallback mechanisms and multi-size processing for improved UI/UX performance.
 
-### Adding Commands
-Add new commands to the `COMMANDS` object in [Terminal.jsx](src/components/Terminal.jsx):
+---
 
-```javascript
-newCommand: {
-  description: 'Command description',
-  action: () => {
-    return [
-      'Output line 1',
-      'Output line 2',
-      // ... more output
-    ]
-  },
-}
-```
-
-### Content
-Update command responses in [Terminal.jsx](src/components/Terminal.jsx):
-- `about`: Your background
-- `skills`: Technical skills with proficiency
-- `projects`: Your featured work
-- `experience`: Professional history
-- `contact`: Contact details
-
-## 💡 Tips
-
-- Commands are case-insensitive
-- Tab key autocompletes commands
-- Arrow up/down navigates command history
-- Click anywhere in terminal to focus input
-- Commands return multi-line arrays for formatted output
-
-## 📱 Browser Support
-
-- Chrome (latest)
-- Firefox (latest)
-- Safari (latest)
-- Edge (latest)
-- Mobile browsers
-
-## 🚀 Deployment
-
-Build and deploy to your hosting:
-```bash
-npm run build
-```
-
-The `dist` folder contains your production-ready files.
-
-## 🎨 Inspiration
-
-This portfolio design takes inspiration from:
-- Retro computer terminals
-- CLI/command-line interfaces
-- Classic hacker aesthetic
-- Modern terminal applications
-
-## 📄 License
-
-MIT
-
+## Professional Philosophy
+I focus on writing clean, maintainable code that bridges the gap between complex business requirements and high-performance technical solutions. My approach emphasizes **security by design**, **scalability through modular architecture**, and **seamless user experiences** through tightly integrated full-stack development.

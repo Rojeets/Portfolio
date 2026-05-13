@@ -1,3 +1,4 @@
+'use client'
 import { useState, useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
 import data from '../data/portfolio.json'
@@ -30,14 +31,14 @@ const buildSkillsOutput = () => {
   }
 
   skills.categories.forEach((category) => {
-    lines.push(categoryEmojis[category.id] || `📦 ${category.title.toUpperCase()}`)
+    lines.push(categoryEmojis[category.id as keyof typeof categoryEmojis] || `📦 ${category.title.toUpperCase()}`)
     if (category.id === 'specializations') {
       category.technologies.forEach((tech) => {
         lines.push(`  ★ ${tech.name}`)
       })
     } else {
       category.technologies.forEach((tech) => {
-        const bar = levelBars[tech.level] || levelBars.Proficient
+        const bar = levelBars[tech.level as keyof typeof levelBars] || levelBars.Proficient
         lines.push(`  ${bar} ${tech.name} (${tech.level})`)
       })
     }
@@ -70,7 +71,10 @@ const buildProjectsOutput = () => {
   return lines
 }
 
-const COMMANDS = {
+const COMMANDS: Record<string, {
+  description: string
+  action: ((state: { history: HistoryItem[] }) => string[] | null) | null
+}> = {
   help: {
     description: 'Show available commands',
     action: () => {
@@ -201,7 +205,7 @@ const COMMANDS = {
   },
   clear: {
     description: 'Clear terminal',
-    action: (state) => {
+    action: (state: { history: HistoryItem[] }) => {
       state.history = [
         { type: 'ascii', content: ASCII_ART },
         { type: 'text', content: terminalData.welcomeMessage },
@@ -212,17 +216,22 @@ const COMMANDS = {
   },
 }
 
-export default function Terminal({ setMode }) {
-  const [history, setHistory] = useState([
+interface HistoryItem {
+  type: 'ascii' | 'command' | 'text'
+  content: string
+}
+
+export default function Terminal({ setMode }: { setMode: (mode: string) => void }) {
+  const [history, setHistory] = useState<HistoryItem[]>([
     { type: 'ascii', content: ASCII_ART },
     { type: 'text', content: terminalData.welcomeMessage },
     { type: 'text', content: terminalData.helpTip },
   ])
   const [input, setInput] = useState('')
-  const [commandHistory, setCommandHistory] = useState([])
+  const [commandHistory, setCommandHistory] = useState<string[]>([])
   const [historyIndex, setHistoryIndex] = useState(-1)
-  const inputRef = useRef(null)
-  const terminalRef = useRef(null)
+  const inputRef = useRef<HTMLInputElement>(null)
+  const terminalRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     inputRef.current?.focus()
@@ -234,7 +243,7 @@ export default function Terminal({ setMode }) {
     }
   }, [history])
 
-  const handleCommand = (cmd) => {
+  const handleCommand = (cmd: string) => {
     const trimmedCmd = cmd.trim().toLowerCase()
 
     // Add to history
@@ -243,7 +252,7 @@ export default function Terminal({ setMode }) {
     setHistoryIndex(-1)
 
     // Add command to output
-    const newHistory = [...history, { type: 'command', content: cmd }]
+    const newHistory: HistoryItem[] = [...history, { type: 'command', content: cmd }]
 
     if (!trimmedCmd) {
       setHistory(newHistory)
@@ -269,22 +278,22 @@ export default function Terminal({ setMode }) {
       }
 
       const command = COMMANDS[trimmedCmd]
-      const output = command.action({ history: newHistory })
+      const output = command.action!({ history: newHistory })
 
       if (output) {
         if (Array.isArray(output)) {
-          output.forEach((line) => {
-            newHistory.push({ type: 'text', content: line })
+          output.forEach((line: string) => {
+            newHistory.push({ type: 'text' as const, content: line })
           })
         } else {
-          newHistory.push({ type: 'text', content: output })
+          newHistory.push({ type: 'text' as const, content: output })
         }
       }
 
       setHistory(newHistory)
     } else {
       newHistory.push({
-        type: 'text',
+        type: 'text' as const,
         content: `Command not found: ${trimmedCmd}. Type "help" for available commands.`,
       })
       setHistory(newHistory)
@@ -293,7 +302,7 @@ export default function Terminal({ setMode }) {
     setInput('')
   }
 
-  const handleKeyDown = (e) => {
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       handleCommand(input)
     } else if (e.key === 'ArrowUp') {

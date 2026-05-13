@@ -1,3 +1,4 @@
+'use client'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useState } from 'react'
 import { Code2, Layers, Cog, Zap, ChevronDown, ChevronUp } from 'lucide-react'
@@ -7,11 +8,11 @@ const iconMap = { Code2, Layers, Cog, Zap }
 
 export default function Skills() {
   const [activeFilter, setActiveFilter] = useState('all')
-  const [expandedCard, setExpandedCard] = useState(null)
+  const [expandedCard, setExpandedCard] = useState<string | null>(null)
 
   const { skills } = data
 
-  const getLevelStyle = (level) => {
+  const getLevelStyle = (level: string) => {
     switch(level) {
       case 'Expert':
         return 'border-l-2 border-emerald-500'
@@ -24,7 +25,7 @@ export default function Skills() {
     }
   }
 
-  const getLevelBg = (level) => {
+  const getLevelBg = (level: string) => {
     switch(level) {
       case 'Expert':
         return 'bg-emerald-950/40'
@@ -78,7 +79,7 @@ export default function Skills() {
           viewport={{ once: true }}
           className="mb-12 flex flex-wrap gap-3"
         >
-          {skills.filters.map((filter) => (
+          {skills.filters.map((filter: { id: string; label: string }) => (
             <motion.button
               key={filter.id}
               onClick={() => setActiveFilter(filter.id)}
@@ -98,9 +99,9 @@ export default function Skills() {
         {/* Skills Grid */}
         <div className="space-y-8">
           {skills.categories
-            .filter(cat => activeFilter === 'all' || activeFilter === cat.id)
-            .map((category, idx) => {
-              const IconComponent = iconMap[category.icon]
+            .filter((cat: { id: string }) => activeFilter === 'all' || activeFilter === cat.id)
+            .map((category: { id: string; icon: string; title: string; technologies: { name: string; level: string; levelColor: string; subSkills: string[] }[] }, idx: number) => {
+              const IconComponent = iconMap[category.icon as keyof typeof iconMap]
               return (
                 <motion.div
                   key={idx}
@@ -120,7 +121,7 @@ export default function Skills() {
                     whileInView="visible"
                     viewport={{ once: true }}
                   >
-                    {category.technologies.map((tech, tidx) => {
+                    {category.technologies.map((tech: { name: string; level: string; levelColor: string; subSkills: string[] }, tidx: number) => {
                       const cardId = `${category.id}-${tidx}`
                       const isExpanded = expandedCard === cardId
                       return (
@@ -152,7 +153,7 @@ export default function Skills() {
                                 className="overflow-hidden border-t border-slate-700"
                               >
                                 <div className="p-4 space-y-2">
-                                  {tech.subSkills.map((subSkill, sidx) => (
+                                  {tech.subSkills.map((subSkill: string, sidx: number) => (
                                     <div key={sidx} className="flex items-start gap-2">
                                       <span className="text-slate-600 text-xs mt-0.5">▪</span>
                                       <span className="text-xs text-slate-400 font-mono">{subSkill}</span>
@@ -184,7 +185,7 @@ export default function Skills() {
             {skills.realWorldSubtitle}
           </p>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {skills.realWorldApplications.map((comp, idx) => (
+            {skills.realWorldApplications.map((comp: string, idx: number) => (
               <motion.div
                 key={idx}
                 whileHover={{ scale: 1.05, x: 2 }}

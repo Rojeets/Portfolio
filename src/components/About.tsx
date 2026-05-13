@@ -1,3 +1,4 @@
+'use client'
 import { motion } from 'framer-motion'
 import data from '../data/portfolio.json'
 
@@ -5,7 +6,7 @@ export default function About() {
   const { about } = data
 
   // Helper to render bio text with <highlight> and <accent> markup
-  const renderBioText = (text) => {
+  const renderBioText = (text: string) => {
     const parts = text.split(/(<highlight>.*?<\/highlight>|<accent>.*?<\/accent>)/g)
     return parts.map((part, i) => {
       if (part.startsWith('<highlight>')) {

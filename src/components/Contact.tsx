@@ -1,19 +1,21 @@
+'use client'
 import { motion } from 'framer-motion'
 import { useState } from 'react'
 import data from '../data/portfolio.json'
 
 export default function Contact() {
-  const [formData, setFormData] = useState({ name: '', email: '', message: '' })
+  const [formData, setFormData] = useState<Record<string, string>>({ name: '', email: '', message: '' })
 
   const { contact, social } = data
+  const socialMap = social as Record<string, { label: string; url: string; display: string; value?: string }>
 
-  const contactMethods = contact.contactMethods.map((key) => ({
-    label: social[key].label,
-    value: social[key].display,
-    link: social[key].url,
+  const contactMethods = contact.contactMethods.map((key: string) => ({
+    label: socialMap[key].label,
+    value: socialMap[key].display,
+    link: socialMap[key].url,
   }))
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     const { name, email, message } = formData
     const mailtoLink = `mailto:${social.email.value}?subject=Contact from ${encodeURIComponent(name)}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`)}`
@@ -51,7 +53,7 @@ export default function Contact() {
             transition={{ delay: 0.2 }}
             className="space-y-6"
           >
-            {contactMethods.map((method, idx) => (
+            {contactMethods.map((method: { label: string; value: string; link: string }, idx: number) => (
               <motion.a
                 key={idx}
                 href={method.link}
@@ -96,13 +98,13 @@ export default function Contact() {
             onSubmit={handleSubmit}
             className="space-y-6"
           >
-            {contact.form.fields.map((field) => (
+            {contact.form.fields.map((field: { name: string; label: string; type: string; placeholder: string; rows?: number }) => (
               <div key={field.name}>
                 <label className="block text-sm font-medium mb-2">{field.label}</label>
                 {field.type === 'textarea' ? (
                   <textarea
                     value={formData[field.name]}
-                    onChange={(e) => setFormData({ ...formData, [field.name]: e.target.value })}
+                    onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setFormData({ ...formData, [field.name]: e.target.value })}
                     required
                     rows={field.rows}
                     className="w-full px-4 py-3 rounded-lg bg-secondary/50 border border-accent/20 focus:border-accent outline-none transition-colors text-white placeholder-zinc-500 resize-none"
@@ -112,7 +114,7 @@ export default function Contact() {
                   <input
                     type={field.type}
                     value={formData[field.name]}
-                    onChange={(e) => setFormData({ ...formData, [field.name]: e.target.value })}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, [field.name]: e.target.value })}
                     required
                     className="w-full px-4 py-3 rounded-lg bg-secondary/50 border border-accent/20 focus:border-accent outline-none transition-colors text-white placeholder-zinc-500"
                     placeholder={field.placeholder}

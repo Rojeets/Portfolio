@@ -1,10 +1,11 @@
+'use client'
 import { motion } from 'framer-motion'
 import data from '../data/portfolio.json'
 
 export default function Hero() {
   const { personal, hero, social } = data
 
-  const socialLinks = hero.socialLinks.map((key) => social[key])
+  const socialLinks = hero.socialLinks.map((key: string) => (social as Record<string, { label: string; url: string }>)[key])
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -67,7 +68,7 @@ export default function Hero() {
           variants={itemVariants}
           className="flex flex-wrap gap-4 justify-center"
         >
-          {hero.ctaButtons.map((btn) => (
+          {hero.ctaButtons.map((btn: { text: string; href: string; style: string }) => (
             <motion.a
               key={btn.text}
               href={btn.href}
@@ -87,7 +88,7 @@ export default function Hero() {
           variants={itemVariants}
           className="flex gap-6 justify-center mt-12"
         >
-          {socialLinks.map((s) => (
+          {socialLinks.map((s: { label: string; url: string }) => (
             <motion.a
               key={s.label}
               href={s.url}

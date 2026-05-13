@@ -46,6 +46,7 @@
       { "name": "About", "href": "#about" },
       { "name": "Skills", "href": "#skills" },
       { "name": "Projects", "href": "#projects" },
+      { "name": "Blog", "href": "/blogs" },
       { "name": "Contact", "href": "#contact" }
     ]
   },
@@ -110,7 +111,7 @@
         "id": "backend",
         "title": "Backend Engineering",
         "icon": "Code2",
-        "c": [
+        "technologies": [
           {
             "name": "Laravel",
             "level": "Expert",
@@ -346,7 +347,7 @@
     }
   },
   "footer": {
-    "quickLinks": ["Home", "About", "Skills", "Projects", "Contact"],
+    "quickLinks": ["Home", "About", "Skills", "Projects", "Blog", "Contact"],
     "socialLinks": ["github", "linkedin", "gitlab"],
     "builtWith": "Built with React & Tailwind CSS"
   },

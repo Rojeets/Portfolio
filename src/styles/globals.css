@@ -22,7 +22,6 @@ body {
   color: #09090B;
 }
 
-/* Scrollbar Styling */
 ::-webkit-scrollbar {
   width: 8px;
 }

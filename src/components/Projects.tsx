@@ -1,3 +1,4 @@
+'use client'
 import { motion } from 'framer-motion'
 import { ClipboardList, Receipt, Palette, BarChart3, Users, Mail } from 'lucide-react'
 import data from '../data/portfolio.json'
@@ -12,8 +13,8 @@ const iconMap = {
   Mail,
 }
 
-const renderIcon = (iconName, size = 32) => {
-  const IconComponent = iconMap[iconName]
+const renderIcon = (iconName: string, size = 32) => {
+  const IconComponent = iconMap[iconName as keyof typeof iconMap]
   return IconComponent ? <IconComponent size={size} className="text-white/80" /> : null
 }
 
@@ -88,20 +89,20 @@ const BlueprintGridPattern = () => (
   </svg>
 )
 
-const TerminalHeader = ({ prompt }) => (
+const TerminalHeader = ({ prompt }: { prompt?: string }) => (
   <div className="absolute inset-0 flex flex-col justify-center px-4 bg-black/40">
     <div className="font-mono text-xs text-green-400/60 line-clamp-2">
       <span className="text-green-400/80">$ </span>
-      <span className="text-green-400/70">{prompt}</span>
+                    <span className="text-green-400/70">{prompt || ''}</span>
     </div>
   </div>
 )
 
 export default function Projects() {
   const { projects: projectsData, social } = data
-  const projects = projectsData.items
+  const projects = projectsData.items as Array<{ title: string; description: string; headerType: string; icon: string; metric: string; terminal?: string; highlights: string[]; tech: string[] }>
 
-  const renderHeader = (project, idx) => {
+  const renderHeader = (project: { headerType: string; icon: string; metric: string; terminal?: string; title: string }, idx: number) => {
     const baseClasses = 'h-32 relative overflow-hidden flex items-center justify-center'
 
     const headerContent = (
@@ -249,7 +250,7 @@ export default function Projects() {
 
                 {/* Highlights */}
                 <div className="flex flex-wrap gap-2 mb-4">
-                  {project.highlights.map((highlight, hidx) => (
+                  {project.highlights.map((highlight: string, hidx: number) => (
                     <span
                       key={hidx}
                       className="text-xs px-3 py-1 rounded-full bg-accent/10 text-accent border border-accent/20"
@@ -263,7 +264,7 @@ export default function Projects() {
                 <div className="border-t border-accent/10 pt-4">
                   <p className="text-xs text-zinc-500 mb-2 font-semibold">TECH STACK</p>
                   <div className="flex flex-wrap gap-2">
-                    {project.tech.map((tech, tidx) => (
+                    {project.tech.map((tech: string, tidx: number) => (
                       <span
                         key={tidx}
                         className="text-xs px-2 py-1 rounded bg-secondary/50 text-zinc-300"
