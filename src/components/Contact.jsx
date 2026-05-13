@@ -4,7 +4,6 @@ import data from '../data/portfolio.json'
 
 export default function Contact() {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' })
-  const [submitted, setSubmitted] = useState(false)
 
   const { contact, social } = data
 
@@ -16,12 +15,9 @@ export default function Contact() {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log('Form submitted:', formData)
-    setSubmitted(true)
-    setTimeout(() => {
-      setSubmitted(false)
-      setFormData({ name: '', email: '', message: '' })
-    }, 3000)
+    const { name, email, message } = formData
+    const mailtoLink = `mailto:${social.email.value}?subject=Contact from ${encodeURIComponent(name)}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`)}`
+    window.location.href = mailtoLink
   }
 
   return (
@@ -131,18 +127,8 @@ export default function Contact() {
               whileTap={{ scale: 0.98 }}
               className="w-full px-8 py-3 bg-gradient-to-r from-indigo-500 to-indigo-600 text-white rounded-lg font-semibold hover:shadow-lg hover:shadow-indigo-500/30 transition-all"
             >
-              {submitted ? contact.form.successText : contact.form.submitText}
+              {contact.form.submitText}
             </motion.button>
-
-            {submitted && (
-              <motion.p
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                className="text-center text-neon text-sm font-medium"
-              >
-                {contact.form.thankYouText}
-              </motion.p>
-            )}
           </motion.form>
         </div>
       </div>
