@@ -1,70 +1,134 @@
-# Getting Started with Create React App
+# �️ Terminal-Based Portfolio
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+An interactive terminal/CLI-style portfolio built with React, Tailwind CSS, and Framer Motion. Inspired by retro computer interfaces with a modern twist.
 
-## Available Scripts
+## 🎨 Features
 
-In the project directory, you can run:
+- **Interactive Terminal Interface**: Type commands to explore your portfolio
+- **Command-based Navigation**: No scrolling needed - just type!
+- **Command History**: Use arrow keys to navigate previous commands
+- **Tab Autocomplete**: Press Tab to autocomplete commands
+- **Smooth Animations**: Framer Motion for elegant transitions
+- **Retro Aesthetic**: Classic terminal/CLI design with modern colors
+- **Responsive**: Works on desktop and mobile devices
 
-### `npm start`
+## 📦 Available Commands
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+| Command | Description |
+|---------|-------------|
+| `help` | Show all available commands |
+| `about` | Learn more about Rojit |
+| `skills` | View technical skills with proficiency levels |
+| `projects` | See 6 featured enterprise projects |
+| `experience` | Show professional experience |
+| `contact` | Get contact information |
+| `social` | View social media links |
+| `clear` | Clear the terminal |
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 🚀 Installation
 
-### `npm test`
+1. Install dependencies:
+```bash
+npm install
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+2. Start development server:
+```bash
+npm run dev
+```
 
-### `npm run build`
+3. Build for production:
+```bash
+npm run build
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 🏗️ Project Structure
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```
+src/
+├── components/
+│   └── Terminal.jsx        # Main terminal interface
+├── App.jsx                 # Main app component
+├── index.css               # Global styles + Tailwind
+└── main.jsx                # React entry point
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## 🎯 How It Works
 
-### `npm run eject`
+The terminal component features:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- **Command Parser**: Routes user input to appropriate command handlers
+- **Output System**: Displays results as terminal text lines
+- **History System**: Keeps track of previous commands (↑↓)
+- **Autocomplete**: Smart Tab completion for commands
+- **Interactive Input**: Real-time cursor and text input
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## 🎨 Customization
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Colors
+Edit terminal theme in [Terminal.jsx](src/components/Terminal.jsx):
+- Border & text: `text-green-400`
+- Command prompt: `text-cyan-400`
+- Cursor: `text-green-400`
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### Adding Commands
+Add new commands to the `COMMANDS` object in [Terminal.jsx](src/components/Terminal.jsx):
 
-## Learn More
+```javascript
+newCommand: {
+  description: 'Command description',
+  action: () => {
+    return [
+      'Output line 1',
+      'Output line 2',
+      // ... more output
+    ]
+  },
+}
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Content
+Update command responses in [Terminal.jsx](src/components/Terminal.jsx):
+- `about`: Your background
+- `skills`: Technical skills with proficiency
+- `projects`: Your featured work
+- `experience`: Professional history
+- `contact`: Contact details
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## 💡 Tips
 
-### Code Splitting
+- Commands are case-insensitive
+- Tab key autocompletes commands
+- Arrow up/down navigates command history
+- Click anywhere in terminal to focus input
+- Commands return multi-line arrays for formatted output
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## 📱 Browser Support
 
-### Analyzing the Bundle Size
+- Chrome (latest)
+- Firefox (latest)
+- Safari (latest)
+- Edge (latest)
+- Mobile browsers
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## 🚀 Deployment
 
-### Making a Progressive Web App
+Build and deploy to your hosting:
+```bash
+npm run build
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+The `dist` folder contains your production-ready files.
 
-### Advanced Configuration
+## 🎨 Inspiration
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+This portfolio design takes inspiration from:
+- Retro computer terminals
+- CLI/command-line interfaces
+- Classic hacker aesthetic
+- Modern terminal applications
 
-### Deployment
+## 📄 License
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+MIT
 
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
