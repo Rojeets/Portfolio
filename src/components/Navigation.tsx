@@ -1,135 +1,98 @@
 'use client'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
-import { usePathname, useRouter } from 'next/navigation'
+import { usePathname } from 'next/navigation'
+import { Menu, X } from 'lucide-react'
+import Logo from './Logo'
 import data from '../data/portfolio.json'
 
-interface NavigationProps {
-  setMode?: (mode: string) => void
-}
-
-export default function Navigation({ setMode }: NavigationProps) {
+export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
   const pathname = usePathname()
-  const router = useRouter()
 
-  const { navigation, personal } = data
+  const { navigation } = data
 
-  const handleNavClick = (e: React.MouseEvent, href: string) => {
-    if (href.startsWith('#')) {
-      e.preventDefault()
-      if (pathname === '/') {
-        const el = document.querySelector(href)
-        if (el) {
-          el.scrollIntoView({ behavior: 'smooth' })
-        }
-      } else {
-        router.push('/' + href)
-      }
-    }
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 20)
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  const isActive = (href: string) => {
+    if (href === '/') return pathname === '/'
+    if (href.startsWith('/')) return pathname.startsWith(href)
+    if (href.startsWith('#')) return pathname === '/' && href === '#home'
+    return false
   }
+
+  const navItems = navigation.items
 
   return (
     <motion.nav
-      initial={{ y: -100 }}
+      initial={{ y: -80 }}
       animate={{ y: 0 }}
-      className="fixed w-full top-0 z-50 glass-effect border-b border-accent/10"
+      transition={{ duration: 0.4 }}
+      className={`fixed w-full top-0 z-50 transition-all duration-300 ${
+        scrolled ? 'bg-primary/90 backdrop-blur-md border-b border-accent/10' : 'bg-transparent'
+      }`}
     >
-      <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-        <Link href="/">
-          <motion.span
-            whileHover={{ scale: 1.05 }}
-            className="text-2xl font-bold gradient-text cursor-pointer"
-          >
-            {personal.logoTag}
-          </motion.span>
-        </Link>
+      <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+        <Logo />
 
-        <div className="hidden md:flex gap-8 items-center">
-          {navigation.items.map((item: { name: string; href: string }) =>
-            item.href.startsWith('/') ? (
+        <div className="hidden md:flex items-center gap-1">
+          {navItems.map((item) => {
+            const active = isActive(item.href)
+            return (
               <Link
                 key={item.name}
                 href={item.href}
-                className="text-sm font-medium transition-colors hover:text-neon"
+                className={`px-4 py-2 rounded-xl text-sm font-medium transition-all ${
+                  active
+                    ? 'text-accent bg-accent/10'
+                    : 'text-zinc-400 hover:text-zinc-100 hover:bg-zinc-800/50'
+                }`}
               >
                 {item.name}
               </Link>
-            ) : (
-              <a
-                key={item.name}
-                href={item.href}
-                onClick={(e) => handleNavClick(e, item.href)}
-                className="text-sm font-medium transition-colors hover:text-neon cursor-pointer"
-              >
-                {item.name}
-              </a>
             )
-          )}
-          {setMode && (
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              onClick={() => setMode('terminal')}
-              className="text-xs px-3 py-2 bg-accent/20 text-accent rounded hover:bg-accent/30 transition-all"
-            >
-              Terminal Mode
-            </motion.button>
-          )}
+          })}
         </div>
 
-        <div className="md:hidden flex items-center gap-4">
-          {setMode && (
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              onClick={() => setMode('terminal')}
-              className="text-xs px-2 py-1 bg-accent/20 text-accent rounded hover:bg-accent/30 transition-all"
-            >
-              Terminal
-            </motion.button>
-          )}
-          <button
-            className="md:hidden flex flex-col gap-1"
-            onClick={() => setIsOpen(!isOpen)}
-          >
-            <div className={`w-6 h-0.5 bg-accent transition-all ${isOpen ? 'rotate-45 translate-y-2' : ''}`}></div>
-            <div className={`w-6 h-0.5 bg-accent transition-all ${isOpen ? 'opacity-0' : ''}`}></div>
-            <div className={`w-6 h-0.5 bg-accent transition-all ${isOpen ? '-rotate-45 -translate-y-2' : ''}`}></div>
-          </button>
-        </div>
+        <button
+          className="md:hidden p-2 rounded-xl hover:bg-zinc-800/50 transition-colors"
+          onClick={() => setIsOpen(!isOpen)}
+          aria-label="Toggle menu"
+        >
+          {isOpen ? <X size={18} className="text-zinc-300" /> : <Menu size={18} className="text-zinc-300" />}
+        </button>
       </div>
 
       {isOpen && (
         <motion.div
           initial={{ opacity: 0, height: 0 }}
           animate={{ opacity: 1, height: 'auto' }}
-          className="md:hidden bg-secondary/50 border-t border-accent/10"
+          className="md:hidden bg-secondary/90 backdrop-blur-md border-t border-accent/10"
         >
-          <div className="px-6 py-4 flex flex-col gap-4">
-            {navigation.items.map((item: { name: string; href: string }) =>
-              item.href.startsWith('/') ? (
+          <div className="px-6 py-4 flex flex-col gap-1">
+            {navItems.map((item) => {
+              const active = isActive(item.href)
+              return (
                 <Link
                   key={item.name}
                   href={item.href}
                   onClick={() => setIsOpen(false)}
-                  className="text-sm font-medium hover:text-neon transition-colors"
+                  className={`px-4 py-2.5 rounded-xl text-sm font-medium transition-all ${
+                    active
+                      ? 'text-accent bg-accent/10'
+                      : 'text-zinc-400 hover:text-zinc-100 hover:bg-zinc-800/50'
+                  }`}
                 >
                   {item.name}
                 </Link>
-              ) : (
-                <a
-                  key={item.name}
-                  href={item.href}
-                  onClick={(e) => {
-                    setIsOpen(false)
-                    handleNavClick(e, item.href)
-                  }}
-                  className="text-sm font-medium hover:text-neon transition-colors cursor-pointer"
-                >
-                  {item.name}
-                </a>
               )
-            )}
+            })}
           </div>
         </motion.div>
       )}

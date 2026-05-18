@@ -5,66 +5,62 @@ import data from '../data/portfolio.json'
 export default function About() {
   const { about } = data
 
-  // Helper to render bio text with <highlight> and <accent> markup
   const renderBioText = (text: string) => {
     const parts = text.split(/(<highlight>.*?<\/highlight>|<accent>.*?<\/accent>)/g)
     return parts.map((part, i) => {
       if (part.startsWith('<highlight>')) {
-        const content = part.replace(/<\/?highlight>/g, '')
-        return <span key={i} className="text-neon font-semibold">{content}</span>
+        return <span key={i} className="text-neon font-semibold">{part.replace(/<\/?highlight>/g, '')}</span>
       }
       if (part.startsWith('<accent>')) {
-        const content = part.replace(/<\/?accent>/g, '')
-        return <span key={i} className="text-accent font-semibold">{content}</span>
+        return <span key={i} className="text-accent font-semibold">{part.replace(/<\/?accent>/g, '')}</span>
       }
       return part
     })
   }
 
   return (
-    <section id="about" className="py-24 px-6 relative">
-      <div 
-        className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: `url(${about.backgroundImage})` }}
-      >
-        <div className="absolute inset-0 bg-primary/60 backdrop-blur-sm"></div>
-      </div>
+    <section id="about" className="py-16 lg:py-20 relative">
+      <div className="absolute inset-0 bg-gradient-to-b from-primary via-secondary/30 to-primary pointer-events-none" />
 
       <div className="max-w-6xl mx-auto relative z-10">
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
           className="mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
+          <h2 className="text-3xl md:text-5xl font-bold mb-4">
             <span className="gradient-text">{about.sectionTitle}</span>
           </h2>
-          <div className="w-20 h-1 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full"></div>
+          <div className="w-16 h-1 bg-gradient-to-r from-accent to-neon rounded-full" />
         </motion.div>
 
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <motion.div
-            initial={{ opacity: 0, x: -50 }}
+            initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
           >
             {about.bio.map((paragraph, idx) => (
-              <p key={idx} className={`text-lg text-zinc-300 ${idx < about.bio.length - 1 ? 'mb-6' : 'mb-8'} leading-relaxed`}>
+              <p
+                key={idx}
+                className={`text-zinc-400 leading-relaxed ${idx < about.bio.length - 1 ? 'mb-6' : 'mb-8'}`}
+              >
                 {renderBioText(paragraph.text)}
               </p>
             ))}
 
             <div className="space-y-4">
               {about.highlights.map((item) => (
-                <div key={item.number} className="flex items-start gap-4">
-                  <div className="w-8 h-8 rounded-full bg-accent/20 flex items-center justify-center flex-shrink-0 mt-1">
-                    <span className="text-accent font-bold">{item.number}</span>
+                <div key={item.number} className="flex items-start gap-4 group">
+                  <div className="w-8 h-8 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center flex-shrink-0 mt-0.5 group-hover:bg-accent/20 transition-colors">
+                    <span className="text-accent text-xs font-bold">{item.number}</span>
                   </div>
                   <div>
-                    <h3 className="font-semibold text-white mb-2">{item.title}</h3>
-                    <p className="text-zinc-400">{item.description}</p>
+                    <h3 className="font-semibold text-white mb-1">{item.title}</h3>
+                    <p className="text-sm text-zinc-500">{item.description}</p>
                   </div>
                 </div>
               ))}
@@ -72,22 +68,21 @@ export default function About() {
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, x: 50 }}
+            initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: 0.3 }}
-            className="relative"
+            transition={{ duration: 0.5, delay: 0.2 }}
           >
-            <div className="glass-effect p-8 rounded-xl border border-accent/20">
+            <div className="glass-effect rounded-3xl p-8 border-accent/20">
               <div className="grid grid-cols-2 gap-4">
                 {about.stats.map((stat, idx) => (
                   <motion.div
                     key={idx}
-                    whileHover={{ scale: 1.05, y: -5 }}
-                    className="text-center p-4 rounded-lg bg-accent/5 border border-accent/10 hover:border-accent/30 transition-all"
+                    whileHover={{ y: -2 }}
+                    className="text-center p-5 rounded-2xl bg-accent/5 border border-accent/10 card-hover"
                   >
-                    <p className="text-3xl font-bold gradient-text mb-2">{stat.value}</p>
-                    <p className="text-sm text-zinc-400">{stat.label}</p>
+                    <p className="text-3xl font-bold gradient-text mb-1">{stat.value}</p>
+                    <p className="text-xs text-zinc-500">{stat.label}</p>
                   </motion.div>
                 ))}
               </div>

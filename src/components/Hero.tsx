@@ -5,112 +5,113 @@ import data from '../data/portfolio.json'
 export default function Hero() {
   const { personal, hero, social } = data
 
-  const socialLinks = hero.socialLinks.map((key: string) => (social as Record<string, { label: string; url: string }>)[key])
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-      },
-    },
-  }
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0 },
-  }
+  const socialLinks = hero.socialLinks.map(
+    (key: string) => (social as Record<string, { label: string; url: string }>)[key]
+  )
 
   return (
-    <section id="home" className="min-h-screen pt-24 px-6 flex items-center justify-center relative overflow-hidden">
-      <div 
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+    <section className="min-h-[80vh] flex items-center relative overflow-hidden">
+      <div
+        className="absolute inset-0 bg-cover bg-center"
         style={{ backgroundImage: `url(${hero.backgroundImage})` }}
       >
-        <div className="absolute inset-0 bg-primary/70 backdrop-blur-sm"></div>
+        <div className="absolute inset-0 bg-primary/80 backdrop-blur-sm" />
       </div>
 
-      <motion.div
-        className="max-w-4xl mx-auto relative z-10 text-center"
-        variants={containerVariants}
-        initial="hidden"
-        animate="visible"
-      >
-        <motion.div variants={itemVariants} className="mb-6">
-          <span className="inline-block px-4 py-2 rounded-full glass-effect text-neon text-sm font-medium">
+      <div
+        className="absolute inset-0"
+        style={{
+          background: 'radial-gradient(circle at top, rgba(99,102,241,0.12), transparent 60%)',
+        }}
+      />
+
+      <div className="max-w-7xl mx-auto px-6 relative z-10 w-full">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="max-w-3xl"
+        >
+          <motion.span
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1, duration: 0.4 }}
+            className="inline-block px-4 py-1.5 rounded-full glass-effect text-accent text-xs font-medium mb-6"
+          >
             {hero.badgeText}
-          </span>
+          </motion.span>
+
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2, duration: 0.5 }}
+            className="text-5xl md:text-7xl font-bold tracking-tight text-white mb-4"
+          >
+            {personal.name}
+          </motion.h1>
+
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3, duration: 0.5 }}
+            className="text-lg md:text-xl text-zinc-400 mb-3 max-w-2xl"
+          >
+            {personal.subtitle}
+          </motion.p>
+
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.35, duration: 0.5 }}
+            className="text-zinc-500 max-w-2xl leading-relaxed mb-8"
+          >
+            {personal.tagline}
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4, duration: 0.5 }}
+            className="flex flex-wrap gap-3"
+          >
+            {hero.ctaButtons.map((btn: { text: string; href: string; style: string }) => (
+              <motion.a
+                key={btn.text}
+                href={btn.href}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className={
+                  btn.style === 'primary'
+                    ? 'px-6 py-3 bg-gradient-to-r from-accent to-neon text-white rounded-xl font-medium text-sm transition-all hover:shadow-lg hover:shadow-accent/25'
+                    : 'px-6 py-3 border border-accent/30 text-accent rounded-xl font-medium text-sm transition-all hover:bg-accent/10 hover:border-accent/50'
+                }
+              >
+                {btn.text}
+              </motion.a>
+            ))}
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.5, duration: 0.5 }}
+            className="flex gap-6 mt-12"
+          >
+            {socialLinks.map((s: { label: string; url: string }) => (
+              <motion.a
+                key={s.label}
+                href={s.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                whileHover={{ y: -2 }}
+                className="text-sm text-zinc-500 hover:text-accent transition-colors"
+              >
+                {s.label}
+              </motion.a>
+            ))}
+          </motion.div>
         </motion.div>
-
-        <motion.h1
-          variants={itemVariants}
-          className="text-6xl md:text-7xl font-bold mb-6 gradient-text"
-        >
-          {personal.name}
-        </motion.h1>
-
-        <motion.p
-          variants={itemVariants}
-          className="text-xl md:text-2xl text-zinc-300 mb-6 max-w-2xl mx-auto leading-relaxed"
-        >
-          {personal.subtitle}
-        </motion.p>
-
-        <motion.p
-          variants={itemVariants}
-          className="text-lg text-zinc-400 mb-8 max-w-3xl mx-auto"
-        >
-          {personal.tagline}
-        </motion.p>
-
-        <motion.div
-          variants={itemVariants}
-          className="flex flex-wrap gap-4 justify-center"
-        >
-          {hero.ctaButtons.map((btn: { text: string; href: string; style: string }) => (
-            <motion.a
-              key={btn.text}
-              href={btn.href}
-              whileHover={{ scale: 1.05, ...(btn.style === 'primary' ? { boxShadow: '0 0 20px rgba(99, 102, 241, 0.5)' } : {}) }}
-              className={
-                btn.style === 'primary'
-                  ? 'px-8 py-3 bg-accent text-white rounded-lg font-semibold transition-all'
-                  : 'px-8 py-3 border-2 border-accent text-accent rounded-lg font-semibold transition-all hover:bg-accent/10'
-              }
-            >
-              {btn.text}
-            </motion.a>
-          ))}
-        </motion.div>
-
-        <motion.div
-          variants={itemVariants}
-          className="flex gap-6 justify-center mt-12"
-        >
-          {socialLinks.map((s: { label: string; url: string }) => (
-            <motion.a
-              key={s.label}
-              href={s.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              whileHover={{ scale: 1.1 }}
-              className="px-4 py-2 rounded glass-effect text-sm font-medium text-zinc-300 hover:text-neon hover:bg-accent/20 transition-all"
-            >
-              {s.label}
-            </motion.a>
-          ))}
-        </motion.div>
-
-        <motion.div
-          animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 2, repeat: Infinity }}
-          className="mt-16"
-        >
-          <p className="text-zinc-400 mb-3 text-sm">{hero.scrollText}</p>
-          <div className="text-2xl text-accent">v</div>
-        </motion.div>
-      </motion.div>
+      </div>
     </section>
   )
 }
