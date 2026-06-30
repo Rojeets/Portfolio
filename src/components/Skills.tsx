@@ -86,9 +86,8 @@ export default function Skills() {
   const { skills } = data
 
   const topSkills = [
-    'Laravel', 'PHP', 'React', 'Next.js', 'TypeScript', 
-    'Python', 'Docker', 'PostgreSQL', 'Tailwind CSS', 
-    'OpenCV', 'Git', 'Django'
+    'Laravel', 'PHP', 'Nginx', 'React', 'Next.js', 'TypeScript', 
+    'Tailwind CSS', 'Docker', 'PostgreSQL', 'Git', 'Python', 'OpenCV'
   ]
 
   return (

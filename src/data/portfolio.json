@@ -1,20 +1,20 @@
 {
   "meta": {
-    "siteTitle": "Rojit Pokharel - Full Stack Developer",
-    "description": "Portfolio of Rojit Pokharel, a Full Stack Developer specializing in Laravel, Django, React & Next.js",
-    "keywords": ["Laravel", "React", "Next.js", "Full Stack Developer", "RBAC", "PHP", "TypeScript"],
+    "siteTitle": "Rojit Pokharel - Full Stack Laravel Developer",
+    "description": "Laravel developer at an agency building full-stack applications with Filament, Reverb, and production server infrastructure.",
+    "keywords": ["Laravel", "React", "Next.js", "Filament", "Reverb", "PHP", "TypeScript", "Server Management"],
     "author": "Rojit Pokharel",
     "ogImage": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1200&q=80"
   },
   "personal": {
     "name": "Rojit Pokharel",
     "logoTag": "<Rojit />",
-    "title": "Full Stack Developer",
-    "subtitle": "Full Stack Developer | Backend Specialist",
-    "tagline": "Enterprise Laravel & Django developer building production systems with React, Next.js, and computer vision pipelines.",
-    "footerDescription": "Full Stack Developer specializing in enterprise-grade applications with Laravel, Django, and React.",
+    "title": "Full Stack Laravel Developer",
+    "subtitle": "Full Stack Laravel Developer",
+    "tagline": "Agency Laravel developer building client applications with Filament, Reverb, and real-time architecture. Experienced in computer vision, Go systems, and Linux server management.",
+    "footerDescription": "Laravel developer specializing in full-stack applications with Filament, React, and production server infrastructure.",
     "copyright": "Rojit Pokharel",
-    "location": "Remote",
+    "location": "Kathmandu, Nepal",
     "availability": "Open to freelance and full-time opportunities"
   },
   "theme": {
@@ -85,6 +85,7 @@
     "items": [
       { "name": "Home", "href": "/" },
       { "name": "About", "href": "/#about" },
+      { "name": "Experience", "href": "/#experience" },
       { "name": "Skills", "href": "/#skills" },
       { "name": "Projects", "href": "/projects" },
       { "name": "Blog", "href": "/blogs" },
@@ -92,8 +93,8 @@
     ]
   },
   "hero": {
-    "badgeText": "Full Stack Developer",
-    "backgroundImage": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1920&q=80",
+    "badgeText": "Full Stack Laravel Developer",
+    "backgroundImage": "/images/hero-bg.jpg",
     "ctaButtons": [
       { "text": "View My Work", "href": "/projects", "style": "primary" },
       { "text": "Get In Touch", "href": "/contact", "style": "outline" }
@@ -107,25 +108,25 @@
   },
   "about": {
     "sectionTitle": "About Me",
-    "backgroundImage": "https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=1920&q=80",
+    "backgroundImage": "/images/about-bg.jpg",
     "bio": [
       {
-        "text": "I'm a <highlight>Full Stack Developer</highlight> with a strong focus on building <accent>scalable backend architectures</accent> and crafting dynamic frontend experiences. With deep expertise in the <accent>Laravel ecosystem</accent>, <accent>Django</accent>, and modern JavaScript frameworks like <accent>React/Next.js</accent>, I've built everything from computer vision pipelines to enterprise ERP systems."
+        "text": "I'm a <highlight>Laravel developer</highlight> at an agency, building full-stack client applications across e-commerce, travel, education, and restaurant domains using <accent>Filament</accent>, <accent>Sanctum</accent>, <accent>Spatie Permissions</accent>, and <accent>Reverb WebSockets</accent>. I own the full delivery lifecycle — from database schema design to production deployment."
       },
       {
-        "text": "My passion lies in solving complex problems through clean, maintainable code. I specialize in <highlight>Laravel Filament & Inertia applications</highlight>, <highlight>AI-powered computer vision systems</highlight>, and creating <highlight>full-stack applications</highlight> that bridge machine learning with practical user interfaces."
+        "text": "Beyond Laravel, I've built <accent>computer vision pipelines</accent>, <accent>server monitoring tools</accent>, and <accent>AI/ML systems</accent> — giving me a full-stack view of every project I touch. I also handle server infrastructure including <accent>Nginx</accent>, <accent>Certbot SSL</accent>, <accent>Supervisor queue workers</accent>, and <accent>PM2</accent> for production deployments."
       }
     ],
     "highlights": [
       {
         "number": "01",
         "title": "Laravel & Filament Expert",
-        "description": "27+ client projects with Filament panels, Inertia.js, Reverb WebSockets, and RBAC via Shield"
+        "description": "10+ client projects with Filament panels, Reverb WebSockets, Sanctum auth, and Spatie Permissions"
       },
       {
         "number": "02",
-        "title": "Computer Vision Pipelines",
-        "description": "YOLO-based detection, SORT tracking, and real-time video analytics"
+        "title": "Server Management & DevOps",
+        "description": "Nginx, Certbot SSL, Supervisor queue workers, PM2, Docker Compose, production Linux deployments"
       },
       {
         "number": "03",
@@ -134,16 +135,16 @@
       }
     ],
     "stats": [
-      { "label": "Client Projects Delivered", "value": "27+" },
-      { "label": "Technologies Used", "value": "35+" },
-      { "label": "Python Projects", "value": "15+" },
-      { "label": "Laravel Projects", "value": "12+" }
+      { "label": "Laravel Projects", "value": "10+" },
+      { "label": "Client Projects Delivered", "value": "12+" },
+      { "label": "Technologies Used", "value": "25+" },
+      { "label": "Python Projects", "value": "10+" }
     ]
   },
   "skills": {
     "sectionTitle": "Technical",
     "sectionTitleHighlight": "Arsenal",
-    "sectionSubtitle": "Enterprise-grade competencies validated across 7+ client projects, hackathons, and production systems.",
+    "sectionSubtitle": "Agency-proven competencies across full-stack development, server infrastructure, and AI/ML systems.",
     "filters": [
       { "id": "all", "label": "All" },
       { "id": "backend", "label": "Backend" },
@@ -161,7 +162,7 @@
             "name": "Laravel",
             "level": "Expert",
             "levelColor": "text-emerald-400",
-            "subSkills": ["Filament Panels & Resources", "Eloquent ORM & Relationships", "Reverb WebSockets", "Sanctum Auth", "Inertia.js Integration"]
+            "subSkills": ["Filament Panels & Resources", "Eloquent ORM & Relationships", "Reverb WebSockets", "Sanctum Auth", "Spatie Permissions", "Queue Workers & Scheduler"]
           },
           {
             "name": "PHP",
@@ -347,6 +348,24 @@
             "subSkills": ["Multi-stage Builds", "Docker Compose (Dev + Prod)", "Container Networking"]
           },
           {
+            "name": "Nginx & Certbot",
+            "level": "Advanced",
+            "levelColor": "text-sky-400",
+            "subSkills": ["SSL Termination & Certbot", "Reverse Proxy Config", "Static File Serving"]
+          },
+          {
+            "name": "Supervisor",
+            "level": "Proficient",
+            "levelColor": "text-indigo-400",
+            "subSkills": ["Queue Worker Management", "Process Control", "Auto-restart Config"]
+          },
+          {
+            "name": "PM2",
+            "level": "Proficient",
+            "levelColor": "text-indigo-400",
+            "subSkills": ["Node Process Management", "Graceful Restarts", "Cluster Mode"]
+          },
+          {
             "name": "Git & GitLab CI",
             "level": "Expert",
             "levelColor": "text-emerald-400",
@@ -374,17 +393,17 @@
       }
     ],
     "realWorldApplications": [
-      "ERP & Leave Management Systems",
+      "Restaurant Management SaaS",
       "E-commerce & Payment Gateways",
-      "SEO Prerendering Services",
-      "Real-time Video Analytics",
+      "Multi-tenant CMS Platforms",
+      "Leave Management & ERP Systems",
       "AI Referee / Player Tracking",
       "Server Uptime Monitoring",
       "Multi-container Deployments",
       "Document Generation & Reporting"
     ],
     "realWorldTitle": "Real-World Applications",
-    "realWorldSubtitle": "Every competency backed by working production code — from client ERP systems and e-commerce platforms to computer vision pipelines and DevOps tooling:",
+    "realWorldSubtitle": "Every competency backed by working production code — from Laravel client applications and server infrastructure to computer vision pipelines and DevOps tooling:",
     "levelStyles": {
       "Expert": { "borderColor": "border-emerald-500", "bgColor": "bg-emerald-950/40" },
       "Advanced": { "borderColor": "border-sky-400", "bgColor": "bg-sky-950/40" },
@@ -393,8 +412,8 @@
   },
   "projects": {
     "sectionTitle": "Featured Projects",
-    "sectionSubtitle": "Enterprise solutions showcasing full-stack expertise",
-    "backgroundImage": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1920&q=80",
+    "sectionSubtitle": "Agency-built applications and open-source work showcasing Laravel, full-stack, and systems expertise.",
+    "backgroundImage": "/images/hero-bg.jpg",
     "ctaText": "Want to see more? Check out my GitHub",
     "ctaButtonText": "Explore GitHub 🐙",
     "headerTypes": ["metrics", "code", "terminal", "workflow", "layers", "blueprint"],
@@ -408,25 +427,43 @@
     },
     "items": [
       {
-        "title": "Spam Detection Engine",
-        "description": "ML-powered spam classification system using Naive Bayes and TF-IDF vectorization. Processes thousands of messages per minute with 97%+ accuracy.",
-        "tech": ["Python", "scikit-learn", "Flask", "NLP", "PostgreSQL"],
-        "highlights": ["97% Accuracy", "Real-time Classification", "TF-IDF Vectorization"],
-        "headerType": "metrics",
+        "title": "Restaurant Management SaaS",
+        "description": "Multi-restaurant SaaS platform with real-time kitchen display via Laravel Reverb, multi-gateway payment integration, and full Filament admin panels for menu, orders, and staff management.",
+        "tech": ["Laravel", "Filament", "Reverb", "Livewire", "MySQL"],
+        "highlights": ["Multi-gateway Payments", "Real-time Kitchen Display", "Filament Admin Panel"],
+        "headerType": "workflow",
         "icon": "ClipboardList",
-        "metric": "Accuracy: 97.2%"
+        "metric": "Live Orders"
       },
       {
-        "title": "Fire Detection System",
-        "description": "Computer vision-based fire and smoke detection using deep learning. Processes CCTV feeds in real-time and sends instant alerts with bounding box overlays.",
-        "tech": ["Python", "YOLO", "OpenCV", "Deep Learning", "TensorFlow"],
-        "highlights": ["Real-time Detection", "CCTV Integration", "Instant Alerts"],
+        "title": "Enterprise Leave Management",
+        "description": "Comprehensive employee leave system with automated balance tracking, multi-stage approval workflows, and document attachment support across departments.",
+        "tech": ["Laravel", "React", "MySQL", "Filament"],
+        "highlights": ["RBAC Implementation", "Workflow Automation", "Document Management"],
+        "headerType": "workflow",
+        "icon": "ClipboardList",
+        "metric": "Workflow Active"
+      },
+      {
+        "title": "Automated Financial Invoicing",
+        "description": "Unique sequential invoice generation system using UUIDs and global database scopes ensuring data integrity and professional financial tracking.",
+        "tech": ["Laravel", "PostgreSQL", "REST API", "Eloquent ORM"],
+        "highlights": ["UUID Management", "Global Scopes", "Financial Logic"],
         "headerType": "code",
         "icon": "Receipt",
-        "metric": "Latency: <200ms"
+        "metric": "Integrity: ✓"
       },
       {
-        "title": "Server Monitor Tool",
+        "title": "Multi-tenant Content CMS",
+        "description": "Modular CMS using Repeater patterns enabling administrators to build complex page layouts without code. Supports timelines, FAQs, and service grids across tenants.",
+        "tech": ["Laravel", "React", "Filament", "MongoDB"],
+        "highlights": ["Dynamic Builder", "Multi-tenant", "Repeater Patterns"],
+        "headerType": "layers",
+        "icon": "Palette",
+        "metric": "Tenants: 50+"
+      },
+      {
+        "title": "Server Uptime Monitoring",
         "description": "Lightweight Go-based uptime monitoring tool with multi-site health checks, Slack alerts, and Prometheus metrics. Detects downtime before clients report it.",
         "tech": ["Go", "Prometheus", "Docker", "REST API", "YAML"],
         "highlights": ["Multi-site Checks", "Slack Alerts", "Prometheus Metrics"],
@@ -436,38 +473,20 @@
         "metric": "Uptime: 99.9%"
       },
       {
-        "title": "Enterprise Leave Management System",
-        "description": "Comprehensive employee leave system with automated balance tracking, multi-stage approval workflows, and document attachment support.",
-        "tech": ["Laravel", "React", "MySQL", "Filament"],
-        "highlights": ["RBAC Implementation", "Workflow Automation", "Document Management"],
-        "headerType": "workflow",
-        "icon": "ClipboardList",
-        "metric": "Workflow Active"
-      },
-      {
-        "title": "Automated Financial Invoicing Platform",
-        "description": "Unique sequential invoice generation system using UUIDs and global database scopes ensuring data integrity and professional financial tracking.",
-        "tech": ["Laravel", "PostgreSQL", "REST API", "Eloquent ORM"],
-        "highlights": ["UUID Management", "Global Scopes", "Financial Logic"],
-        "headerType": "code",
-        "icon": "Receipt",
-        "metric": "Integrity: ✓"
-      },
-      {
-        "title": "Multi-tenant Content Management System",
-        "description": "Modular CMS using Repeater patterns enabling administrators to build complex page layouts without code. Supports timelines, FAQs, and service grids.",
-        "tech": ["Laravel", "React", "Filament", "MongoDB"],
-        "highlights": ["Dynamic Builder", "Multi-tenant", "Repeater Patterns"],
-        "headerType": "layers",
-        "icon": "Palette",
-        "metric": "Tenants: 50+"
+        "title": "AI Referee: Football Analytics",
+        "description": "Computer vision pipeline using YOLOv5 + SORT tracking for player detection, SSIM template matching for team classification, and pitch mapping for real-time football analytics.",
+        "tech": ["Python", "YOLOv5", "OpenCV", "SORT", "Flask"],
+        "highlights": ["Real-time Tracking", "Team Classification", "Pitch Mapping"],
+        "headerType": "metrics",
+        "icon": "BarChart3",
+        "metric": "FPS: 30+"
       }
     ]
   },
   "blog": {
     "sectionTitle": "Latest Articles",
     "sectionSubtitle": "Deep dives into Laravel, React, system architecture, and technical craftsmanship.",
-    "backgroundImage": "https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=1920&q=80",
+    "backgroundImage": "/images/blog-bg.jpg",
     "postsPath": "/blogs",
     "items": [
       {
@@ -477,7 +496,7 @@
         "readTime": "8 min read",
         "excerpt": "A deep dive into implementing robust RBAC systems using Laravel's built-in authorization features including policies, gates, and middleware.",
         "tags": ["Laravel", "RBAC", "Security", "PHP"],
-        "image": "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=800&q=80"
+        "image": "/images/blog-rbac.jpg"
       },
       {
         "slug": "database-optimization-techniques",
@@ -486,7 +505,7 @@
         "readTime": "10 min read",
         "excerpt": "Practical strategies for eliminating N+1 queries, leveraging database indexing, and optimizing Eloquent relationships for high-performance applications.",
         "tags": ["Database", "Laravel", "PostgreSQL", "Performance"],
-        "image": "https://images.unsplash.com/photo-1544383835-bda2bc66a55d?w=800&q=80"
+        "image": "/images/blog-database.jpg"
       },
       {
         "slug": "multi-tenant-architecture-laravel",
@@ -495,7 +514,7 @@
         "readTime": "12 min read",
         "excerpt": "Exploring database isolation strategies, global scopes, and middleware patterns for building scalable multi-tenant SaaS applications.",
         "tags": ["Laravel", "Architecture", "SaaS", "Multi-tenant"],
-        "image": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&q=80"
+        "image": "/images/blog-multitenant.jpg"
       },
       {
         "slug": "clean-rest-api-design",
@@ -504,7 +523,7 @@
         "readTime": "7 min read",
         "excerpt": "Principles for designing APIs that are consistent, predictable, and developer-friendly, with practical Laravel implementation patterns.",
         "tags": ["API", "Laravel", "Best Practices", "REST"],
-        "image": "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&q=80"
+        "image": "/images/blog-api.jpg"
       },
       {
         "slug": "frontend-performance-optimization",
@@ -513,7 +532,7 @@
         "readTime": "9 min read",
         "excerpt": "Techniques for optimizing React applications including code splitting, memoization, lazy loading, and bundle analysis.",
         "tags": ["React", "Performance", "Next.js", "Frontend"],
-        "image": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80"
+        "image": "/images/blog-frontend.jpg"
       },
       {
         "slug": "server-monitoring-tool-uptime-monitoring",
@@ -522,7 +541,7 @@
         "readTime": "10 min read",
         "excerpt": "Deploy a lightweight open source server monitoring tool built in Go to detect website downtime before clients report it.",
         "tags": ["Go", "Monitoring", "DevOps", "Open Source", "Infrastructure"],
-        "image": "https://opengraph.githubassets.com/1/rojeets/servermonitortool"
+        "image": "/images/blog-server-monitor.jpg"
       },
       {
         "slug": "ai-referee-football-player-tracking",
@@ -531,18 +550,18 @@
         "readTime": "14 min read",
         "excerpt": "Build an AI-powered football analytics pipeline using YOLOv5, SORT tracking, SSIM-based team classification, pitch mapping, and a Flask dashboard.",
         "tags": ["Computer Vision", "AI", "Football Analytics", "YOLOv5", "OpenCV", "Flask", "Machine Learning"],
-        "image": "https://opengraph.githubassets.com/1/ultralytics/yolov5"
+        "image": "/images/blog-ai-referee.jpg"
       }
     ]
   },
   "contact": {
     "sectionTitle": "Get In Touch",
     "sectionSubtitle": "Let's work together on something amazing",
-    "backgroundImage": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1920&q=80",
+    "backgroundImage": "/images/contact-bg.jpg",
     "contactMethods": ["linkedin", "github", "email"],
     "availability": {
       "title": "Currently",
-      "text": "Open to freelance projects and full-time opportunities where I can contribute to building scalable, enterprise-grade applications.",
+      "text": "Open to freelance projects and full-time opportunities where I can contribute to building scalable, enterprise-grade Laravel applications.",
       "responseTime": "Usually within 24 hours"
     },
     "form": {
@@ -564,6 +583,7 @@
     "quickLinks": [
       { "name": "Home", "href": "/" },
       { "name": "About", "href": "/#about" },
+      { "name": "Experience", "href": "/#experience" },
       { "name": "Skills", "href": "/#skills" },
       { "name": "Projects", "href": "/projects" },
       { "name": "Blog", "href": "/blogs" },
@@ -573,23 +593,75 @@
     "builtWith": "Built with React & Tailwind CSS"
   },
   "experience": {
-    "title": "Full Stack Developer (Freelance)",
-    "period": "2021 - Present",
-    "location": "Remote",
+    "sectionTitle": "Professional Experience",
+    "sectionSubtitle": "Agency work building production applications with Laravel and modern full-stack tooling.",
+    "roles": [
+      {
+        "title": "Junior Full Stack Developer",
+        "company": "Infinity Digital Agency",
+        "location": "Ratopul, Kathmandu",
+        "period": "Feb 2026 - Present",
+        "description": "Developing and maintaining full-stack web applications using Laravel, React, and Next.js for agency clients. Handling server setup, API integration, and database optimization.",
+        "achievements": [
+          "Build and maintain full-stack web apps using Laravel, React, and Next.js for agency clients",
+          "Handle server setup, monitoring, and production issue resolution on Linux",
+          "Integrate APIs, authentication systems, and email services for client projects",
+          "Optimize MySQL, PostgreSQL, and MongoDB databases for performance and reliability",
+          "Collaborate with cross-functional teams to deliver scalable client applications"
+        ]
+      },
+      {
+        "title": "Full Stack Intern",
+        "company": "Infinity Digital Agency",
+        "location": "Ratopul, Kathmandu",
+        "period": "Aug 2025 - Feb 2026",
+        "description": "Developed backend functionality using Laravel, integrated frontends with React & Next.js, and assisted with server setup, API development, and technical documentation.",
+        "achievements": [
+          "Developed and maintained backend functionality using Laravel with React & Next.js frontends",
+          "Performed API development, authentication systems, and database management",
+          "Assisted with server setup, technical documentation, and client deliverables",
+          "Used Git, GitHub, GitLab, Postman, and Figma for team collaboration"
+        ]
+      },
+      {
+        "title": "Outreach Coordinator",
+        "company": "Pie N AI",
+        "location": "Kathmandu",
+        "period": "Dec 2024 - Present",
+        "description": "Coordinating community learning events, workshops, and study sessions focused on AI and machine learning for a global learner community.",
+        "achievements": [
+          "Coordinated community learning events focused on AI and machine learning",
+          "Collaborated with leaders to organize workshops and study sessions worldwide",
+          "Managed event logistics and promoted inclusive knowledge-sharing"
+        ]
+      }
+    ],
+    "education": [
+      {
+        "degree": "Bachelor of Science in Information Technology",
+        "institution": "Techspire College",
+        "location": "Kathmandu",
+        "period": "Sep 2024 - Present"
+      },
+      {
+        "degree": "+2 Science (Computer Science)",
+        "institution": "Padmodaya Secondary School",
+        "location": "Kathmandu",
+        "period": "Aug 2022 - Jun 2024"
+      }
+    ],
     "achievements": [
-      "Delivered 7+ Laravel client projects with Filament, Inertia, and Reverb",
-      "Built AI referee football tracking system with YOLO + SORT",
-      "Developed Django insurance platform with Celery WebSockets",
-      "Created prerender SEO service with Puppeteer + Express",
-      "Built server monitoring tool with Go and Prometheus metrics"
+      "DataCamp Donates Fellow — selected for strong potential in data science and programming",
+      "R-Hackathon 2025 — Built anonymous discussion platform with Laravel + Next.js",
+      "Turboline X IIMS Hackathon — Foul detection system using AI-based image analysis APIs"
     ],
     "expertiseAreas": [
       "Laravel & Filament Development",
-      "Computer Vision & Object Detection",
+      "Server Management (Nginx, Supervisor, PM2)",
+      "Laravel Reverb & WebSockets",
       "React / Next.js Frontend",
-      "Django REST Framework",
       "Docker Containerization",
-      "Machine Learning Pipelines"
+      "Computer Vision & AI/ML"
     ]
   },
   "terminal": {
@@ -602,10 +674,10 @@
     "responses": {
       "about": {
         "specializations": [
-          "Enterprise RBAC Systems",
-          "Automated Financial Platforms",
-          "Multi-tenant CMS Solutions",
-          "High-Performance APIs"
+          "Laravel & Filament Application Development",
+          "Server Management & DevOps (Nginx, Supervisor, PM2)",
+          "Real-time Systems with Reverb WebSockets",
+          "Computer Vision & AI/ML Pipelines"
         ],
         "philosophy": "I focus on writing clean, maintainable code that bridges complex business requirements with performant solutions. Security by design, scalability through architecture, seamless experiences through integration."
       },

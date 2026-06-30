@@ -22,6 +22,9 @@ export const metadata: Metadata = {
   description: data.meta.description,
   keywords: data.meta.keywords,
   authors: [{ name: data.meta.author }],
+  icons: {
+    icon: [{ url: '/favicon.svg', type: 'image/svg+xml' }],
+  },
   openGraph: {
     title: data.meta.siteTitle,
     description: data.meta.description,

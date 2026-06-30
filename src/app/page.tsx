@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 import Hero from '../components/Hero'
 import About from '../components/About'
+import Experience from '../components/Experience'
 import Skills from '../components/Skills'
 import data from '../data/portfolio.json'
 
@@ -76,10 +77,15 @@ export default function Home() {
       ],
       experience: [
         '',
-        `${data.experience.title}`,
-        `${data.experience.period}`,
-        '',
-        ...data.experience.achievements.map(a => `  ${a}`),
+        ...data.experience.roles.flatMap(r => [
+          `🏢 ${r.title} @ ${r.company}`,
+          `   📅 ${r.period}  📍 ${r.location}`,
+          '',
+          ...r.achievements.map(a => `  • ${a}`),
+          '',
+        ]),
+        '🎓 EXPERTISE AREAS',
+        ...data.experience.expertiseAreas.map(a => `  ✓ ${a}`),
         '',
       ],
       contact: [
@@ -380,6 +386,7 @@ export default function Home() {
       </section>
 
       <About />
+      <Experience />
       <Skills />
 
       <section className="py-24 px-6 relative">
