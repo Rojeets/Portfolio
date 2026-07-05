@@ -19,7 +19,7 @@ export default function About() {
   }
 
   return (
-    <section id="about" className="py-16 lg:py-20 relative">
+    <section id="about" className="py-16 lg:py-20 relative mx-8">
       <div className="absolute inset-0 bg-gradient-to-b from-primary via-secondary/30 to-primary pointer-events-none" />
 
       <div className="max-w-6xl mx-auto relative z-10">
