@@ -1,21 +1,22 @@
 'use client'
 import { useState, useEffect } from 'react'
-import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Menu, X } from 'lucide-react'
-import Logo from './Logo'
-import data from '../data/portfolio.json'
+
+const navItems = [
+  { name: 'Projects', href: '/projects' },
+  { name: 'Skills', href: '/skills' },
+  { name: 'Experience', href: '/#experience' },
+  { name: 'Contact', href: '/contact' },
+]
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const pathname = usePathname()
 
-  const { navigation } = data
-
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 20)
+    const handleScroll = () => setScrolled(window.scrollY > 50)
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
@@ -23,79 +24,78 @@ export default function Navigation() {
   const isActive = (href: string) => {
     if (href === '/') return pathname === '/'
     if (href.startsWith('/')) return pathname.startsWith(href)
-    if (href.startsWith('#')) return pathname === '/' && href === '#home'
     return false
   }
 
-  const navItems = navigation.items
-
   return (
-    <motion.nav
-      initial={{ y: -80 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.4 }}
-      className={`fixed w-full top-0 z-50 transition-all duration-300 ${
-        scrolled ? 'bg-primary/90 backdrop-blur-md border-b border-accent/10' : 'bg-transparent'
-      }`}
+    <header
+      className={`fixed top-0 w-full z-50 transition-all duration-300 ease-in-out border-b border-border-subtle ${
+        scrolled ? 'bg-background/95 shadow-lg' : 'bg-background/80'
+      } backdrop-blur-md`}
     >
-      <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-        <Logo />
+      <div className="max-w-container-max mx-auto px-margin-mobile md:px-gutter flex justify-between items-center h-16">
+        <Link href="/" className="font-headline-sm text-headline-sm font-bold text-primary tracking-tight">
+          Rojit Pokharel
+        </Link>
 
-        <div className="hidden md:flex items-center gap-1">
-          {navItems.map((item) => {
-            const active = isActive(item.href)
-            return (
+        <nav className="hidden md:flex items-center space-x-8">
+          {navItems.map((item) => (
+            <Link
+              key={item.name}
+              href={item.href}
+              className={`font-label-md text-label-md transition-colors ${
+                isActive(item.href)
+                  ? 'text-primary border-b-2 border-primary pb-1'
+                  : 'text-on-surface-variant hover:text-primary'
+              }`}
+            >
+              {item.name}
+            </Link>
+          ))}
+        </nav>
+
+        <div className="flex items-center gap-4">
+          <span className="hidden md:inline-flex font-label-sm text-label-sm text-secondary animate-pulse-dot items-center gap-2">
+            <span className="w-2 h-2 rounded-full bg-secondary"></span> Available for hire
+          </span>
+          <Link
+            href="/contact"
+            className="px-6 py-2 bg-primary-container text-on-primary-container font-label-md text-label-md hover:brightness-110 transition-all glow-accent"
+          >
+            Get in Touch
+          </Link>
+          <button
+            className="md:hidden p-2 hover:bg-surface-variant transition-colors"
+            onClick={() => setIsOpen(!isOpen)}
+            aria-label="Toggle menu"
+          >
+            <span className="material-symbols-outlined text-on-surface">
+              {isOpen ? 'close' : 'menu'}
+            </span>
+          </button>
+        </div>
+      </div>
+
+      {isOpen && (
+        <div className="md:hidden bg-background/95 backdrop-blur-md border-t border-border-subtle">
+          <div className="px-margin-mobile py-4 flex flex-col gap-1">
+            {navItems.map((item) => (
               <Link
                 key={item.name}
                 href={item.href}
-                className={`px-4 py-2 rounded-xl text-sm font-medium transition-all ${
-                  active
-                    ? 'text-accent bg-accent/10'
-                    : 'text-zinc-400 hover:text-zinc-100 hover:bg-zinc-800/50'
+                onClick={() => setIsOpen(false)}
+                className={`px-4 py-2.5 font-label-md text-label-md transition-all ${
+                  isActive(item.href)
+                    ? 'text-primary bg-surface-variant/50'
+                    : 'text-on-surface-variant hover:text-primary hover:bg-surface-variant/30'
                 }`}
               >
                 {item.name}
               </Link>
-            )
-          })}
-        </div>
-
-        <button
-          className="md:hidden p-2 rounded-xl hover:bg-zinc-800/50 transition-colors"
-          onClick={() => setIsOpen(!isOpen)}
-          aria-label="Toggle menu"
-        >
-          {isOpen ? <X size={18} className="text-zinc-300" /> : <Menu size={18} className="text-zinc-300" />}
-        </button>
-      </div>
-
-      {isOpen && (
-        <motion.div
-          initial={{ opacity: 0, height: 0 }}
-          animate={{ opacity: 1, height: 'auto' }}
-          className="md:hidden bg-secondary/90 backdrop-blur-md border-t border-accent/10"
-        >
-          <div className="px-6 py-4 flex flex-col gap-1">
-            {navItems.map((item) => {
-              const active = isActive(item.href)
-              return (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  onClick={() => setIsOpen(false)}
-                  className={`px-4 py-2.5 rounded-xl text-sm font-medium transition-all ${
-                    active
-                      ? 'text-accent bg-accent/10'
-                      : 'text-zinc-400 hover:text-zinc-100 hover:bg-zinc-800/50'
-                  }`}
-                >
-                  {item.name}
-                </Link>
-              )
-            })}
+            ))}
           </div>
-        </motion.div>
+        </div>
       )}
-    </motion.nav>
+    </header>
   )
 }

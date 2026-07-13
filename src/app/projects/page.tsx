@@ -1,188 +1,228 @@
 'use client'
-import { motion } from 'framer-motion'
-import { ClipboardList, Receipt, Palette, BarChart3, Users, Mail, ArrowUpRight } from 'lucide-react'
-import Link from 'next/link'
-import data from '../../data/portfolio.json'
-
-const iconMap: Record<string, React.ElementType> = {
-  ClipboardList, Receipt, Palette, BarChart3, Users, Mail,
-}
-
-const renderIcon = (iconName: string, size = 22) => {
-  const Icon = iconMap[iconName]
-  return Icon ? <Icon size={size} className="text-accent" /> : null
-}
-
-const PatternBg = ({ type }: { type: string }) => {
-  if (type === 'metrics') return (
-    <svg width="100%" height="100%" className="absolute inset-0" preserveAspectRatio="xMidYMid slice">
-      <defs><pattern id="m" x="0" y="0" width="100" height="50" patternUnits="userSpaceOnUse">
-        <line x1="10" y1="40" x2="10" y2="15" stroke="rgba(99,102,241,0.1)" strokeWidth="2" />
-        <line x1="30" y1="40" x2="30" y2="10" stroke="rgba(99,102,241,0.15)" strokeWidth="2" />
-        <line x1="50" y1="40" x2="50" y2="20" stroke="rgba(99,102,241,0.12)" strokeWidth="2" />
-        <line x1="70" y1="40" x2="70" y2="8" stroke="rgba(99,102,241,0.18)" strokeWidth="2" />
-        <line x1="90" y1="40" x2="90" y2="25" stroke="rgba(99,102,241,0.14)" strokeWidth="2" />
-      </pattern></defs>
-      <rect width="100%" height="100%" fill="url(#m)" />
-    </svg>
-  )
-  if (type === 'code') return (
-    <svg width="100%" height="100%" className="absolute inset-0" preserveAspectRatio="xMidYMid slice">
-      <defs><pattern id="c" x="0" y="0" width="180" height="48" patternUnits="userSpaceOnUse">
-        <text x="8" y="14" fontFamily="monospace" fontSize="8" fill="rgba(99,102,241,0.08)">$uuid = Str::uuid();</text>
-        <text x="8" y="26" fontFamily="monospace" fontSize="8" fill="rgba(99,102,241,0.08)">Invoice::create([</text>
-        <text x="8" y="38" fontFamily="monospace" fontSize="8" fill="rgba(99,102,241,0.08)">{`'id' => $uuid`}</text>
-      </pattern></defs>
-      <rect width="100%" height="100%" fill="url(#c)" />
-    </svg>
-  )
-  if (type === 'layers') return (
-    <svg width="100%" height="100%" className="absolute inset-0" preserveAspectRatio="xMidYMid slice">
-      <defs><pattern id="l" x="0" y="0" width="70" height="70" patternUnits="userSpaceOnUse">
-        <rect x="15" y="8" width="40" height="14" fill="none" stroke="rgba(168,85,247,0.12)" strokeWidth="1" />
-        <rect x="10" y="26" width="50" height="14" fill="none" stroke="rgba(168,85,247,0.08)" strokeWidth="1" />
-        <rect x="5" y="44" width="60" height="14" fill="none" stroke="rgba(168,85,247,0.06)" strokeWidth="1" />
-      </pattern></defs>
-      <rect width="100%" height="100%" fill="url(#l)" />
-    </svg>
-  )
-  if (type === 'workflow') return (
-    <svg width="100%" height="100%" className="absolute inset-0" preserveAspectRatio="xMidYMid slice">
-      <defs><pattern id="w" x="0" y="0" width="90" height="90" patternUnits="userSpaceOnUse">
-        <circle cx="20" cy="20" r="5" fill="rgba(99,102,241,0.12)" />
-        <circle cx="70" cy="45" r="5" fill="rgba(99,102,241,0.12)" />
-        <circle cx="45" cy="70" r="5" fill="rgba(99,102,241,0.12)" />
-        <line x1="20" y1="20" x2="70" y2="45" stroke="rgba(99,102,241,0.08)" strokeWidth="0.8" />
-        <line x1="70" y1="45" x2="45" y2="70" stroke="rgba(99,102,241,0.08)" strokeWidth="0.8" />
-      </pattern></defs>
-      <rect width="100%" height="100%" fill="url(#w)" />
-    </svg>
-  )
-  if (type === 'blueprint') return (
-    <svg width="100%" height="100%" className="absolute inset-0" preserveAspectRatio="xMidYMid slice">
-      <defs><pattern id="b" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
-        <rect width="40" height="40" fill="none" stroke="rgba(14,165,233,0.06)" strokeWidth="0.5" />
-        <text x="20" y="22" fontFamily="monospace" fontSize="5" fill="rgba(14,165,233,0.08)" textAnchor="middle">.</text>
-      </pattern></defs>
-      <rect width="100%" height="100%" fill="url(#b)" />
-    </svg>
-  )
-  if (type === 'terminal') return (
-    <div className="absolute inset-0 flex items-center px-5">
-      <span className="font-mono text-xs text-accent/30">$ ./deploy --prod</span>
-    </div>
-  )
-  return null
-}
 
 export default function ProjectsPage() {
-  const { projects: projectsData, social } = data
-  const projects = projectsData.items as Array<{
-    title: string; description: string; headerType: string; icon: string;
-    metric: string; highlights: string[]; tech: string[]
-  }>
-
   return (
-    <div className="pt-24 px-6 relative min-h-screen">
-      <div
-        className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: `url(${projectsData.backgroundImage})` }}
-      >
-        <div className="absolute inset-0 bg-primary/70 backdrop-blur-sm" />
-      </div>
+    <main className="relative pt-32 pb-section-gap overflow-hidden">
+      {/* Background Grid */}
+      <div className="absolute inset-0 tech-grid-bg pointer-events-none"></div>
 
-      <div className="max-w-7xl mx-auto relative z-10 pb-24">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="mb-16"
-        >
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">
-            <span className="gradient-text">{projectsData.sectionTitle}</span>
+      {/* Hero Section */}
+      <section className="max-w-container-max mx-auto px-margin-mobile md:px-gutter relative z-10 mb-20">
+        <div className="max-w-3xl">
+          <h1 className="font-display-lg text-display-lg mb-6">
+            Engineering <span className="text-primary">Scalable Solutions</span> with Architect Precision
           </h1>
-          <div className="w-16 h-1 bg-gradient-to-r from-accent to-neon rounded-full mb-6" />
-          <p className="text-zinc-400 max-w-2xl">{projectsData.sectionSubtitle}</p>
-        </motion.div>
+          <p className="font-body-lg text-body-lg text-on-surface-variant mb-8">
+            An interactive deep-dive into complex system architectures, full-stack implementations, and the technical decision-making behind high-performance platforms.
+          </p>
+          <div className="flex flex-wrap gap-4">
+            <div className="px-4 py-2 bg-surface-container rounded-lg border border-border-subtle flex items-center gap-3">
+              <span className="material-symbols-outlined text-primary">architecture</span>
+              <span className="font-label-md text-label-md">Microservices focused</span>
+            </div>
+            <div className="px-4 py-2 bg-surface-container rounded-lg border border-border-subtle flex items-center gap-3">
+              <span className="material-symbols-outlined text-secondary">terminal</span>
+              <span className="font-label-md text-label-md">Robust Testing Culture</span>
+            </div>
+          </div>
+        </div>
+      </section>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {projects.map((project, idx) => (
-            <motion.div
-              key={idx}
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: idx * 0.08 }}
-              whileHover={{ y: -4 }}
-              className="glass-effect rounded-3xl overflow-hidden border-accent/10 card-hover group"
-            >
-              <div className="h-36 relative overflow-hidden bg-secondary/80">
-                <div className="absolute inset-0 bg-gradient-to-br from-zinc-900 via-zinc-800 to-zinc-900" />
-                <PatternBg type={project.headerType} />
-                <div className="absolute inset-0 flex items-center justify-between px-6">
-                  <div className="p-2.5 rounded-2xl border border-accent/20 bg-zinc-900/60">
-                    {renderIcon(project.icon)}
-                  </div>
-                  <span className="text-xs font-mono text-accent/60 bg-zinc-900/60 px-3 py-1.5 rounded-full border border-accent/20">
-                    {project.metric}
-                  </span>
-                </div>
-                <div className="absolute top-3 right-4 font-mono text-xs text-zinc-600 font-bold">
-                  {`0${idx + 1}`}
-                </div>
-              </div>
-
-              <div className="p-6">
-                <div className="flex items-start justify-between mb-3">
-                  <h3 className="text-lg font-bold text-zinc-100 group-hover:text-accent transition-colors">
-                    {project.title}
-                  </h3>
-                  <ArrowUpRight size={16} className="text-accent/30 group-hover:text-accent transition-colors mt-1 shrink-0 ml-2 opacity-0 group-hover:opacity-100 transition-opacity" />
-                </div>
-                <p className="text-sm text-zinc-400 leading-relaxed mb-5">
-                  {project.description}
-                </p>
-
-                <div className="flex flex-wrap gap-2 mb-5">
-                  {project.highlights.map((h: string, hidx: number) => (
-                    <span key={hidx} className="text-xs px-3 py-1 rounded-full bg-accent/10 text-accent border border-accent/20">
-                      {h}
-                    </span>
-                  ))}
-                </div>
-
-                <div className="border-t border-accent/10 pt-4">
-                  <p className="text-[10px] text-zinc-600 mb-2 font-semibold uppercase tracking-wider">Stack</p>
-                  <div className="flex flex-wrap gap-1.5">
-                    {project.tech.map((tech: string, tidx: number) => (
-                      <span key={tidx} className="text-xs px-2 py-1 rounded-lg bg-zinc-800/60 text-zinc-400">
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          ))}
+      {/* Project Grid (Bento Style) */}
+      <section className="max-w-container-max mx-auto px-margin-mobile md:px-gutter relative z-10" id="projects">
+        {/* SECTION HEADER: Enterprise Complexity */}
+        <div className="flex items-center gap-4 mb-8">
+          <h2 className="font-headline-md text-headline-md">Enterprise Complexity</h2>
+          <div className="h-[1px] flex-grow bg-border-subtle"></div>
+          <span className="font-label-sm text-label-sm text-on-surface-variant">Tier 01</span>
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3, duration: 0.5 }}
-          className="mt-16 text-center"
-        >
-          <p className="text-zinc-500 mb-6">{projectsData.ctaText}</p>
-          <motion.a
-            href={social.github.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            whileHover={{ scale: 1.02 }}
-            className="inline-flex items-center gap-2 px-8 py-3 bg-gradient-to-r from-accent to-neon text-white rounded-xl font-medium text-sm transition-all hover:shadow-lg hover:shadow-accent/25"
-          >
-            {projectsData.ctaButtonText}
-          </motion.a>
-        </motion.div>
-      </div>
-    </div>
+        {/* FEATURED PROJECT: InsuranceClaim Platform */}
+        <div className="mb-12 grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+          <div className="lg:col-span-8 group">
+            <div className="glass-card rounded-xl p-8 h-full border border-primary/20 relative overflow-hidden transition-transform duration-500 hover:-translate-y-1">
+              <div className="absolute top-0 right-0 p-4">
+                <span className="bg-secondary/10 text-secondary border border-secondary/20 px-3 py-1 rounded-full font-label-sm text-label-sm flex items-center gap-2">
+                  <span className="w-2 h-2 bg-secondary rounded-full animate-pulse-dot"></span>
+                  PREMIER CASE STUDY
+                </span>
+              </div>
+              <div className="mb-8">
+                <h3 className="font-headline-md text-headline-md text-primary mb-2">InsuranceClaim Platform</h3>
+                <p className="text-on-surface-variant max-w-2xl font-body-md">A unified ecosystem for automating high-volume claims processing through AI-driven fraud detection and distributed microservices architecture.</p>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                <div>
+                  <h4 className="font-label-md text-label-md text-secondary mb-4 flex items-center gap-2">
+                    <span className="material-symbols-outlined text-[18px]">account_tree</span>
+                    Architectural Challenges
+                  </h4>
+                  <ul className="space-y-3 font-body-md text-on-surface-variant text-sm">
+                    <li className="flex items-start gap-2">
+                      <span className="text-primary mt-1">&#9657;</span>
+                      Real-time consistency across 5+ independent services during peak loads.
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-primary mt-1">&#9657;</span>
+                      Latency-sensitive AI inferencing for instant document verification.
+                    </li>
+                  </ul>
+                </div>
+                <div>
+                  <h4 className="font-label-md text-label-md text-secondary mb-4 flex items-center gap-2">
+                    <span className="material-symbols-outlined text-[18px]">psychology</span>
+                    AI Implementation
+                  </h4>
+                  <ul className="space-y-3 font-body-md text-on-surface-variant text-sm">
+                    <li className="flex items-start gap-2">
+                      <span className="text-primary mt-1">&#9657;</span>
+                      LLM-integrated extraction pipelines (OCR) with 98.4% accuracy.
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-primary mt-1">&#9657;</span>
+                      Predictive modeling for claim approval priority based on historical data.
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div className="flex flex-wrap gap-2 mb-8">
+                {['Django / Python', 'React / Next.js', 'Redis Pub/Sub', 'PostgreSQL Cluster', 'PyTorch', 'Docker & K8s'].map((tag) => (
+                  <span key={tag} className="bg-surface-variant px-3 py-1 rounded border border-border-subtle font-label-sm text-label-sm">{tag}</span>
+                ))}
+              </div>
+              <div className="bg-surface-deep/50 rounded-lg p-4 border border-border-subtle">
+                <h4 className="font-label-md text-label-md mb-2 text-on-surface">Lifecycle & Testing Strategy</h4>
+                <div className="grid grid-cols-3 gap-4">
+                  <div className="text-center p-2">
+                    <div className="text-primary font-bold mb-1">Planning</div>
+                    <div className="text-[10px] text-on-surface-variant uppercase tracking-widest">C4 Model Diagrams</div>
+                  </div>
+                  <div className="text-center p-2 border-x border-border-subtle">
+                    <div className="text-secondary font-bold mb-1">TDD</div>
+                    <div className="text-[10px] text-on-surface-variant uppercase tracking-widest">Django TestCase (94%)</div>
+                  </div>
+                  <div className="text-center p-2">
+                    <div className="text-on-surface font-bold mb-1">CI/CD</div>
+                    <div className="text-[10px] text-on-surface-variant uppercase tracking-widest">GitHub Actions</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* SIDE STATS / ASYMMETRIC ELEMENT */}
+          <div className="lg:col-span-4 flex flex-col gap-gutter">
+            <div className="glass-card rounded-xl p-6 border-l-4 border-l-primary flex flex-col justify-between flex-grow">
+              <span className="material-symbols-outlined text-primary text-4xl mb-4">analytics</span>
+              <div>
+                <div className="text-3xl font-bold text-primary mb-1">45%</div>
+                <div className="font-label-md text-label-md text-on-surface-variant">Reduction in Claim TAT</div>
+              </div>
+            </div>
+            <div className="bg-surface-card rounded-xl p-6 border border-border-subtle relative overflow-hidden group">
+              <div className="relative z-10">
+                <h4 className="font-headline-sm text-headline-sm mb-2">Live Node Monitoring</h4>
+                <p className="font-label-sm text-label-sm text-on-surface-variant">The architecture supports horizontal scaling up to 10k concurrent requests.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* SECTION HEADER: Specialized SaaS & Services */}
+        <div className="flex items-center gap-4 mb-8 mt-20">
+          <h2 className="font-headline-md text-headline-md">Specialized SaaS & Micro-Integrations</h2>
+          <div className="h-[1px] flex-grow bg-border-subtle"></div>
+          <span className="font-label-sm text-label-sm text-on-surface-variant">Tier 02</span>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+          {/* ServiceLink Project */}
+          <div className="glass-card rounded-xl p-8 border border-border-subtle hover:border-primary/40 transition-all">
+            <div className="flex justify-between items-start mb-6">
+              <h3 className="font-headline-sm text-headline-sm">ServiceLink</h3>
+              <span className="material-symbols-outlined text-on-surface-variant">hub</span>
+            </div>
+            <p className="font-body-md text-on-surface-variant mb-6">
+              An API aggregator for home service providers. Solves the fragmentation of scheduling across different legacy CRM systems.
+            </p>
+            <div className="space-y-4 mb-8">
+              <div>
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="material-symbols-outlined text-secondary text-sm">settings_input_component</span>
+                  <span className="font-label-md text-label-md">Integration Challenge</span>
+                </div>
+                <p className="text-sm text-on-surface-variant pl-6">Normalization of disparate SOAP/REST endpoints into a unified GraphQL interface.</p>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                {['PHP / Laravel', 'GraphQL', 'PHPUnit'].map((tag) => (
+                  <span key={tag} className="bg-surface-container-high px-2 py-1 rounded text-[10px] font-label-sm border border-outline-variant">{tag}</span>
+                ))}
+              </div>
+            </div>
+            <div className="border-t border-border-subtle pt-6 flex justify-between items-center">
+              <span className="font-label-sm text-label-sm text-secondary">Unit Testing coverage: 100%</span>
+              <a className="text-primary font-label-md text-label-md flex items-center gap-1 hover:underline" href="#">
+                View Docs <span className="material-symbols-outlined text-sm">arrow_outward</span>
+              </a>
+            </div>
+          </div>
+
+          {/* Restaurant SaaS Project */}
+          <div className="glass-card rounded-xl p-8 border border-border-subtle hover:border-primary/40 transition-all">
+            <div className="flex justify-between items-start mb-6">
+              <h3 className="font-headline-sm text-headline-sm">Restaurant Operations SaaS</h3>
+              <span className="material-symbols-outlined text-on-surface-variant">restaurant</span>
+            </div>
+            <p className="font-body-md text-on-surface-variant mb-6">
+              A multi-tenant platform for inventory management and real-time ordering sync between kitchen and floor staff.
+            </p>
+            <div className="space-y-4 mb-8">
+              <div>
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="material-symbols-outlined text-secondary text-sm">speed</span>
+                  <span className="font-label-md text-label-md">Operational Challenge</span>
+                </div>
+                <p className="text-sm text-on-surface-variant pl-6">Ensuring sub-100ms state updates via WebSockets for zero-friction order delivery.</p>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                {['Node.js', 'Socket.io', 'MongoDB', 'Jest'].map((tag) => (
+                  <span key={tag} className="bg-surface-container-high px-2 py-1 rounded text-[10px] font-label-sm border border-outline-variant">{tag}</span>
+                ))}
+              </div>
+            </div>
+            <div className="border-t border-border-subtle pt-6 flex justify-between items-center">
+              <span className="font-label-sm text-label-sm text-secondary">Modular Architecture</span>
+              <a className="text-primary font-label-md text-label-md flex items-center gap-1 hover:underline" href="#">
+                Architecture Diagram <span className="material-symbols-outlined text-sm">open_in_new</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Technical Process / Methodology */}
+      <section className="max-w-container-max mx-auto px-margin-mobile md:px-gutter mt-32 relative z-10">
+        <div className="bg-surface-container-low rounded-2xl border border-border-subtle p-12 overflow-hidden relative">
+          <div className="absolute -right-20 -bottom-20 w-80 h-80 bg-primary/5 rounded-full blur-[100px]"></div>
+          <h2 className="font-headline-md text-headline-md mb-12 text-center">My Implementation Workflow</h2>
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+            {[
+              { num: '01', title: 'Discovery', desc: 'Requirement gathering and domain modeling via DDD principles.' },
+              { num: '02', title: 'Architecting', desc: 'Selecting the right stack for scalability, reliability, and security.' },
+              { num: '03', title: 'Engineering', desc: 'Clean code implementation with TDD and robust CI/CD pipelines.' },
+              { num: '04', title: 'Evolution', desc: 'Post-deployment monitoring, observability, and iterative tuning.' },
+            ].map((step) => (
+              <div key={step.num} className="flex flex-col items-center text-center">
+                <div className="w-12 h-12 rounded-full bg-surface-variant flex items-center justify-center text-primary mb-4 border border-primary/20">
+                  <span className="font-label-md">{step.num}</span>
+                </div>
+                <h4 className="font-headline-sm text-headline-sm text-sm mb-2 uppercase tracking-wider">{step.title}</h4>
+                <p className="text-xs text-on-surface-variant">{step.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    </main>
   )
 }
