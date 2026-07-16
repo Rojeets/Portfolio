@@ -1,256 +1,430 @@
 'use client'
 import Link from 'next/link'
+import { ArrowUpRight, Code, Database, HardDrives, Cpu, Gear, Rocket } from '@/components/Icons'
+import About from '@/components/About'
+import ScrollReveal from '@/components/ScrollReveal'
+import ExperienceCarousel from '@/components/ExperienceCarousel'
+import SkillConstellation from '@/components/SkillConstellation'
+import portfolioData from '@/data/portfolio.json'
+import type { PortfolioData, Project } from '@/lib/types'
+
+const data = portfolioData as PortfolioData
+
+const philosophySteps = [
+  { icon: Gear, title: 'Plan', desc: 'Requirement gathering and domain modeling' },
+  { icon: Code, title: 'Architect', desc: 'Scalable schemas and system design' },
+  { icon: Rocket, title: 'Implement', desc: 'Clean code with industry patterns' },
+  { icon: Database, title: 'Test', desc: 'Automated testing for stability' },
+  { icon: HardDrives, title: 'Maintain', desc: 'Monitoring and optimization' },
+]
 
 export default function HomePage() {
+  const featuredProjects = data.projects.items.slice(0, 3)
+
   return (
-    <main className="pt-16">
-      {/* Hero Section */}
-      <section className="relative min-h-[921px] flex items-center overflow-hidden px-margin-mobile md:px-gutter">
-        <div className="max-w-container-max mx-auto w-full relative z-10 grid md:grid-cols-12 gap-gutter items-center">
-          <div className="md:col-span-8">
-            <div className="inline-flex items-center gap-2 px-3 py-1 bg-surface-variant/50 border border-border-subtle mb-6">
-              <span className="material-symbols-outlined text-secondary text-sm">settings_input_component</span>
-              <span className="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest">Full-Stack Architect</span>
+    <main className="">
+      {/* Hero */}
+      <section id="hero" className="relative h-screen flex flex-col justify-center overflow-hidden pl-12 md:pl-20">
+        <div className="max-w-3xl">
+          <p className="text-xs tracking-[0.2em] uppercase text-text-eyebrow mb-5 font-mono">
+            {data.personal.name} / {data.personal.title}
+          </p>
+
+          <h1 className="text-5xl md:text-6xl lg:text-[68px] font-display font-light leading-[1.05] tracking-[-0.02em] mb-6">
+            Building systems{' '}
+            <b className="font-semibold">that scale</b>{' '}
+            across infrastructure.
+          </h1>
+
+          <p className="text-body-md text-text-secondary leading-relaxed max-w-md">
+            {data.personal.tagline}
+          </p>
+        </div>
+
+        <div className="absolute bottom-10 left-12 md:left-20 text-xs text-text-muted tracking-[0.08em] uppercase font-mono">
+          Move to explore · scroll to enter
+        </div>
+
+        {/* Terminal card — desktop only */}
+        <div className="hidden lg:block absolute right-20 top-1/2 -translate-y-1/2">
+          <div className="relative">
+            <div className="absolute -inset-4 bg-blue-core/5 rounded-2xl blur-xl" />
+            <div className="relative bg-bg-panel/80 backdrop-blur-sm border border-panel-border rounded-xl p-8 w-80">
+              <div className="flex items-center gap-2 mb-6">
+                <div className="w-2 h-2 rounded-full bg-red-500/60" />
+                <div className="w-2 h-2 rounded-full bg-yellow-500/60" />
+                <div className="w-2 h-2 rounded-full bg-green-live/60" />
+                <span className="ml-2 text-xs font-mono text-text-muted">terminal</span>
+              </div>
+              <div className="font-mono text-sm space-y-2">
+                <p className="text-text-muted">
+                  <span className="text-blue-core">$</span> whoami
+                </p>
+                <p className="text-text-primary pl-2">Rojit Pokharel</p>
+                <p className="text-text-muted">
+                  <span className="text-blue-core">$</span> cat role.txt
+                </p>
+                <p className="text-text-primary pl-2">{data.personal.title}</p>
+                <p className="text-text-muted">
+                  <span className="text-blue-core">$</span> echo $STACK
+                </p>
+                <p className="text-blue-light pl-2">Laravel &middot; React &middot; Django &middot; Docker</p>
+                <p className="text-text-muted">
+                  <span className="text-blue-core">$</span> <span className="animate-pulse">_</span>
+                </p>
+              </div>
             </div>
-            <h1 className="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg text-on-surface mb-6">
-              Engineering <span className="text-primary-container">Scalable Solutions:</span><br />
-              From Architecture to Maintenance.
-            </h1>
-            <p className="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mb-8">
-              Specializing in high-performance microservices and robust system design using{' '}
-              <span className="text-code-cyan font-label-md">Django, Laravel, React,</span> and{' '}
-              <span className="text-code-cyan font-label-md">React Native</span>. Building the digital infrastructure of tomorrow with precision.
+          </div>
+        </div>
+      </section>
+
+      {/* About */}
+      <About />
+
+      {/* Philosophy */}
+      <section id="philosophy" className="py-20 relative overflow-hidden">
+        <div className="max-w-6xl mx-auto px-6">
+          <ScrollReveal>
+            <div className="flex items-center gap-3 mb-4">
+              <span className="text-gradient text-sm font-display font-semibold uppercase tracking-widest">Process</span>
+              <div className="h-px flex-1 bg-gradient-to-r from-blue-core/30 to-transparent" />
+            </div>
+            <h2 className="text-4xl md:text-5xl font-display font-semibold mb-2">
+              Philosophy
+            </h2>
+            <p className="text-body-md text-text-secondary mb-12">
+              How I approach every project.
             </p>
-            <div className="flex flex-wrap gap-4">
+          </ScrollReveal>
+
+          {/* Timeline strip */}
+          <ScrollReveal className="relative" stagger={0}>
+            {/* Horizontal connecting line (desktop) */}
+            <div className="hidden lg:block absolute top-[52px] left-0 right-0 h-px bg-gradient-to-r from-transparent via-blue-core/20 to-transparent" />
+
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 lg:gap-3">
+              {philosophySteps.map((step, i) => (
+                <div key={step.title} className="relative group">
+                  {/* Step number dot on the timeline (desktop) */}
+                  <div className="hidden lg:flex absolute -top-[11px] left-6 w-6 h-6 rounded-full bg-bg-void border-2 border-blue-core/30 items-center justify-center z-10 group-hover:border-blue-core transition-colors">
+                    <span className="text-[8px] font-mono text-blue-light">{String(i + 1).padStart(2, '0')}</span>
+                  </div>
+
+                  <div className="card-base p-5 pt-6 lg:pt-10 h-full group-hover:-translate-y-1 group-hover:border-blue-core/20 group-hover:shadow-lg group-hover:shadow-blue-core/5 transition-all duration-300 relative overflow-hidden">
+                    {/* Hover glow */}
+                    <div className="absolute inset-0 bg-gradient-to-b from-blue-core/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
+
+                    <div className="relative">
+                      <div className="w-10 h-10 rounded-xl bg-blue-core/10 flex items-center justify-center text-blue-light mb-4 group-hover:bg-blue-core/15 transition-colors">
+                        <step.icon size={20} />
+                      </div>
+                      <h3 className="font-display font-semibold text-base text-text-primary mb-1.5">{step.title}</h3>
+                      <p className="text-xs text-text-muted leading-relaxed">{step.desc}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      {/* Skills */}
+      <section className="py-20 bg-panel-bg/20 relative" id="skills">
+        <div className="max-w-6xl mx-auto px-6">
+          <ScrollReveal>
+            <div className="flex items-center gap-3 mb-4">
+              <span className="text-gradient text-sm font-display font-semibold uppercase tracking-widest">Skills</span>
+              <div className="h-px flex-1 bg-gradient-to-r from-blue-core/30 to-transparent" />
+            </div>
+            <h2 className="text-4xl md:text-5xl font-display font-semibold mb-2">
+              Technical <span className="text-gradient">Ecosystem</span>
+            </h2>
+            <p className="text-body-md text-text-secondary mb-12 max-w-lg">
+              A summary of the tools and technologies I work with daily.
+            </p>
+          </ScrollReveal>
+
+          {/* Interactive constellation */}
+          <ScrollReveal>
+            <SkillConstellation categories={data.skills.categories} />
+          </ScrollReveal>
+
+          {/* Real-world applications */}
+          <ScrollReveal className="mt-12">
+            <p className="text-[11px] font-mono text-text-muted uppercase tracking-wider mb-4">
+              {data.skills.realWorldTitle}
+            </p>
+            <div className="flex flex-wrap gap-2">
+              {data.skills.realWorldApplications.map((app) => (
+                <span
+                  key={app}
+                  className="px-3 py-1.5 text-xs font-mono bg-blue-core/5 text-blue-light/70 rounded-full border border-blue-core/10 hover:border-blue-core/25 hover:text-blue-light transition-colors cursor-default"
+                >
+                  {app}
+                </span>
+              ))}
+            </div>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      {/* Projects Preview */}
+      <section className="py-20 relative" id="projects">
+        <div className="max-w-6xl mx-auto px-6">
+          <ScrollReveal>
+            <div className="flex items-center gap-3 mb-4">
+              <span className="text-gradient text-sm font-display font-semibold uppercase tracking-widest">Work</span>
+              <div className="h-px flex-1 bg-gradient-to-r from-blue-core/30 to-transparent" />
+            </div>
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-4">
+              <div>
+                <h2 className="text-4xl md:text-5xl font-display font-semibold mb-2">
+                  {data.projects.sectionTitle}
+                </h2>
+                <p className="text-body-md text-text-secondary max-w-lg">
+                  {data.projects.sectionSubtitle}
+                </p>
+              </div>
               <Link
                 href="/projects"
-                className="px-8 py-4 bg-primary-container text-on-primary-container font-label-md text-label-md hover:scale-105 transition-transform flex items-center gap-2 glow-accent"
+                className="text-blue-light text-sm font-medium flex items-center gap-1.5 hover:gap-2.5 transition-all shrink-0"
               >
-                View Selected Work <span className="material-symbols-outlined">arrow_forward</span>
+                View All <ArrowUpRight size={14} />
               </Link>
+            </div>
+          </ScrollReveal>
+
+          {/* Masonry layout: featured large + 2 stacked */}
+          <div className="grid lg:grid-cols-3 gap-4 auto-rows-auto">
+            {/* Featured project — 2 cols on desktop */}
+            <ScrollReveal className="lg:col-span-2 lg:row-span-2" direction="left">
+              <Link href={`/projects#${featuredProjects[0].title.toLowerCase().replace(/\s+/g, '-')}`} className="block h-full">
+                <div className="card-base h-full p-6 md:p-8 flex flex-col group relative overflow-hidden group-hover:-translate-y-1 group-hover:border-blue-core/20 group-hover:shadow-lg group-hover:shadow-blue-core/5 transition-all duration-300">
+                  {/* Gradient header accent */}
+                  <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-core/40 via-blue-light/30 to-blue-core/40" />
+                  <div className="absolute inset-0 bg-gradient-to-br from-blue-core/5 via-transparent to-transparent pointer-events-none" />
+
+                  <div className="relative flex-1 flex flex-col">
+                    <div className="flex items-center justify-between mb-5">
+                      <div className="w-11 h-11 rounded-xl bg-blue-core/10 flex items-center justify-center text-blue-light">
+                        <Cpu size={22} />
+                      </div>
+                      <span className="text-[11px] font-mono text-green-live flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-green-live/5 border border-green-live/10">
+                        <span className="w-1.5 h-1.5 rounded-full bg-green-live animate-pulse-dot" />
+                        {featuredProjects[0].metric}
+                      </span>
+                    </div>
+                    <h3 className="text-xl md:text-2xl font-display font-semibold mb-3 group-hover:text-blue-light transition-colors">
+                      {featuredProjects[0].title}
+                    </h3>
+                    <p className="text-sm text-text-secondary mb-6 leading-relaxed line-clamp-4">
+                      {featuredProjects[0].description}
+                    </p>
+                    <div className="flex flex-wrap gap-1.5 mt-auto">
+                      {featuredProjects[0].tech.map((tag) => (
+                        <span key={tag} className="px-2.5 py-1 text-[11px] font-mono bg-white/[0.03] text-text-muted rounded-md border border-panel-border">
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </Link>
+            </ScrollReveal>
+
+            {/* Stacked smaller projects */}
+            {featuredProjects.slice(1).map((project: Project, idx) => (
+              <ScrollReveal key={project.title} direction="right" delay={idx * 0.1}>
+                <Link href={`/projects#${project.title.toLowerCase().replace(/\s+/g, '-')}`} className="block h-full">
+                  <div className="card-base h-full p-5 flex flex-col group relative overflow-hidden group-hover:-translate-y-1 group-hover:border-blue-core/20 group-hover:shadow-lg group-hover:shadow-blue-core/5 transition-all duration-300">
+                    <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-blue-core/20 to-transparent" />
+
+                    <div className="flex items-center justify-between mb-3">
+                      <div className="w-9 h-9 rounded-lg bg-blue-core/10 flex items-center justify-center text-blue-light">
+                        <Cpu size={18} />
+                      </div>
+                      <span className="text-[11px] font-mono text-green-live flex items-center gap-1.5">
+                        <span className="w-1.5 h-1.5 rounded-full bg-green-live animate-pulse-dot" />
+                        {project.metric}
+                      </span>
+                    </div>
+                    <h3 className="text-base font-display font-semibold mb-2 group-hover:text-blue-light transition-colors">
+                      {project.title}
+                    </h3>
+                    <p className="text-sm text-text-secondary mb-4 line-clamp-3 leading-relaxed flex-1">
+                      {project.description}
+                    </p>
+                    <div className="flex flex-wrap gap-1.5 mt-auto">
+                      {project.tech.slice(0, 3).map((tag) => (
+                        <span key={tag} className="px-2 py-0.5 text-[11px] font-mono bg-white/[0.03] text-text-muted rounded-md border border-panel-border">
+                          {tag}
+                        </span>
+                      ))}
+                      {project.tech.length > 3 && (
+                        <span className="px-2 py-0.5 text-[11px] font-mono text-text-muted">
+                          +{project.tech.length - 3}
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                </Link>
+              </ScrollReveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Blog Preview */}
+      <section className="py-20 bg-panel-bg/20 relative" id="blog">
+        <div className="max-w-6xl mx-auto px-6">
+          <ScrollReveal>
+            <div className="flex items-center gap-3 mb-4">
+              <span className="text-gradient text-sm font-display font-semibold uppercase tracking-widest">Writing</span>
+              <div className="h-px flex-1 bg-gradient-to-r from-blue-core/30 to-transparent" />
+            </div>
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-4">
+              <div>
+                <h2 className="text-4xl md:text-5xl font-display font-semibold mb-2">
+                  From the Terminal
+                </h2>
+                <p className="text-body-md text-text-secondary max-w-lg">
+                  Thoughts on system design, scalability, and the craft of building.
+                </p>
+              </div>
               <Link
-                href="/skills"
-                className="px-8 py-4 border border-primary-container text-primary-container font-label-md text-label-md hover:bg-primary-container/10 transition-all"
+                href="/blog"
+                className="text-blue-light text-sm font-medium flex items-center gap-1.5 hover:gap-2.5 transition-all shrink-0"
               >
-                Technical Resume
+                All Posts <ArrowUpRight size={14} />
               </Link>
             </div>
-          </div>
-          <div className="hidden md:block md:col-span-4">
-            <div className="relative glass-card p-6 border border-border-subtle aspect-square flex flex-col justify-between">
-              <div className="absolute -top-3 -left-3 w-6 h-6 border-t-2 border-l-2 border-primary"></div>
-              <div className="absolute -bottom-3 -right-3 w-6 h-6 border-b-2 border-r-2 border-primary"></div>
-              <div className="font-label-sm text-label-sm text-code-cyan mb-4">system_status.log</div>
-              <div className="space-y-4">
-                <div className="h-2 w-3/4 bg-border-subtle/30 rounded"></div>
-                <div className="h-2 w-full bg-border-subtle/30 rounded"></div>
-                <div className="h-2 w-1/2 bg-primary/20 rounded"></div>
-                <div className="h-2 w-5/6 bg-border-subtle/30 rounded"></div>
-                <div className="flex items-center gap-2 mt-8">
-                  <span className="text-secondary material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>
-                  <span className="font-label-md text-label-md">Architecture Validated</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="text-secondary material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>
-                  <span className="font-label-md text-label-md">Deployment Success</span>
-                </div>
-              </div>
-              <div className="mt-auto pt-8 border-t border-border-subtle">
-                <div className="text-on-surface-variant font-label-sm text-label-sm">Active Nodes</div>
-                <div className="font-headline-sm text-headline-sm text-primary">12 Cluster Units</div>
-              </div>
+          </ScrollReveal>
+
+          {/* Featured first post + remaining */}
+          <div className="grid lg:grid-cols-2 gap-4">
+            {/* Featured blog post — large */}
+            {data.blog.items[0] && (
+              <ScrollReveal direction="left">
+                <Link href={`/blog/${data.blog.items[0].slug}`} className="block h-full">
+                  <article className="card-blog group relative overflow-hidden group-hover:-translate-y-1 group-hover:border-blue-core/20 group-hover:shadow-lg group-hover:shadow-blue-core/5 transition-all duration-300 h-full flex flex-col">
+                    {data.blog.items[0].image && (
+                      <div className="aspect-[16/9] overflow-hidden relative">
+                        <img
+                          src={data.blog.items[0].image}
+                          alt={data.blog.items[0].title}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-bg-void/80 via-transparent to-transparent" />
+                        <div className="absolute bottom-4 left-4 right-4">
+                          <span className="text-[11px] font-mono text-blue-light px-2.5 py-1 rounded-full bg-blue-core/10 backdrop-blur-sm border border-blue-core/20">
+                            {data.blog.items[0].tags[0]}
+                          </span>
+                        </div>
+                      </div>
+                    )}
+                    <div className="p-5 flex flex-col flex-1">
+                      <h3 className="font-display font-semibold text-lg text-text-primary mb-2 group-hover:text-blue-light transition-colors">
+                        {data.blog.items[0].title}
+                      </h3>
+                      <p className="text-sm text-text-muted line-clamp-2 mb-4 leading-relaxed">{data.blog.items[0].excerpt}</p>
+                      <div className="flex items-center gap-3 mt-auto text-[11px] text-text-muted font-mono">
+                        <span className="flex items-center gap-1.5">
+                          <span className="w-1.5 h-1.5 rounded-full bg-blue-core/40" />
+                          {data.blog.items[0].readTime}
+                        </span>
+                        <span className="text-panel-border">|</span>
+                        <span>{data.blog.items[0].date}</span>
+                      </div>
+                    </div>
+                  </article>
+                </Link>
+              </ScrollReveal>
+            )}
+
+            {/* Remaining posts — stacked */}
+            <div className="flex flex-col gap-4">
+              {data.blog.items.slice(1).map((blog: any, idx: number) => (
+                <ScrollReveal key={blog.slug} direction="right" delay={idx * 0.1}>
+                  <Link href={`/blog/${blog.slug}`} className="block">
+                    <article className="card-blog group relative overflow-hidden group-hover:-translate-y-1 group-hover:border-blue-core/20 group-hover:shadow-lg group-hover:shadow-blue-core/5 transition-all duration-300 flex flex-row">
+                      {blog.image && (
+                        <div className="w-32 sm:w-40 shrink-0 overflow-hidden">
+                          <img
+                            src={blog.image}
+                            alt={blog.title}
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                          />
+                        </div>
+                      )}
+                      <div className="p-4 flex flex-col flex-1">
+                        <span className="text-[11px] font-mono text-blue-light mb-1.5">{blog.tags[0]}</span>
+                        <h3 className="font-display font-semibold text-sm text-text-primary mb-1.5 group-hover:text-blue-light transition-colors line-clamp-2">
+                          {blog.title}
+                        </h3>
+                        <p className="text-xs text-text-muted line-clamp-2 mb-2 leading-relaxed">{blog.excerpt}</p>
+                        <div className="flex items-center gap-3 mt-auto text-[11px] text-text-muted font-mono">
+                          <span>{blog.readTime}</span>
+                          <span className="text-panel-border">|</span>
+                          <span>{blog.date}</span>
+                        </div>
+                      </div>
+                    </article>
+                  </Link>
+                </ScrollReveal>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
-      {/* Core Philosophy (Lifecycle) */}
-      <section className="py-section-gap px-margin-mobile md:px-gutter bg-surface-deep">
-        <div className="max-w-container-max mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="font-headline-md text-headline-md text-on-surface mb-4">Core Philosophy</h2>
-            <p className="font-body-md text-body-md text-on-surface-variant max-w-xl mx-auto">
-              A rigorous lifecycle approach ensures that every project is built for longevity, performance, and scalability.
-            </p>
-          </div>
-          <div className="grid md:grid-cols-5 gap-4">
-            {[
-              { step: '01', title: 'Plan', icon: 'lightbulb', desc: 'Defining requirements and mapping user journeys through technical discovery.' },
-              { step: '02', title: 'Architect', icon: 'architecture', desc: 'Designing scalable microservices and data schemas for optimal performance.' },
-              { step: '03', title: 'Implement', icon: 'code', desc: 'Clean code execution using industry-standard design patterns and frameworks.' },
-              { step: '04', title: 'Test', icon: 'precision_manufacturing', desc: 'Automated unit testing and integration checks to guarantee stability.' },
-              { step: '05', title: 'Maintain', icon: 'speed', desc: 'Continuous monitoring and optimization post-deployment.' },
-            ].map((item) => (
-              <div key={item.step} className="p-6 bg-surface-container border border-border-subtle hover:border-primary/50 transition-colors group">
-                <div className="w-12 h-12 flex items-center justify-center bg-surface-variant mb-6 group-hover:scale-110 transition-transform">
-                  <span className="material-symbols-outlined text-primary text-3xl">{item.icon}</span>
-                </div>
-                <h3 className="font-label-md text-label-md text-on-surface mb-2 uppercase tracking-wider">{item.step}. {item.title}</h3>
-                <p className="font-label-sm text-label-sm text-on-surface-variant">{item.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* Experience */}
+      <ExperienceCarousel
+        roles={data.experience.roles}
+        education={data.experience.education}
+        achievements={data.experience.achievements}
+      />
 
-      {/* Selected Work Preview */}
-      <section className="py-section-gap px-margin-mobile md:px-gutter" id="projects">
-        <div className="max-w-container-max mx-auto">
-          <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
-            <div className="max-w-2xl">
-              <h2 className="font-headline-md text-headline-md text-on-surface mb-4">Selected Work</h2>
-              <p className="font-body-md text-body-md text-on-surface-variant">
-                A curated selection of architectural challenges solved across finance, e-commerce, and logistics sectors.
+      {/* CTA */}
+      <section id="cta" className="py-24 relative overflow-hidden">
+        {/* Aurora gradient background */}
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-core/8 via-bg-void to-purple-500/5 animate-aurora" />
+        <div className="absolute inset-0 bg-gradient-to-t from-bg-void via-transparent to-bg-void" />
+
+        <div className="relative max-w-6xl mx-auto px-6">
+          <ScrollReveal>
+            {/* Availability badge */}
+            <div className="flex justify-center mb-8">
+              <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-green-live/15 bg-green-live/5 text-xs font-mono text-green-live">
+                <span className="w-2 h-2 rounded-full bg-green-live animate-pulse-dot" />
+                {data.personal.availability}
+              </span>
+            </div>
+
+            <div className="text-center max-w-2xl mx-auto">
+              <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-semibold mb-6 leading-tight">
+                Ready to build<br />
+                <span className="text-gradient">something great?</span>
+              </h2>
+              <p className="text-body-lg text-text-secondary mb-10 max-w-md mx-auto">
+                Let&apos;s turn your ideas into production-grade systems.
               </p>
-            </div>
-            <Link href="/projects" className="text-primary-container font-label-md text-label-md flex items-center gap-2 group">
-              View All Projects <span className="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_outward</span>
-            </Link>
-          </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {/* Project Card 1 */}
-            <div className="group bg-surface-container border border-border-subtle overflow-hidden flex flex-col">
-              <div className="h-64 overflow-hidden relative">
-                <img
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuCs3rjC5D869zvm7QRsIG-JVo_C1mc3PzIrYG4SZRGqR-wf6fdGcpuMIVfc72fnNgoIGDPsAXKosIPB5Z7oEXX1-Ai3Lzq2a4SpUCdu2HPVdJpuNmL1GHn0pMebQwdqCutzAUJ4Y6ONckObC925JlYZBp7FUdV2uZnyxKD2m6jvmFt_kUYpLkwrifYBOAzrl9vJ2QFmxv72hx5XaioZ-5YG0qE2gQVTn9pZNpAvll4Rm5r8WFOrNYwfhA"
-                  alt="OmniPay Microservices Dashboard"
-                />
-                <div className="absolute top-4 right-4 flex gap-2">
-                  <span className="bg-secondary/20 text-secondary px-3 py-1 font-label-sm text-label-sm flex items-center gap-1 border border-secondary/30">
-                    <span className="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse"></span> Production
-                  </span>
-                </div>
-              </div>
-              <div className="p-6 flex-grow flex flex-col">
-                <h3 className="font-headline-sm text-headline-sm text-on-surface mb-2">OmniPay Microservices</h3>
-                <p className="font-body-md text-body-md text-on-surface-variant mb-6">Scalable payment gateway architecture handling 50k+ daily transactions with 99.9% uptime.</p>
-                <div className="flex flex-wrap gap-2 mt-auto">
-                  {['Django', 'PostgreSQL', 'Redis', 'Docker'].map((tag) => (
-                    <span key={tag} className="px-2 py-1 bg-surface-variant font-label-sm text-label-sm text-primary">{tag}</span>
-                  ))}
-                </div>
+              <div className="flex flex-col sm:flex-row justify-center gap-4">
+                <Link
+                  href="mailto:info@rojitpokharel.com.np"
+                  className="inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-blue-core text-white text-sm font-semibold rounded-lg hover:bg-blue-core/90 transition-all animate-pulse-glow"
+                >
+                  Start a Conversation
+                </Link>
+                <Link
+                  href="/contact"
+                  className="inline-flex items-center justify-center gap-2 px-7 py-3.5 border border-panel-border text-text-primary text-sm font-medium rounded-lg hover:bg-white/[0.03] hover:border-blue-core/20 transition-all"
+                >
+                  Book a Sync
+                </Link>
               </div>
             </div>
-
-            {/* Project Card 2 */}
-            <div className="group bg-surface-container border border-border-subtle overflow-hidden flex flex-col">
-              <div className="h-64 overflow-hidden relative">
-                <img
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuDCsV260qy0CTKm_zcuc2fuODoogpyjR0ja6NxuledbkUiDn3aHLPJ9Kzxm6GVgWP72UHCUhTqi-RcoV6Yg4uxDjdud8cK77uBpbMddLC0vmlo2NFChafAzAAcon3UUo-MY7HkPRs2BndnvGgQHiP9NYfZXyrhi-JvExtN4HTbEzWGTbVHOUR_sSLTvm70FnOvSfYs-FeTWt1mPRK1gsIGoKeNi6vdXeJbDoF_bNRln0dEeViMRI8TmXw"
-                  alt="LogiTrack Mobile Application"
-                />
-                <div className="absolute top-4 right-4 flex gap-2">
-                  <span className="bg-primary/20 text-primary px-3 py-1 font-label-sm text-label-sm border border-primary/30">Native App</span>
-                </div>
-              </div>
-              <div className="p-6 flex-grow flex flex-col">
-                <h3 className="font-headline-sm text-headline-sm text-on-surface mb-2">LogiTrack Mobile</h3>
-                <p className="font-body-md text-body-md text-on-surface-variant mb-6">Cross-platform fleet management application with real-time GPS synchronization.</p>
-                <div className="flex flex-wrap gap-2 mt-auto">
-                  {['React Native', 'Firebase', 'Google Maps API'].map((tag) => (
-                    <span key={tag} className="px-2 py-1 bg-surface-variant font-label-sm text-label-sm text-primary">{tag}</span>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            {/* Project Card 3 */}
-            <div className="group bg-surface-container border border-border-subtle overflow-hidden flex flex-col">
-              <div className="h-64 overflow-hidden relative">
-                <img
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuCgYybT0_MTYf5DwbayMpec846hupTx16rqtLGXI73nsCHNeidx_ICZ9rdS27yPiJQUI2stz9NUCic33PI9SvqhqiehAm--qrIXku-cxw3N-oJwojN_z320EhqVZ0n5Jt8wd87hs6t5ZSLl9ZSAunzFfv5h9nCSuTzdf3Al_7o0JYfPYf2TeJsSPBMe-yhkPCi6JyEs6MimsZYPvSdggKdf9LZivP251tFHz4SCl-MblzOzM1p9OUJSDg"
-                  alt="E-Comm Engine Architecture"
-                />
-                <div className="absolute top-4 right-4 flex gap-2">
-                  <span className="bg-secondary/20 text-secondary px-3 py-1 font-label-sm text-label-sm border border-secondary/30">Case Study</span>
-                </div>
-              </div>
-              <div className="p-6 flex-grow flex flex-col">
-                <h3 className="font-headline-sm text-headline-sm text-on-surface mb-2">E-Comm Engine</h3>
-                <p className="font-body-md text-body-md text-on-surface-variant mb-6">A high-concurrency commerce engine built with Laravel, featuring complex inventory logic.</p>
-                <div className="flex flex-wrap gap-2 mt-auto">
-                  {['Laravel', 'Vue.js', 'ElasticSearch'].map((tag) => (
-                    <span key={tag} className="px-2 py-1 bg-surface-variant font-label-sm text-label-sm text-primary">{tag}</span>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Technical Stack Overview */}
-      <section className="py-section-gap px-margin-mobile md:px-gutter relative overflow-hidden" id="skills">
-        <div className="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-primary/5 to-transparent"></div>
-        <div className="max-w-container-max mx-auto relative z-10">
-          <h2 className="font-headline-md text-headline-md text-on-surface mb-12">Technical Ecosystem</h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-gutter">
-            {[
-              {
-                title: 'Frontend',
-                color: 'primary',
-                items: ['React / Next.js', 'React Native', 'Tailwind CSS', 'TypeScript'],
-              },
-              {
-                title: 'Backend',
-                color: 'secondary',
-                items: ['Django / Python', 'Laravel / PHP', 'Node.js', 'Go (Learning)'],
-              },
-              {
-                title: 'Infrastructure',
-                color: 'primary-container',
-                items: ['AWS / Azure', 'Docker / K8s', 'CI/CD Pipelines', 'Terraform'],
-              },
-              {
-                title: 'Database',
-                color: 'code-cyan',
-                items: ['PostgreSQL', 'MongoDB', 'Redis Caching', 'Elasticsearch'],
-              },
-            ].map((col) => (
-              <div key={col.title} className="space-y-8">
-                <h4 className={`font-label-md text-label-md text-on-surface-variant border-b border-border-subtle pb-2`}>
-                  {col.title}
-                </h4>
-                <ul className="space-y-4">
-                  {col.items.map((item) => (
-                    <li key={item} className="flex items-center gap-3 font-label-md text-label-md text-on-surface">
-                      <span className={`w-2 h-2 bg-${col.color}`}></span>
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-section-gap px-margin-mobile md:px-gutter bg-surface-container-high border-y border-border-subtle" id="contact">
-        <div className="max-w-container-max mx-auto text-center">
-          <h2 className="font-display-lg-mobile md:font-headline-md text-display-lg-mobile md:text-headline-md text-on-surface mb-8">
-            Ready to Architect Your Next Big Idea?
-          </h2>
-          <p className="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto mb-10">
-            Currently accepting freelance projects and architectural consulting for scalable web and mobile platforms.
-          </p>
-          <div className="flex flex-col md:flex-row justify-center items-center gap-6">
-            <Link
-              href="mailto:contact@rojit.dev"
-              className="w-full md:w-auto px-10 py-5 bg-primary-container text-on-primary-container font-label-md text-label-md flex items-center justify-center gap-3 glow-accent hover:brightness-110"
-            >
-              <span className="material-symbols-outlined">mail</span> Start a Conversation
-            </Link>
-            <Link
-              href="/contact"
-              className="w-full md:w-auto px-10 py-5 border border-primary text-primary font-label-md text-label-md flex items-center justify-center gap-3 hover:bg-primary/10"
-            >
-              <span className="material-symbols-outlined">schedule</span> Book a Technical Sync
-            </Link>
-          </div>
+          </ScrollReveal>
         </div>
       </section>
     </main>

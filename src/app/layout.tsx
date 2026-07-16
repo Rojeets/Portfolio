@@ -1,31 +1,36 @@
 import type { Metadata } from 'next'
-import { Inter, JetBrains_Mono, Hanken_Grotesk } from 'next/font/google'
+import { Space_Grotesk } from 'next/font/google'
+import { Geist_Mono } from 'next/font/google'
+import localFont from 'next/font/local'
 import '../styles/globals.css'
 import Navigation from '../components/Navigation'
 import Footer from '../components/Footer'
-
-const inter = Inter({
+import BootSequence from '../components/BootSequence'
+import SpatialCore from '../components/three/SpatialCore'
+import CustomCursor from '../components/CustomCursor'
+const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
-  variable: '--font-inter',
+  variable: '--font-space-grotesk',
+  display: 'swap',
+  weight: ['400', '500', '600', '700'],
+})
+
+const geistMono = Geist_Mono({
+  subsets: ['latin'],
+  variable: '--font-geist-mono',
   display: 'swap',
 })
 
-const jetbrainsMono = JetBrains_Mono({
-  subsets: ['latin'],
-  variable: '--font-mono',
-  display: 'swap',
-})
-
-const hankenGrotesk = Hanken_Grotesk({
-  subsets: ['latin'],
-  variable: '--font-hanken',
+const geistSans = localFont({
+  src: '../../node_modules/geist/dist/fonts/geist-sans/Geist-Variable.woff2',
+  variable: '--font-geist',
   display: 'swap',
 })
 
 export const metadata: Metadata = {
-  title: 'Rojit Pokharel | Engineering Scalable Solutions',
-  description: 'Specializing in high-performance microservices and robust system design using Django, Laravel, React, and React Native.',
-  keywords: ['Full-Stack Developer', 'Django', 'Laravel', 'React', 'React Native', 'Microservices', 'System Architecture'],
+  title: 'Rojit Pokharel | Full-Stack Developer & System Architect',
+  description: 'Full-stack developer building scalable web applications with Laravel, React, and modern technologies. Based in Kathmandu, Nepal.',
+  keywords: ['Full-Stack Developer', 'Laravel', 'React', 'Next.js', 'Django', 'System Architecture', 'Nepal'],
   authors: [{ name: 'Rojit Pokharel' }],
   icons: {
     icon: [{ url: '/favicon.svg', type: 'image/svg+xml' }],
@@ -35,15 +40,12 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className="dark">
-      <head>
-        <link
-          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
-          rel="stylesheet"
-        />
-      </head>
-      <body className={`${inter.variable} ${jetbrainsMono.variable} ${hankenGrotesk.variable} min-h-screen bg-background text-on-surface font-body-md technical-grid flex flex-col antialiased`}>
+      <body className={`${spaceGrotesk.variable} ${geistSans.variable} ${geistMono.variable} min-h-screen bg-bg-void text-text-primary font-body flex flex-col antialiased`}>
+        <CustomCursor />
+        <BootSequence />
+        <SpatialCore />
         <Navigation />
-        <main className="flex-1">{children}</main>
+        <main className="flex-1 relative z-10 max-w-[1440px] mx-auto w-full">{children}</main>
         <Footer />
       </body>
     </html>

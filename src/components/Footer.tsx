@@ -1,30 +1,40 @@
 import Link from 'next/link'
+import { GithubLogo, LinkedinLogo, EnvelopeSimple } from './Icons'
+
+const socialLinks = [
+  { icon: GithubLogo, url: 'https://github.com/rojeets', label: 'GitHub' },
+  { icon: LinkedinLogo, url: 'https://www.linkedin.com/in/rojit-pokharel/', label: 'LinkedIn' },
+  { icon: EnvelopeSimple, url: 'mailto:info@rojitpokharel.com.np', label: 'Email' },
+]
 
 export default function Footer() {
   return (
-    <footer className="w-full py-section-gap px-margin-mobile md:px-gutter bg-surface-deep border-t border-border-subtle">
-      <div className="max-w-container-max mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
-        <div className="flex flex-col items-center md:items-start">
-          <div className="font-headline-sm text-headline-sm text-primary font-bold tracking-tight mb-2">
-            Rojit Pokharel
+    <footer className="w-full border-t border-panel-border bg-bg-void/80 backdrop-blur-sm relative z-10">
+      <div className="max-w-6xl mx-auto px-6 py-12">
+        <div className="flex flex-col md:flex-row justify-between items-center gap-8">
+          <div className="flex flex-col items-center md:items-start gap-2">
+            <Link href="/" className="font-display font-semibold text-lg text-text-primary tracking-tight">
+              <span className="text-blue-core">&lt;</span>Rojit<span className="text-blue-core"> /&gt;</span>
+            </Link>
+            <p className="text-sm text-text-muted">
+              &copy; {new Date().getFullYear()} Rojit Pokharel
+            </p>
           </div>
-          <p className="font-body-md text-body-md text-on-surface-variant text-center md:text-left">
-            &copy; {new Date().getFullYear()} Rojit Pokharel. Built with Architect Precision.
-          </p>
-        </div>
-        <div className="flex flex-wrap justify-center gap-8">
-          <Link href="#" className="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors opacity-80 hover:opacity-100">
-            LinkedIn
-          </Link>
-          <Link href="#" className="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors opacity-80 hover:opacity-100">
-            GitHub
-          </Link>
-          <Link href="#" className="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors opacity-80 hover:opacity-100">
-            Twitter
-          </Link>
-          <Link href="/contact" className="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors opacity-80 hover:opacity-100">
-            Email
-          </Link>
+
+          <div className="flex items-center gap-1">
+            {socialLinks.map((link) => (
+              <a
+                key={link.label}
+                href={link.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2.5 text-text-muted hover:text-blue-light transition-colors"
+                aria-label={link.label}
+              >
+                <link.icon size={20} />
+              </a>
+            ))}
+          </div>
         </div>
       </div>
     </footer>

@@ -1,228 +1,253 @@
 'use client'
+import Link from 'next/link'
+import {
+  ArrowUpRight,
+  Cpu,
+  ChartBar,
+  ClipboardText,
+  Palette,
+  CurrencyDollar,
+  ShieldCheck,
+  Wrench,
+  Calculator,
+  Bot,
+  Lock,
+  Backpack,
+  Store,
+} from '@/components/Icons'
+import ScrollReveal from '@/components/ScrollReveal'
+import portfolioData from '@/data/portfolio.json'
+import type { PortfolioData, Project } from '@/lib/types'
+
+const data = portfolioData as PortfolioData
+
+const iconMap: Record<string, typeof Cpu> = {
+  ClipboardText,
+  CurrencyDollar,
+  Palette,
+  ChartBar,
+  Cpu,
+  ShieldCheck,
+  Wrench,
+  Calculator,
+  Bot,
+  Lock,
+  Backpack,
+  Store,
+}
+
+function getPrimarySnippet(project: Project): string {
+  const t = project.tech
+  if (t.includes('Laravel') || t.includes('Filament')) {
+    if (project.title.includes('Restaurant')) return 'Route::post(\'/orders\', [OrderController::class, \'store\']);'
+    if (project.title.includes('E-commerce')) return 'class Vendor extends Model { use HasFactory; }'
+    if (project.title.includes('Travel')) return 'Route::apiResource(\'packages\', PackageController::class);'
+    if (project.title.includes('Anonymous')) return 'Broadcast::channel(\'discussion.{id}\', ...);'
+    return 'public function boot(): void { ... }'
+  }
+  if (t.includes('Django') || t.includes('DRF')) {
+    if (project.title.includes('Insurance')) return 'class ClaimSerializer(serializers.ModelSerializer): ...'
+    if (project.title.includes('ServiceLink')) return 'class ServiceViewSet(viewsets.ModelViewSet): ...'
+    return 'class Meta: model = Service; fields = \'__all__\''
+  }
+  if (t.includes('Flask') || t.includes('Gemini')) return 'response = model.generate_content(prompt)'
+  if (t.includes('Python') || t.includes('YOLO')) return 'results = model(frame, conf=0.5)'
+  if (t.includes('Go')) return 'func monitor(config string) { ... }'
+  return '// implementation'
+}
+
+function ProjectHeaderVisual({
+  headerType,
+  project,
+}: {
+  headerType: string
+  project: Project
+}) {
+  switch (headerType) {
+    case 'terminal':
+      return (
+        <div className="font-mono text-[10px] space-y-1">
+          <div className="flex items-center gap-1.5 text-text-muted/60">
+            <span className="text-blue-core/60">$</span>
+            <span className="text-text-primary/70 truncate">
+              {project.terminal || '$ command'}
+            </span>
+            <span className="w-1.5 h-3 bg-blue-core/40 animate-pulse shrink-0" />
+          </div>
+        </div>
+      )
+    case 'code': {
+      const snippet = getPrimarySnippet(project)
+      return (
+        <div className="font-mono text-[10px] space-y-1">
+          <div className="flex items-center gap-1.5">
+            <span className="text-blue-core/50 shrink-0">&#9657;</span>
+            <span className="text-text-primary/60 truncate">{snippet}</span>
+          </div>
+        </div>
+      )
+    }
+    case 'metrics':
+      return (
+        <div className="flex items-end gap-1 h-6">
+          <div className="flex items-end gap-0.5 flex-1 h-full">
+            {[40, 65, 50, 80, 70, 55, 90].map((h, i) => (
+              <div
+                key={i}
+                className="flex-1 bg-blue-core/15 rounded-t min-h-[2px]"
+                style={{ height: `${h}%` }}
+              />
+            ))}
+          </div>
+          <span className="text-[9px] font-mono text-blue-light/60 shrink-0 ml-1">
+            {project.metric}
+          </span>
+        </div>
+      )
+    case 'workflow':
+      return (
+        <div className="flex items-center gap-1">
+          {['req', 'build', 'test', 'ship'].map((stage, i) => (
+            <div key={stage} className="flex items-center gap-1">
+              <div className="flex flex-col items-center">
+                <div className="w-2.5 h-2.5 rounded-full bg-blue-core/20" />
+                <span className="text-[7px] font-mono text-text-muted/50 mt-0.5">
+                  {stage}
+                </span>
+              </div>
+              {i < 3 && <div className="w-4 h-px bg-panel-border" />}
+            </div>
+          ))}
+        </div>
+      )
+    case 'layers':
+      return (
+        <div className="space-y-1">
+          {[0, 1, 2].map((i) => (
+            <div
+              key={i}
+              className="h-1.5 rounded bg-blue-core/[0.08]"
+              style={{ width: `${100 - i * 18}%` }}
+            />
+          ))}
+        </div>
+      )
+    case 'blueprint':
+      return (
+        <div className="grid grid-cols-6 gap-1">
+          {Array.from({ length: 12 }).map((_, i) => (
+            <div
+              key={i}
+              className={`w-1 h-1 rounded-full ${
+                i % 3 === 0 ? 'bg-blue-core/25' : 'bg-blue-core/10'
+              }`}
+            />
+          ))}
+        </div>
+      )
+    default:
+      return null
+  }
+}
 
 export default function ProjectsPage() {
   return (
-    <main className="relative pt-32 pb-section-gap overflow-hidden">
-      {/* Background Grid */}
-      <div className="absolute inset-0 tech-grid-bg pointer-events-none"></div>
-
-      {/* Hero Section */}
-      <section className="max-w-container-max mx-auto px-margin-mobile md:px-gutter relative z-10 mb-20">
-        <div className="max-w-3xl">
-          <h1 className="font-display-lg text-display-lg mb-6">
-            Engineering <span className="text-primary">Scalable Solutions</span> with Architect Precision
-          </h1>
-          <p className="font-body-lg text-body-lg text-on-surface-variant mb-8">
-            An interactive deep-dive into complex system architectures, full-stack implementations, and the technical decision-making behind high-performance platforms.
-          </p>
-          <div className="flex flex-wrap gap-4">
-            <div className="px-4 py-2 bg-surface-container rounded-lg border border-border-subtle flex items-center gap-3">
-              <span className="material-symbols-outlined text-primary">architecture</span>
-              <span className="font-label-md text-label-md">Microservices focused</span>
-            </div>
-            <div className="px-4 py-2 bg-surface-container rounded-lg border border-border-subtle flex items-center gap-3">
-              <span className="material-symbols-outlined text-secondary">terminal</span>
-              <span className="font-label-md text-label-md">Robust Testing Culture</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Project Grid (Bento Style) */}
-      <section className="max-w-container-max mx-auto px-margin-mobile md:px-gutter relative z-10" id="projects">
-        {/* SECTION HEADER: Enterprise Complexity */}
-        <div className="flex items-center gap-4 mb-8">
-          <h2 className="font-headline-md text-headline-md">Enterprise Complexity</h2>
-          <div className="h-[1px] flex-grow bg-border-subtle"></div>
-          <span className="font-label-sm text-label-sm text-on-surface-variant">Tier 01</span>
-        </div>
-
-        {/* FEATURED PROJECT: InsuranceClaim Platform */}
-        <div className="mb-12 grid grid-cols-1 lg:grid-cols-12 gap-gutter">
-          <div className="lg:col-span-8 group">
-            <div className="glass-card rounded-xl p-8 h-full border border-primary/20 relative overflow-hidden transition-transform duration-500 hover:-translate-y-1">
-              <div className="absolute top-0 right-0 p-4">
-                <span className="bg-secondary/10 text-secondary border border-secondary/20 px-3 py-1 rounded-full font-label-sm text-label-sm flex items-center gap-2">
-                  <span className="w-2 h-2 bg-secondary rounded-full animate-pulse-dot"></span>
-                  PREMIER CASE STUDY
-                </span>
-              </div>
-              <div className="mb-8">
-                <h3 className="font-headline-md text-headline-md text-primary mb-2">InsuranceClaim Platform</h3>
-                <p className="text-on-surface-variant max-w-2xl font-body-md">A unified ecosystem for automating high-volume claims processing through AI-driven fraud detection and distributed microservices architecture.</p>
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-                <div>
-                  <h4 className="font-label-md text-label-md text-secondary mb-4 flex items-center gap-2">
-                    <span className="material-symbols-outlined text-[18px]">account_tree</span>
-                    Architectural Challenges
-                  </h4>
-                  <ul className="space-y-3 font-body-md text-on-surface-variant text-sm">
-                    <li className="flex items-start gap-2">
-                      <span className="text-primary mt-1">&#9657;</span>
-                      Real-time consistency across 5+ independent services during peak loads.
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="text-primary mt-1">&#9657;</span>
-                      Latency-sensitive AI inferencing for instant document verification.
-                    </li>
-                  </ul>
-                </div>
-                <div>
-                  <h4 className="font-label-md text-label-md text-secondary mb-4 flex items-center gap-2">
-                    <span className="material-symbols-outlined text-[18px]">psychology</span>
-                    AI Implementation
-                  </h4>
-                  <ul className="space-y-3 font-body-md text-on-surface-variant text-sm">
-                    <li className="flex items-start gap-2">
-                      <span className="text-primary mt-1">&#9657;</span>
-                      LLM-integrated extraction pipelines (OCR) with 98.4% accuracy.
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="text-primary mt-1">&#9657;</span>
-                      Predictive modeling for claim approval priority based on historical data.
-                    </li>
-                  </ul>
-                </div>
-              </div>
-              <div className="flex flex-wrap gap-2 mb-8">
-                {['Django / Python', 'React / Next.js', 'Redis Pub/Sub', 'PostgreSQL Cluster', 'PyTorch', 'Docker & K8s'].map((tag) => (
-                  <span key={tag} className="bg-surface-variant px-3 py-1 rounded border border-border-subtle font-label-sm text-label-sm">{tag}</span>
-                ))}
-              </div>
-              <div className="bg-surface-deep/50 rounded-lg p-4 border border-border-subtle">
-                <h4 className="font-label-md text-label-md mb-2 text-on-surface">Lifecycle & Testing Strategy</h4>
-                <div className="grid grid-cols-3 gap-4">
-                  <div className="text-center p-2">
-                    <div className="text-primary font-bold mb-1">Planning</div>
-                    <div className="text-[10px] text-on-surface-variant uppercase tracking-widest">C4 Model Diagrams</div>
-                  </div>
-                  <div className="text-center p-2 border-x border-border-subtle">
-                    <div className="text-secondary font-bold mb-1">TDD</div>
-                    <div className="text-[10px] text-on-surface-variant uppercase tracking-widest">Django TestCase (94%)</div>
-                  </div>
-                  <div className="text-center p-2">
-                    <div className="text-on-surface font-bold mb-1">CI/CD</div>
-                    <div className="text-[10px] text-on-surface-variant uppercase tracking-widest">GitHub Actions</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* SIDE STATS / ASYMMETRIC ELEMENT */}
-          <div className="lg:col-span-4 flex flex-col gap-gutter">
-            <div className="glass-card rounded-xl p-6 border-l-4 border-l-primary flex flex-col justify-between flex-grow">
-              <span className="material-symbols-outlined text-primary text-4xl mb-4">analytics</span>
-              <div>
-                <div className="text-3xl font-bold text-primary mb-1">45%</div>
-                <div className="font-label-md text-label-md text-on-surface-variant">Reduction in Claim TAT</div>
-              </div>
-            </div>
-            <div className="bg-surface-card rounded-xl p-6 border border-border-subtle relative overflow-hidden group">
-              <div className="relative z-10">
-                <h4 className="font-headline-sm text-headline-sm mb-2">Live Node Monitoring</h4>
-                <p className="font-label-sm text-label-sm text-on-surface-variant">The architecture supports horizontal scaling up to 10k concurrent requests.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* SECTION HEADER: Specialized SaaS & Services */}
-        <div className="flex items-center gap-4 mb-8 mt-20">
-          <h2 className="font-headline-md text-headline-md">Specialized SaaS & Micro-Integrations</h2>
-          <div className="h-[1px] flex-grow bg-border-subtle"></div>
-          <span className="font-label-sm text-label-sm text-on-surface-variant">Tier 02</span>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-gutter">
-          {/* ServiceLink Project */}
-          <div className="glass-card rounded-xl p-8 border border-border-subtle hover:border-primary/40 transition-all">
-            <div className="flex justify-between items-start mb-6">
-              <h3 className="font-headline-sm text-headline-sm">ServiceLink</h3>
-              <span className="material-symbols-outlined text-on-surface-variant">hub</span>
-            </div>
-            <p className="font-body-md text-on-surface-variant mb-6">
-              An API aggregator for home service providers. Solves the fragmentation of scheduling across different legacy CRM systems.
+    <main className="pt-24 pb-16">
+      <div className="max-w-6xl mx-auto px-6">
+        <ScrollReveal>
+          <div className="max-w-3xl mb-10">
+            <span className="label text-blue-light mb-4 block">Work</span>
+            <h1 className="text-4xl md:text-5xl font-display font-semibold tracking-tight mb-6">
+              {data.projects.sectionTitle}
+            </h1>
+            <p className="text-body-lg text-text-secondary">
+              {data.projects.sectionSubtitle}
             </p>
-            <div className="space-y-4 mb-8">
-              <div>
-                <div className="flex items-center gap-2 mb-2">
-                  <span className="material-symbols-outlined text-secondary text-sm">settings_input_component</span>
-                  <span className="font-label-md text-label-md">Integration Challenge</span>
-                </div>
-                <p className="text-sm text-on-surface-variant pl-6">Normalization of disparate SOAP/REST endpoints into a unified GraphQL interface.</p>
-              </div>
-              <div className="flex flex-wrap gap-2">
-                {['PHP / Laravel', 'GraphQL', 'PHPUnit'].map((tag) => (
-                  <span key={tag} className="bg-surface-container-high px-2 py-1 rounded text-[10px] font-label-sm border border-outline-variant">{tag}</span>
-                ))}
-              </div>
-            </div>
-            <div className="border-t border-border-subtle pt-6 flex justify-between items-center">
-              <span className="font-label-sm text-label-sm text-secondary">Unit Testing coverage: 100%</span>
-              <a className="text-primary font-label-md text-label-md flex items-center gap-1 hover:underline" href="#">
-                View Docs <span className="material-symbols-outlined text-sm">arrow_outward</span>
-              </a>
-            </div>
           </div>
+        </ScrollReveal>
 
-          {/* Restaurant SaaS Project */}
-          <div className="glass-card rounded-xl p-8 border border-border-subtle hover:border-primary/40 transition-all">
-            <div className="flex justify-between items-start mb-6">
-              <h3 className="font-headline-sm text-headline-sm">Restaurant Operations SaaS</h3>
-              <span className="material-symbols-outlined text-on-surface-variant">restaurant</span>
-            </div>
-            <p className="font-body-md text-on-surface-variant mb-6">
-              A multi-tenant platform for inventory management and real-time ordering sync between kitchen and floor staff.
-            </p>
-            <div className="space-y-4 mb-8">
-              <div>
-                <div className="flex items-center gap-2 mb-2">
-                  <span className="material-symbols-outlined text-secondary text-sm">speed</span>
-                  <span className="font-label-md text-label-md">Operational Challenge</span>
+        <ScrollReveal className="grid md:grid-cols-2 gap-5" stagger={0.1}>
+          {data.projects.items.map((project: Project) => {
+            const Icon = iconMap[project.icon] || Cpu
+            return (
+              <div
+                key={project.title}
+                className="card-base p-5 h-full flex flex-col group hover:border-blue-core/20 transition-all duration-300"
+                id={project.title.toLowerCase().replace(/\s+/g, '-')}
+              >
+                <div className="flex items-start justify-between mb-3">
+                  <div className="w-10 h-10 rounded-xl bg-blue-core/10 flex items-center justify-center text-blue-light">
+                    <Icon size={20} />
+                  </div>
+                  <span className="text-[11px] font-mono text-green-live flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-green-live animate-pulse-dot" />
+                    {project.metric}
+                  </span>
                 </div>
-                <p className="text-sm text-on-surface-variant pl-6">Ensuring sub-100ms state updates via WebSockets for zero-friction order delivery.</p>
-              </div>
-              <div className="flex flex-wrap gap-2">
-                {['Node.js', 'Socket.io', 'MongoDB', 'Jest'].map((tag) => (
-                  <span key={tag} className="bg-surface-container-high px-2 py-1 rounded text-[10px] font-label-sm border border-outline-variant">{tag}</span>
-                ))}
-              </div>
-            </div>
-            <div className="border-t border-border-subtle pt-6 flex justify-between items-center">
-              <span className="font-label-sm text-label-sm text-secondary">Modular Architecture</span>
-              <a className="text-primary font-label-md text-label-md flex items-center gap-1 hover:underline" href="#">
-                Architecture Diagram <span className="material-symbols-outlined text-sm">open_in_new</span>
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
 
-      {/* Technical Process / Methodology */}
-      <section className="max-w-container-max mx-auto px-margin-mobile md:px-gutter mt-32 relative z-10">
-        <div className="bg-surface-container-low rounded-2xl border border-border-subtle p-12 overflow-hidden relative">
-          <div className="absolute -right-20 -bottom-20 w-80 h-80 bg-primary/5 rounded-full blur-[100px]"></div>
-          <h2 className="font-headline-md text-headline-md mb-12 text-center">My Implementation Workflow</h2>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            {[
-              { num: '01', title: 'Discovery', desc: 'Requirement gathering and domain modeling via DDD principles.' },
-              { num: '02', title: 'Architecting', desc: 'Selecting the right stack for scalability, reliability, and security.' },
-              { num: '03', title: 'Engineering', desc: 'Clean code implementation with TDD and robust CI/CD pipelines.' },
-              { num: '04', title: 'Evolution', desc: 'Post-deployment monitoring, observability, and iterative tuning.' },
-            ].map((step) => (
-              <div key={step.num} className="flex flex-col items-center text-center">
-                <div className="w-12 h-12 rounded-full bg-surface-variant flex items-center justify-center text-primary mb-4 border border-primary/20">
-                  <span className="font-label-md">{step.num}</span>
+                <div className="mb-3 p-2.5 rounded-lg bg-white/[0.02] border border-panel-border/50">
+                  <ProjectHeaderVisual
+                    headerType={project.headerType}
+                    project={project}
+                  />
                 </div>
-                <h4 className="font-headline-sm text-headline-sm text-sm mb-2 uppercase tracking-wider">{step.title}</h4>
-                <p className="text-xs text-on-surface-variant">{step.desc}</p>
+
+                <h3 className="text-base font-display font-semibold mb-2 group-hover:text-blue-light transition-colors">
+                  {project.title}
+                </h3>
+
+                <p className="text-sm text-text-secondary mb-4 leading-relaxed">
+                  {project.description}
+                </p>
+
+                {project.highlights.length > 0 && (
+                  <div className="mb-4">
+                    <h4 className="text-[11px] font-mono text-text-muted uppercase tracking-wider mb-2">
+                      Key Features
+                    </h4>
+                    <div className="flex flex-wrap gap-1.5">
+                      {project.highlights.map((h) => (
+                        <span
+                          key={h}
+                          className="px-2 py-0.5 text-[11px] font-mono bg-blue-core/5 text-blue-light/80 rounded-md border border-blue-core/10"
+                        >
+                          {h}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                <div className="mt-auto pt-3 border-t border-panel-border">
+                  <div className="flex flex-wrap gap-1.5">
+                    {project.tech.map((tag) => (
+                      <span
+                        key={tag}
+                        className="px-2 py-0.5 text-[11px] font-mono rounded-md border bg-white/[0.03] text-text-muted border-panel-border"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
               </div>
-            ))}
+            )
+          })}
+        </ScrollReveal>
+
+        <ScrollReveal>
+          <div className="mt-12 text-center">
+            <Link
+              href="https://github.com/rojeets"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-6 py-3 border border-panel-border text-text-primary text-sm font-medium rounded-lg hover:bg-white/[0.03] transition-colors"
+            >
+              Explore GitHub <ArrowUpRight size={14} />
+            </Link>
           </div>
-        </div>
-      </section>
+        </ScrollReveal>
+      </div>
     </main>
   )
 }

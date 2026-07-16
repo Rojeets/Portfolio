@@ -1,18 +1,18 @@
 {
   "meta": {
-    "siteTitle": "Rojit Pokharel - Full Stack Laravel Developer",
-    "description": "Laravel developer at an agency building full-stack applications with Filament, Reverb, and production server infrastructure.",
-    "keywords": ["Laravel", "React", "Next.js", "Filament", "Reverb", "PHP", "TypeScript", "Server Management"],
+    "siteTitle": "Rojit Pokharel - Full Stack Developer",
+    "description": "Full-stack developer building production web applications across PHP, Python, Go, and JavaScript ecosystems with AI/ML systems and server infrastructure.",
+    "keywords": ["PHP", "Python", "JavaScript", "Go", "Laravel", "Django", "React", "Next.js", "Docker", "Linux", "Server Management", "Computer Vision", "AI/ML"],
     "author": "Rojit Pokharel",
     "ogImage": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1200&q=80"
   },
   "personal": {
     "name": "Rojit Pokharel",
     "logoTag": "<Rojit />",
-    "title": "Full Stack Laravel Developer",
-    "subtitle": "Full Stack Laravel Developer",
-    "tagline": "Agency Laravel developer building client applications with Filament, Reverb, and real-time architecture. Experienced in computer vision, Go systems, and Linux server management.",
-    "footerDescription": "Laravel developer specializing in full-stack applications with Filament, React, and production server infrastructure.",
+    "title": "Full Stack Developer",
+    "subtitle": "Full Stack Developer",
+    "tagline": "Agency developer building production web applications, AI systems, and infrastructure across PHP, Python, Go, and JavaScript ecosystems.",
+    "footerDescription": "Full-stack developer specializing in web applications across Laravel, Django, React, and modern infrastructure.",
     "copyright": "Rojit Pokharel",
     "location": "Kathmandu, Nepal",
     "availability": "Open to freelance and full-time opportunities"
@@ -93,7 +93,7 @@
     ]
   },
   "hero": {
-    "badgeText": "Full Stack Laravel Developer",
+    "badgeText": "Full Stack Developer",
     "backgroundImage": "/images/hero-bg.jpg",
     "ctaButtons": [
       { "text": "View My Work", "href": "/projects", "style": "primary" },
@@ -107,44 +107,30 @@
     }
   },
   "about": {
-    "sectionTitle": "About Me",
-    "backgroundImage": "/images/about-bg.jpg",
-    "bio": [
-      {
-        "text": "I'm a <highlight>Laravel developer</highlight> at an agency, building full-stack client applications across e-commerce, travel, education, and restaurant domains using <accent>Filament</accent>, <accent>Sanctum</accent>, <accent>Spatie Permissions</accent>, and <accent>Reverb WebSockets</accent>. I own the full delivery lifecycle — from database schema design to production deployment."
-      },
-      {
-        "text": "Beyond Laravel, I've built <accent>computer vision pipelines</accent>, <accent>server monitoring tools</accent>, and <accent>AI/ML systems</accent> — giving me a full-stack view of every project I touch. I also handle server infrastructure including <accent>Nginx</accent>, <accent>Certbot SSL</accent>, <accent>Supervisor queue workers</accent>, and <accent>PM2</accent> for production deployments."
-      }
+    "headline": "The person behind the production decisions.",
+    "statement": "I build and ship production applications that survive real users, real servers, and real deadlines.",
+    "details": [
+      "Full-stack Laravel developer at Infinity Digital Agency, building client applications across e-commerce, travel, education, and restaurant domains.",
+      "Beyond Laravel, I've built computer vision pipelines, server monitoring tools in Go, and AI/ML systems — giving me a full-stack view that goes beyond a single framework."
     ],
-    "highlights": [
-      {
-        "number": "01",
-        "title": "Laravel & Filament Expert",
-        "description": "10+ client projects with Filament panels, Reverb WebSockets, Sanctum auth, and Spatie Permissions"
-      },
-      {
-        "number": "02",
-        "title": "Server Management & DevOps",
-        "description": "Nginx, Certbot SSL, Supervisor queue workers, PM2, Docker Compose, production Linux deployments"
-      },
-      {
-        "number": "03",
-        "title": "Full-Stack React/Next.js",
-        "description": "Next.js 16, Tailwind v4, shadcn/ui, Framer Motion, and TanStack Query"
-      }
+    "differentiators": [
+      "I own the full delivery lifecycle — schema design to production deployment — including the server infrastructure underneath.",
+      "I work across Laravel, Django, React, and Next.js, not just one framework.",
+      "I handle Nginx, Certbot SSL, Supervisor queue workers, and PM2 so the code actually stays running."
     ],
     "stats": [
-      { "label": "Laravel Projects", "value": "10+" },
-      { "label": "Client Projects Delivered", "value": "12+" },
-      { "label": "Technologies Used", "value": "25+" },
-      { "label": "Python Projects", "value": "10+" }
+      { "value": "12", "suffix": "+", "label": "Client Projects Delivered" }
+    ],
+    "badges": [
+      "DataCamp Donates Fellow",
+      "R-Hackathon 2025",
+      "Turboline X IIMS Hackathon"
     ]
   },
   "skills": {
     "sectionTitle": "Technical",
     "sectionTitleHighlight": "Arsenal",
-    "sectionSubtitle": "Agency-proven competencies across full-stack development, server infrastructure, and AI/ML systems.",
+    "sectionSubtitle": "Production-proven competencies across full-stack development, server infrastructure, and AI/ML systems.",
     "filters": [
       { "id": "all", "label": "All" },
       { "id": "backend", "label": "Backend" },
@@ -394,16 +380,16 @@
     ],
     "realWorldApplications": [
       "Restaurant Management SaaS",
+      "Insurance Claim Platform",
       "E-commerce & Payment Gateways",
-      "Multi-tenant CMS Platforms",
-      "Leave Management & ERP Systems",
       "AI Referee / Player Tracking",
       "Server Uptime Monitoring",
       "Multi-container Deployments",
-      "Document Generation & Reporting"
+      "Document Generation & Reporting",
+      "Real-time Communication Systems"
     ],
     "realWorldTitle": "Real-World Applications",
-    "realWorldSubtitle": "Every competency backed by working production code — from Laravel client applications and server infrastructure to computer vision pipelines and DevOps tooling:",
+    "realWorldSubtitle": "Every competency backed by working production code — from full-stack web applications and server infrastructure to computer vision pipelines and DevOps tooling:",
     "levelStyles": {
       "Expert": { "borderColor": "border-emerald-500", "bgColor": "bg-emerald-950/40" },
       "Advanced": { "borderColor": "border-sky-400", "bgColor": "bg-sky-950/40" },
@@ -412,7 +398,7 @@
   },
   "projects": {
     "sectionTitle": "Featured Projects",
-    "sectionSubtitle": "Agency-built applications and open-source work showcasing Laravel, full-stack, and systems expertise.",
+    "sectionSubtitle": "Agency-built applications and personal projects showcasing full-stack, AI/ML, and systems expertise.",
     "backgroundImage": "/images/hero-bg.jpg",
     "ctaText": "Want to see more? Check out my GitHub",
     "ctaButtonText": "Explore GitHub 🐙",
@@ -427,40 +413,40 @@
     },
     "items": [
       {
+        "title": "Insurance Claim Platform",
+        "description": "Multi-subsystem UK insurance platform with real-time AI-powered room analysis via Cohere Vision, Django Channels chat, Celery async pipelines, automated PDF report generation, and a React Native mobile app for field assessors.",
+        "tech": ["Django", "DRF", "Django Channels", "Celery", "React Native", "PostgreSQL", "Redis", "Cohere Vision"],
+        "highlights": ["AI Room Analysis", "Real-time Chat", "PDF Reports", "Mobile Field App"],
+        "headerType": "workflow",
+        "icon": "ShieldCheck",
+        "metric": "Claims: 1000+"
+      },
+      {
         "title": "Restaurant Management SaaS",
-        "description": "Multi-restaurant SaaS platform with real-time kitchen display via Laravel Reverb, multi-gateway payment integration, and full Filament admin panels for menu, orders, and staff management.",
-        "tech": ["Laravel", "Filament", "Reverb", "Livewire", "MySQL"],
+        "description": "Multi-restaurant SaaS platform with real-time kitchen display via Laravel Reverb, multi-gateway payment integration (Khalti, eSewa, Stripe), and full admin panels for menu, orders, and staff management.",
+        "tech": ["Laravel", "Filament", "Reverb", "Livewire", "MySQL", "Stripe"],
         "highlights": ["Multi-gateway Payments", "Real-time Kitchen Display", "Filament Admin Panel"],
         "headerType": "workflow",
-        "icon": "ClipboardList",
+        "icon": "ClipboardText",
         "metric": "Live Orders"
       },
       {
-        "title": "Enterprise Leave Management",
-        "description": "Comprehensive employee leave system with automated balance tracking, multi-stage approval workflows, and document attachment support across departments.",
-        "tech": ["Laravel", "React", "MySQL", "Filament"],
-        "highlights": ["RBAC Implementation", "Workflow Automation", "Document Management"],
-        "headerType": "workflow",
-        "icon": "ClipboardList",
-        "metric": "Workflow Active"
-      },
-      {
-        "title": "Automated Financial Invoicing",
-        "description": "Unique sequential invoice generation system using UUIDs and global database scopes ensuring data integrity and professional financial tracking.",
-        "tech": ["Laravel", "PostgreSQL", "REST API", "Eloquent ORM"],
-        "highlights": ["UUID Management", "Global Scopes", "Financial Logic"],
-        "headerType": "code",
-        "icon": "Receipt",
-        "metric": "Integrity: ✓"
-      },
-      {
-        "title": "Multi-tenant Content CMS",
-        "description": "Modular CMS using Repeater patterns enabling administrators to build complex page layouts without code. Supports timelines, FAQs, and service grids across tenants.",
-        "tech": ["Laravel", "React", "Filament", "MongoDB"],
-        "highlights": ["Dynamic Builder", "Multi-tenant", "Repeater Patterns"],
+        "title": "ServiceLink Marketplace",
+        "description": "Home repair marketplace with Django REST Framework backend, React Native Expo mobile app, offline-first sync, text-to-speech accessibility, and Stripe payment integration with WCAG compliance.",
+        "tech": ["Django", "DRF", "React Native", "Expo", "Stripe", "PostgreSQL"],
+        "highlights": ["Offline Sync", "TTS Accessibility", "WCAG Compliance", "Stripe Payments"],
         "headerType": "layers",
-        "icon": "Palette",
-        "metric": "Tenants: 50+"
+        "icon": "Wrench",
+        "metric": "Active Users"
+      },
+      {
+        "title": "AI Referee: Football Analytics",
+        "description": "Computer vision pipeline using YOLOv5 + SORT tracking for player detection, SSIM template matching for team classification, and pitch mapping for real-time football analytics with a Flask dashboard.",
+        "tech": ["Python", "YOLOv5", "OpenCV", "SORT", "Flask", "PyTorch"],
+        "highlights": ["Real-time Tracking", "Team Classification", "Pitch Mapping"],
+        "headerType": "metrics",
+        "icon": "ChartBar",
+        "metric": "FPS: 30+"
       },
       {
         "title": "Server Uptime Monitoring",
@@ -468,72 +454,63 @@
         "tech": ["Go", "Prometheus", "Docker", "REST API", "YAML"],
         "highlights": ["Multi-site Checks", "Slack Alerts", "Prometheus Metrics"],
         "headerType": "terminal",
-        "icon": "BarChart3",
+        "icon": "ChartBar",
         "terminal": "./servermonitor --config sites.yaml",
         "metric": "Uptime: 99.9%"
       },
       {
-        "title": "AI Referee: Football Analytics",
-        "description": "Computer vision pipeline using YOLOv5 + SORT tracking for player detection, SSIM template matching for team classification, and pitch mapping for real-time football analytics.",
-        "tech": ["Python", "YOLOv5", "OpenCV", "SORT", "Flask"],
-        "highlights": ["Real-time Tracking", "Team Classification", "Pitch Mapping"],
-        "headerType": "metrics",
-        "icon": "BarChart3",
-        "metric": "FPS: 30+"
+        "title": "E-commerce Multi-Vendor Platform",
+        "description": "Multi-vendor marketplace with real-time notifications via Laravel Reverb, automated PDF invoicing, Filament admin panels, and role-based dashboards for vendors and administrators.",
+        "tech": ["Laravel", "Filament", "Reverb", "React", "MySQL"],
+        "highlights": ["Multi-vendor Architecture", "Real-time Notifications", "PDF Invoicing"],
+        "headerType": "blueprint",
+        "icon": "Store",
+        "metric": "Vendors: 50+"
+      },
+      {
+        "title": "Gold Exchange MIS",
+        "description": "Operations and inventory management system for a gold exchange with transaction tracking, Excel/PDF reporting, Redis caching, and comprehensive Filament admin panels.",
+        "tech": ["Laravel", "Filament", "Livewire", "Redis", "MySQL"],
+        "highlights": ["Inventory Tracking", "Excel/PDF Reports", "Redis Caching"],
+        "headerType": "code",
+        "icon": "Calculator",
+        "metric": "Transactions"
+      },
+      {
+        "title": "Chat-bot API",
+        "description": "Multi-modal chatbot API built with Flask and Google Gemini, featuring speech recognition, image understanding, and context-aware conversations through a clean REST interface.",
+        "tech": ["Flask", "Gemini API", "Python", "REST API"],
+        "highlights": ["Multi-modal Chat", "Speech Recognition", "Image Understanding"],
+        "headerType": "code",
+        "icon": "Bot",
+        "metric": "API Latency"
+      },
+      {
+        "title": "Anonymous Discussion Platform",
+        "description": "Encrypted anonymous discussion platform with topic-based channels, real-time messaging, admin moderation tools, and end-to-end encryption for privacy.",
+        "tech": ["Laravel", "Next.js", "React", "MySQL", "WebSockets"],
+        "highlights": ["End-to-end Encryption", "Topic Channels", "Admin Moderation"],
+        "headerType": "layers",
+        "icon": "Lock",
+        "metric": "Channels"
+      },
+      {
+        "title": "Travel Booking & Admin Panel",
+        "description": "Full tour and package management system with Filament v5 admin panel, Sanctum API authentication, AWS S3 media storage, Spatie role management, and CI/CD deployment pipeline.",
+        "tech": ["Laravel", "Filament", "Sanctum", "AWS S3", "Spatie"],
+        "highlights": ["Package Management", "API Auth", "S3 Media Storage", "CI/CD"],
+        "headerType": "terminal",
+        "icon": "Backpack",
+        "metric": "Bookings"
       }
     ]
   },
   "blog": {
     "sectionTitle": "Latest Articles",
-    "sectionSubtitle": "Deep dives into Laravel, React, system architecture, and technical craftsmanship.",
+    "sectionSubtitle": "Deep dives into full-stack development, AI/ML systems, server infrastructure, and technical craftsmanship.",
     "backgroundImage": "/images/blog-bg.jpg",
     "postsPath": "/blogs",
     "items": [
-      {
-        "slug": "building-rbac-systems-laravel",
-        "title": "Building Role-Based Access Control Systems in Laravel",
-        "date": "2024-10-15",
-        "readTime": "8 min read",
-        "excerpt": "A deep dive into implementing robust RBAC systems using Laravel's built-in authorization features including policies, gates, and middleware.",
-        "tags": ["Laravel", "RBAC", "Security", "PHP"],
-        "image": "/images/blog-rbac.jpg"
-      },
-      {
-        "slug": "database-optimization-techniques",
-        "title": "Database Optimization: From N+1 to Sub-Millisecond Queries",
-        "date": "2024-09-01",
-        "readTime": "10 min read",
-        "excerpt": "Practical strategies for eliminating N+1 queries, leveraging database indexing, and optimizing Eloquent relationships for high-performance applications.",
-        "tags": ["Database", "Laravel", "PostgreSQL", "Performance"],
-        "image": "/images/blog-database.jpg"
-      },
-      {
-        "slug": "multi-tenant-architecture-laravel",
-        "title": "Architecting Multi-Tenant Applications with Laravel",
-        "date": "2024-07-20",
-        "readTime": "12 min read",
-        "excerpt": "Exploring database isolation strategies, global scopes, and middleware patterns for building scalable multi-tenant SaaS applications.",
-        "tags": ["Laravel", "Architecture", "SaaS", "Multi-tenant"],
-        "image": "/images/blog-multitenant.jpg"
-      },
-      {
-        "slug": "clean-rest-api-design",
-        "title": "Clean RESTful API Design Best Practices",
-        "date": "2024-06-10",
-        "readTime": "7 min read",
-        "excerpt": "Principles for designing APIs that are consistent, predictable, and developer-friendly, with practical Laravel implementation patterns.",
-        "tags": ["API", "Laravel", "Best Practices", "REST"],
-        "image": "/images/blog-api.jpg"
-      },
-      {
-        "slug": "frontend-performance-optimization",
-        "title": "Modern Frontend Performance Tuning",
-        "date": "2024-04-25",
-        "readTime": "9 min read",
-        "excerpt": "Techniques for optimizing React applications including code splitting, memoization, lazy loading, and bundle analysis.",
-        "tags": ["React", "Performance", "Next.js", "Frontend"],
-        "image": "/images/blog-frontend.jpg"
-      },
       {
         "slug": "server-monitoring-tool-uptime-monitoring",
         "title": "Server Monitoring Tool: Detect Website Downtime Before Your Clients Do",
@@ -561,7 +538,7 @@
     "contactMethods": ["linkedin", "github", "email"],
     "availability": {
       "title": "Currently",
-      "text": "Open to freelance projects and full-time opportunities where I can contribute to building scalable, enterprise-grade Laravel applications.",
+      "text": "Open to freelance projects and full-time opportunities where I can contribute to building scalable, enterprise-grade applications.",
       "responseTime": "Usually within 24 hours"
     },
     "form": {
@@ -656,12 +633,12 @@
       "Turboline X IIMS Hackathon — Foul detection system using AI-based image analysis APIs"
     ],
     "expertiseAreas": [
-      "Laravel & Filament Development",
-      "Server Management (Nginx, Supervisor, PM2)",
-      "Laravel Reverb & WebSockets",
-      "React / Next.js Frontend",
-      "Docker Containerization",
-      "Computer Vision & AI/ML"
+      "Full-Stack Web Development (Laravel, Django, React)",
+      "Server Management (Nginx, Docker, Linux)",
+      "Real-time Systems & WebSockets",
+      "AI/ML & Computer Vision",
+      "Payment Gateway Integration",
+      "CI/CD & DevOps"
     ]
   },
   "terminal": {
@@ -674,10 +651,10 @@
     "responses": {
       "about": {
         "specializations": [
-          "Laravel & Filament Application Development",
-          "Server Management & DevOps (Nginx, Supervisor, PM2)",
-          "Real-time Systems with Reverb WebSockets",
-          "Computer Vision & AI/ML Pipelines"
+          "Full-Stack Web Application Development",
+          "Server Management & DevOps (Docker, Nginx, CI/CD)",
+          "Real-time Systems & WebSockets",
+          "AI/ML & Computer Vision Pipelines"
         ],
         "philosophy": "I focus on writing clean, maintainable code that bridges complex business requirements with performant solutions. Security by design, scalability through architecture, seamless experiences through integration."
       },
@@ -693,6 +670,7 @@
     "categoryEmojis": {
       "backend": "🔙 BACKEND ENGINEERING",
       "frontend": "⚛️  FRONTEND DEVELOPMENT",
+      "ai-ml": "🤖 AI / MACHINE LEARNING",
       "devops": "🛠️  DEVOPS & TOOLS",
       "specializations": "🔐 SPECIALIZATIONS"
     },
