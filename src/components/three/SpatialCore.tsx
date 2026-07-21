@@ -27,6 +27,7 @@ function SpatialScene({ activeSection }: SpatialSceneProps) {
   const nodesRef = useRef<THREE.Mesh[]>([])
   const particlesRef = useRef<THREE.Points>(null)
   const mouseRef = useRef({ x: 0, y: 0 })
+  const scrollRef = useRef({ progress: 0, velocity: 0 })
 
   const targetRef = useRef<SectionConfig>(sectionConfig.hero)
   const currentRef = useRef({
@@ -81,7 +82,6 @@ function SpatialScene({ activeSection }: SpatialSceneProps) {
 
   useFrame((state) => {
     if (prefersReducedMotion.current) {
-      // Static pose — no animation
       state.camera.position.z = targetRef.current.cameraDist
       return
     }
@@ -90,9 +90,21 @@ function SpatialScene({ activeSection }: SpatialSceneProps) {
     const current = currentRef.current
     const lerpFactor = 0.03
 
-    // Lerp camera distance
-    current.cameraDist += (target.cameraDist - current.cameraDist) * lerpFactor
+    // Read Lenis scroll state for reactive effects
+    const lenis = (window as any).__lenis
+    if (lenis) {
+      scrollRef.current.progress = lenis.progress || 0
+      scrollRef.current.velocity = Math.abs(lenis.velocity || 0)
+    }
+    const scrollVelocity = scrollRef.current.velocity
+
+    // Lerp camera distance (scroll-reactive: zoom slightly on fast scroll)
+    const velocityBoost = Math.min(scrollVelocity * 0.15, 0.8)
+    current.cameraDist += (target.cameraDist + velocityBoost - current.cameraDist) * lerpFactor
     state.camera.position.z = current.cameraDist
+
+    // Subtle camera y-drift based on scroll progress
+    state.camera.position.y = (scrollRef.current.progress - 0.5) * -0.6
 
     // Lerp rotation speed
     current.rotSpeed += (target.rotSpeed - current.rotSpeed) * lerpFactor
@@ -145,9 +157,11 @@ function SpatialScene({ activeSection }: SpatialSceneProps) {
       }
     })
 
-    // Ambient particles slow rotation
+    // Ambient particles — speed reacts to scroll velocity
     if (particlesRef.current) {
-      particlesRef.current.rotation.y += 0.0002
+      const particleSpeed = 0.0002 + scrollVelocity * 0.0008
+      particlesRef.current.rotation.y += particleSpeed
+      particlesRef.current.rotation.x += particleSpeed * 0.3
     }
 
     // Mouse parallax

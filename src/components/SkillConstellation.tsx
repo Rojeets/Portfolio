@@ -146,6 +146,22 @@ function getStatusColor(level: string): string {
   }
 }
 
+function getLevelBar(level: string): string {
+  switch (level) {
+    case 'Expert': return '████████████████████░░░░░░░░░░'
+    case 'Advanced': return '████████████████░░░░░░░░░░░░░░'
+    default: return '████████████░░░░░░░░░░░░░░░░░░'
+  }
+}
+
+function getLevelPercent(level: string): number {
+  switch (level) {
+    case 'Expert': return 80
+    case 'Advanced': return 60
+    default: return 45
+  }
+}
+
 export default function SkillConstellation({ categories }: { categories: SkillCategory[] }) {
   const [hoveredNode, setHoveredNode] = useState<NodeData | null>(null)
   const [tooltip, setTooltip] = useState<TooltipData | null>(null)
@@ -307,6 +323,7 @@ export default function SkillConstellation({ categories }: { categories: SkillCa
         {categories.map((cat, ci) => (
           <div key={cat.id} className="rounded-xl border border-panel-border bg-panel-bg/50 p-4">
             <div className="flex items-center gap-2.5 mb-3">
+              <span className="text-text-muted font-mono text-xs">$</span>
               <div
                 className="w-2 h-2 rounded-full shrink-0"
                 style={{ backgroundColor: CATEGORY_COLORS[ci] }}
@@ -315,18 +332,25 @@ export default function SkillConstellation({ categories }: { categories: SkillCa
                 {cat.title}
               </h3>
             </div>
-            <div className="space-y-2.5">
+            <div className="space-y-3">
               {cat.technologies.map((tech) => (
                 <div key={tech.name} className="pl-4 relative">
-                  <div
-                    className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-1 rounded-full"
-                    style={{ backgroundColor: getStatusColor(tech.level) }}
-                  />
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-center justify-between mb-1">
                     <span className="text-sm text-text-primary">{tech.name}</span>
-                    <span className="text-[10px] font-mono text-text-muted">{tech.level}</span>
+                    <span
+                      className="text-[10px] font-mono"
+                      style={{ color: getStatusColor(tech.level) }}
+                    >
+                      {tech.level}
+                    </span>
                   </div>
-                  <div className="flex flex-wrap gap-1 mt-1">
+                  {/* Terminal progress bar */}
+                  <div className="font-mono text-[10px] tracking-tight leading-none overflow-hidden">
+                    <span style={{ color: getStatusColor(tech.level), opacity: 0.6 }}>
+                      {getLevelBar(tech.level)}
+                    </span>
+                  </div>
+                  <div className="flex flex-wrap gap-1 mt-1.5">
                     {tech.subSkills.map((s) => (
                       <span key={s} className="text-[10px] font-mono text-text-muted bg-white/[0.02] px-1.5 py-0.5 rounded">
                         {s}
@@ -522,6 +546,18 @@ export default function SkillConstellation({ categories }: { categories: SkillCa
             </div>
             <div className="text-[10px] font-mono text-text-muted uppercase tracking-wider mb-2">
               {tooltip.categoryTitle}
+            </div>
+            {/* Visual progress bar */}
+            <div className="mb-3">
+              <div className="h-1 w-full bg-panel-border rounded-full overflow-hidden">
+                <div
+                  className="h-full rounded-full transition-all duration-500"
+                  style={{
+                    width: `${getLevelPercent(tooltip.tech.level)}%`,
+                    backgroundColor: getStatusColor(tooltip.tech.level),
+                  }}
+                />
+              </div>
             </div>
             <div className="w-full h-px bg-panel-border mb-3" />
             <div className="space-y-1.5">

@@ -88,7 +88,7 @@
       { "name": "Experience", "href": "/#experience" },
       { "name": "Skills", "href": "/#skills" },
       { "name": "Projects", "href": "/projects" },
-      { "name": "Blog", "href": "/blogs" },
+      { "name": "Blog", "href": "/blog" },
       { "name": "Contact", "href": "/contact" }
     ]
   },
@@ -512,13 +512,24 @@
     "postsPath": "/blogs",
     "items": [
       {
+        "slug": "realworld-impact-projects",
+        "title": "Real-World Impact: Production Projects That Deliver Results",
+        "date": "2026-07-19",
+        "readTime": "12 min read",
+        "excerpt": "A deep dive into six production projects that solve real business problems — from restaurant SaaS and insurance platforms to multi-container deployments and real-time systems.",
+        "tags": ["Full-Stack", "Laravel", "Django", "Docker", "Real-Time", "Production"],
+        "image": "/images/blog-rbac.jpg",
+        "file": "blogs/realworld-impact-projects.md"
+      },
+      {
         "slug": "server-monitoring-tool-uptime-monitoring",
         "title": "Server Monitoring Tool: Detect Website Downtime Before Your Clients Do",
         "date": "2026-05-13",
         "readTime": "10 min read",
         "excerpt": "Deploy a lightweight open source server monitoring tool built in Go to detect website downtime before clients report it.",
         "tags": ["Go", "Monitoring", "DevOps", "Open Source", "Infrastructure"],
-        "image": "/images/blog-server-monitor.jpg"
+        "image": "/images/blog-server-monitor.jpg",
+        "file": "blogs/blog.md"
       },
       {
         "slug": "ai-referee-football-player-tracking",
@@ -527,7 +538,8 @@
         "readTime": "14 min read",
         "excerpt": "Build an AI-powered football analytics pipeline using YOLOv5, SORT tracking, SSIM-based team classification, pitch mapping, and a Flask dashboard.",
         "tags": ["Computer Vision", "AI", "Football Analytics", "YOLOv5", "OpenCV", "Flask", "Machine Learning"],
-        "image": "/images/blog-ai-referee.jpg"
+        "image": "/images/blog-ai-referee.jpg",
+        "file": "BLOG.md"
       }
     ]
   },
@@ -563,7 +575,7 @@
       { "name": "Experience", "href": "/#experience" },
       { "name": "Skills", "href": "/#skills" },
       { "name": "Projects", "href": "/projects" },
-      { "name": "Blog", "href": "/blogs" },
+      { "name": "Blog", "href": "/blog" },
       { "name": "Contact", "href": "/contact" }
     ],
     "socialLinks": ["github", "linkedin", "gitlab"],

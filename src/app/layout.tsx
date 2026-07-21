@@ -3,6 +3,7 @@ import { Space_Grotesk } from 'next/font/google'
 import { Geist_Mono } from 'next/font/google'
 import localFont from 'next/font/local'
 import '../styles/globals.css'
+import SmoothScroll from '../components/SmoothScroll'
 import Navigation from '../components/Navigation'
 import Footer from '../components/Footer'
 import BootSequence from '../components/BootSequence'
@@ -41,12 +42,17 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className="dark">
       <body className={`${spaceGrotesk.variable} ${geistSans.variable} ${geistMono.variable} min-h-screen bg-bg-void text-text-primary font-body flex flex-col antialiased`}>
-        <CustomCursor />
-        <BootSequence />
-        <SpatialCore />
-        <Navigation />
-        <main className="flex-1 relative z-10 max-w-[1440px] mx-auto w-full">{children}</main>
-        <Footer />
+        <SmoothScroll>
+          <a href="#hero" className="sr-only sr-only-focusable">
+            Skip to content
+          </a>
+          <CustomCursor />
+          <BootSequence />
+          <SpatialCore />
+          <Navigation />
+          <main id="hero-content" className="flex-1 relative z-10 max-w-[1440px] mx-auto w-full">{children}</main>
+          <Footer />
+        </SmoothScroll>
       </body>
     </html>
   )

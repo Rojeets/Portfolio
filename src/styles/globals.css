@@ -213,7 +213,7 @@
     pointer-events: none;
     z-index: 9999;
     mix-blend-mode: screen;
-    transition: transform 0.15s ease-out;
+    transition: transform 0.15s ease-out, opacity 0.3s;
   }
 
   .cursor-ring {
@@ -224,19 +224,59 @@
     position: fixed;
     pointer-events: none;
     z-index: 9998;
-    transition: transform 0.08s ease-out, width 0.3s, height 0.3s, border-color 0.3s;
+    transition: width 0.3s, height 0.3s, border-color 0.3s, background 0.3s, opacity 0.3s;
   }
 
-  .cursor-ring.hovering {
-    width: 48px;
-    height: 48px;
-    border-color: rgba(61, 99, 255, 0.7);
+  /* Text cursor — I-beam feel */
+  .cursor-ring.cursor-text {
+    width: 4px;
+    height: 28px;
+    border-radius: 2px;
+    border-color: rgba(61, 99, 255, 0.6);
+    background: rgba(61, 99, 255, 0.08);
+  }
+
+  /* Project card cursor — larger, shows view intent */
+  .cursor-ring.cursor-project {
+    width: 64px;
+    height: 64px;
+    border-color: rgba(61, 99, 255, 0.5);
+    background: rgba(61, 99, 255, 0.06);
+  }
+
+  /* Button cursor — compact, solid */
+  .cursor-ring.cursor-button {
+    width: 24px;
+    height: 24px;
+    border-color: rgba(61, 99, 255, 0.8);
+    background: rgba(61, 99, 255, 0.12);
+  }
+
+  /* Link cursor — glow effect */
+  .cursor-ring.cursor-link {
+    width: 40px;
+    height: 40px;
+    border-color: rgba(61, 99, 255, 0.6);
+    box-shadow: 0 0 12px rgba(61, 99, 255, 0.25), 0 0 30px rgba(61, 99, 255, 0.1);
+  }
+
+  /* Trail dots */
+  .cursor-trail {
+    width: 6px;
+    height: 6px;
+    background: var(--color-blue-core);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9997;
+    mix-blend-mode: screen;
+    opacity: 0;
   }
 }
 
 /* Hide custom cursor on touch */
 @media (hover: none) or (pointer: coarse) {
-  .cursor-dot, .cursor-ring {
+  .cursor-dot, .cursor-ring, .cursor-trail {
     display: none !important;
   }
 }
@@ -272,4 +312,123 @@
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+
+  /* Hide custom cursor on reduced motion */
+  .cursor-dot, .cursor-ring, .cursor-trail {
+    display: none !important;
+  }
+}
+
+/* Focus-visible styles for keyboard navigation */
+@media (hover: hover) and (pointer: fine) {
+  a:focus-visible,
+  button:focus-visible,
+  [role="button"]:focus-visible {
+    outline: 2px solid var(--color-blue-core);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+}
+
+/* Skip to content link */
+.sr-only-focusable:focus {
+  position: fixed;
+  top: 0.5rem;
+  left: 0.5rem;
+  z-index: 9999;
+  padding: 0.5rem 1rem;
+  background: var(--color-bg-panel);
+  border: 1px solid var(--color-blue-core);
+  border-radius: var(--radius-lg);
+  color: var(--color-text-primary);
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  text-decoration: none;
+}
+
+/* Lenis smooth scroll */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis:not(.lenis-autoToggle).lenis-stopped {
+  overflow: clip;
+}
+
+.lenis [data-lenis-prevent],
+.lenis [data-lenis-prevent-wheel],
+.lenis [data-lenis-prevent-touch],
+.lenis [data-lenis-prevent-vertical],
+.lenis [data-lenis-prevent-horizontal] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
+/* Terminal scanline overlay */
+@utility scanlines {
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.03) 2px,
+    rgba(0, 0, 0, 0.03) 4px
+  );
+}
+
+/* Terminal grid dot pattern */
+@utility terminal-grid {
+  pointer-events: none;
+  background-image: radial-gradient(
+    circle,
+    rgba(61, 99, 255, 0.04) 1px,
+    transparent 1px
+  );
+  background-size: 24px 24px;
+}
+
+/* Section divider - terminal style */
+@utility terminal-divider {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(61, 99, 255, 0.15) 20%,
+    rgba(61, 99, 255, 0.3) 50%,
+    rgba(61, 99, 255, 0.15) 80%,
+    transparent 100%
+  );
+}
+
+/* Magnetic button base */
+@utility magnetic-btn {
+  transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+
+/* Project modal overlay */
+@utility modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* Modal content card */
+@utility modal-card {
+  background-color: var(--color-bg-panel);
+  border: 1px solid var(--color-panel-border);
+  border-radius: var(--radius-2xl);
+  max-width: 56rem;
+  max-height: 85vh;
+  overflow-y: auto;
+  overscroll-behavior: contain;
 }

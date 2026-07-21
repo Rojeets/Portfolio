@@ -1,10 +1,16 @@
 'use client'
+import { useState, useCallback } from 'react'
 import Link from 'next/link'
 import { ArrowUpRight, Code, Database, HardDrives, Cpu, Gear, Rocket } from '@/components/Icons'
 import About from '@/components/About'
 import ScrollReveal from '@/components/ScrollReveal'
+import SectionTransition from '@/components/SectionTransition'
+import TerminalPrompt from '@/components/TerminalPrompt'
 import ExperienceCarousel from '@/components/ExperienceCarousel'
 import SkillConstellation from '@/components/SkillConstellation'
+import ProjectCard from '@/components/ProjectCard'
+import ProjectModal from '@/components/ProjectModal'
+import MagneticButton from '@/components/MagneticButton'
 import portfolioData from '@/data/portfolio.json'
 import type { PortfolioData, Project } from '@/lib/types'
 
@@ -20,9 +26,21 @@ const philosophySteps = [
 
 export default function HomePage() {
   const featuredProjects = data.projects.items.slice(0, 3)
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null)
+
+  const handleSelectProject = useCallback((project: Project) => {
+    setSelectedProject(project)
+  }, [])
+
+  const handleCloseModal = useCallback(() => {
+    setSelectedProject(null)
+  }, [])
 
   return (
     <main className="">
+      {/* Scanline overlay — subtle CRT effect */}
+      <div className="fixed inset-0 z-[5] scanlines opacity-40 pointer-events-none" />
+
       {/* Hero */}
       <section id="hero" className="relative h-screen flex flex-col justify-center overflow-hidden pl-12 md:pl-20">
         <div className="max-w-3xl">
@@ -68,7 +86,7 @@ export default function HomePage() {
                 <p className="text-text-muted">
                   <span className="text-blue-core">$</span> echo $STACK
                 </p>
-                <p className="text-blue-light pl-2">Laravel &middot; React &middot; Django &middot; Docker</p>
+                <p className="text-blue-light pl-2">Laravel · React · Django · Docker</p>
                 <p className="text-text-muted">
                   <span className="text-blue-core">$</span> <span className="animate-pulse">_</span>
                 </p>
@@ -78,17 +96,24 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Terminal divider */}
+      <div className="terminal-divider mx-6" />
+
       {/* About */}
       <About />
 
+      {/* Terminal divider */}
+      <div className="terminal-divider mx-6" />
+
       {/* Philosophy */}
-      <section id="philosophy" className="py-20 relative overflow-hidden">
+      <SectionTransition id="philosophy" className="py-20 relative overflow-hidden">
         <div className="max-w-6xl mx-auto px-6">
           <ScrollReveal>
             <div className="flex items-center gap-3 mb-4">
               <span className="text-gradient text-sm font-display font-semibold uppercase tracking-widest">Process</span>
               <div className="h-px flex-1 bg-gradient-to-r from-blue-core/30 to-transparent" />
             </div>
+            <TerminalPrompt command="cat /etc/philosophy.md" className="mb-4" />
             <h2 className="text-4xl md:text-5xl font-display font-semibold mb-2">
               Philosophy
             </h2>
@@ -127,21 +152,25 @@ export default function HomePage() {
             </div>
           </ScrollReveal>
         </div>
-      </section>
+      </SectionTransition>
+
+      {/* Terminal divider */}
+      <div className="terminal-divider mx-6" />
 
       {/* Skills */}
-      <section className="py-20 bg-panel-bg/20 relative" id="skills">
+      <SectionTransition id="skills" className="py-20 bg-panel-bg/20 relative terminal-grid">
         <div className="max-w-6xl mx-auto px-6">
           <ScrollReveal>
             <div className="flex items-center gap-3 mb-4">
               <span className="text-gradient text-sm font-display font-semibold uppercase tracking-widest">Skills</span>
               <div className="h-px flex-1 bg-gradient-to-r from-blue-core/30 to-transparent" />
             </div>
+            <TerminalPrompt command='npx skills --category=all' className="mb-4" />
             <h2 className="text-4xl md:text-5xl font-display font-semibold mb-2">
               Technical <span className="text-gradient">Ecosystem</span>
             </h2>
             <p className="text-body-md text-text-secondary mb-12 max-w-lg">
-              A summary of the tools and technologies I work with daily.
+              Tools and technologies I work with daily.
             </p>
           </ScrollReveal>
 
@@ -167,16 +196,20 @@ export default function HomePage() {
             </div>
           </ScrollReveal>
         </div>
-      </section>
+      </SectionTransition>
+
+      {/* Terminal divider */}
+      <div className="terminal-divider mx-6" />
 
       {/* Projects Preview */}
-      <section className="py-20 relative" id="projects">
+      <SectionTransition id="projects" className="py-20 relative">
         <div className="max-w-6xl mx-auto px-6">
           <ScrollReveal>
             <div className="flex items-center gap-3 mb-4">
               <span className="text-gradient text-sm font-display font-semibold uppercase tracking-widest">Work</span>
               <div className="h-px flex-1 bg-gradient-to-r from-blue-core/30 to-transparent" />
             </div>
+            <TerminalPrompt command="ls ~/projects --featured" className="mb-4" />
             <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-4">
               <div>
                 <h2 className="text-4xl md:text-5xl font-display font-semibold mb-2">
@@ -186,12 +219,11 @@ export default function HomePage() {
                   {data.projects.sectionSubtitle}
                 </p>
               </div>
-              <Link
-                href="/projects"
-                className="text-blue-light text-sm font-medium flex items-center gap-1.5 hover:gap-2.5 transition-all shrink-0"
-              >
-                View All <ArrowUpRight size={14} />
-              </Link>
+              <MagneticButton as="a" href="/projects" strength={0.2}>
+                <span className="text-blue-light text-sm font-medium flex items-center gap-1.5 hover:gap-2.5 transition-all">
+                  View All <ArrowUpRight size={14} />
+                </span>
+              </MagneticButton>
             </div>
           </ScrollReveal>
 
@@ -199,90 +231,39 @@ export default function HomePage() {
           <div className="grid lg:grid-cols-3 gap-4 auto-rows-auto">
             {/* Featured project — 2 cols on desktop */}
             <ScrollReveal className="lg:col-span-2 lg:row-span-2" direction="left">
-              <Link href={`/projects#${featuredProjects[0].title.toLowerCase().replace(/\s+/g, '-')}`} className="block h-full">
-                <div className="card-base h-full p-6 md:p-8 flex flex-col group relative overflow-hidden group-hover:-translate-y-1 group-hover:border-blue-core/20 group-hover:shadow-lg group-hover:shadow-blue-core/5 transition-all duration-300">
-                  {/* Gradient header accent */}
-                  <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-core/40 via-blue-light/30 to-blue-core/40" />
-                  <div className="absolute inset-0 bg-gradient-to-br from-blue-core/5 via-transparent to-transparent pointer-events-none" />
-
-                  <div className="relative flex-1 flex flex-col">
-                    <div className="flex items-center justify-between mb-5">
-                      <div className="w-11 h-11 rounded-xl bg-blue-core/10 flex items-center justify-center text-blue-light">
-                        <Cpu size={22} />
-                      </div>
-                      <span className="text-[11px] font-mono text-green-live flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-green-live/5 border border-green-live/10">
-                        <span className="w-1.5 h-1.5 rounded-full bg-green-live animate-pulse-dot" />
-                        {featuredProjects[0].metric}
-                      </span>
-                    </div>
-                    <h3 className="text-xl md:text-2xl font-display font-semibold mb-3 group-hover:text-blue-light transition-colors">
-                      {featuredProjects[0].title}
-                    </h3>
-                    <p className="text-sm text-text-secondary mb-6 leading-relaxed line-clamp-4">
-                      {featuredProjects[0].description}
-                    </p>
-                    <div className="flex flex-wrap gap-1.5 mt-auto">
-                      {featuredProjects[0].tech.map((tag) => (
-                        <span key={tag} className="px-2.5 py-1 text-[11px] font-mono bg-white/[0.03] text-text-muted rounded-md border border-panel-border">
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </Link>
+              <ProjectCard
+                project={featuredProjects[0]}
+                variant="featured"
+                onSelect={handleSelectProject}
+              />
             </ScrollReveal>
 
             {/* Stacked smaller projects */}
             {featuredProjects.slice(1).map((project: Project, idx) => (
               <ScrollReveal key={project.title} direction="right" delay={idx * 0.1}>
-                <Link href={`/projects#${project.title.toLowerCase().replace(/\s+/g, '-')}`} className="block h-full">
-                  <div className="card-base h-full p-5 flex flex-col group relative overflow-hidden group-hover:-translate-y-1 group-hover:border-blue-core/20 group-hover:shadow-lg group-hover:shadow-blue-core/5 transition-all duration-300">
-                    <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-blue-core/20 to-transparent" />
-
-                    <div className="flex items-center justify-between mb-3">
-                      <div className="w-9 h-9 rounded-lg bg-blue-core/10 flex items-center justify-center text-blue-light">
-                        <Cpu size={18} />
-                      </div>
-                      <span className="text-[11px] font-mono text-green-live flex items-center gap-1.5">
-                        <span className="w-1.5 h-1.5 rounded-full bg-green-live animate-pulse-dot" />
-                        {project.metric}
-                      </span>
-                    </div>
-                    <h3 className="text-base font-display font-semibold mb-2 group-hover:text-blue-light transition-colors">
-                      {project.title}
-                    </h3>
-                    <p className="text-sm text-text-secondary mb-4 line-clamp-3 leading-relaxed flex-1">
-                      {project.description}
-                    </p>
-                    <div className="flex flex-wrap gap-1.5 mt-auto">
-                      {project.tech.slice(0, 3).map((tag) => (
-                        <span key={tag} className="px-2 py-0.5 text-[11px] font-mono bg-white/[0.03] text-text-muted rounded-md border border-panel-border">
-                          {tag}
-                        </span>
-                      ))}
-                      {project.tech.length > 3 && (
-                        <span className="px-2 py-0.5 text-[11px] font-mono text-text-muted">
-                          +{project.tech.length - 3}
-                        </span>
-                      )}
-                    </div>
-                  </div>
-                </Link>
+                <ProjectCard
+                  project={project}
+                  variant="standard"
+                  onSelect={handleSelectProject}
+                />
               </ScrollReveal>
             ))}
           </div>
         </div>
-      </section>
+      </SectionTransition>
+
+      {/* Terminal divider */}
+      <div className="terminal-divider mx-6" />
 
       {/* Blog Preview */}
-      <section className="py-20 bg-panel-bg/20 relative" id="blog">
+      <SectionTransition id="blog" className="py-20 bg-panel-bg/20 relative terminal-grid">
         <div className="max-w-6xl mx-auto px-6">
           <ScrollReveal>
             <div className="flex items-center gap-3 mb-4">
               <span className="text-gradient text-sm font-display font-semibold uppercase tracking-widest">Writing</span>
               <div className="h-px flex-1 bg-gradient-to-r from-blue-core/30 to-transparent" />
             </div>
+            <TerminalPrompt command='cat posts.log | tail -2' className="mb-4" />
             <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-4">
               <div>
                 <h2 className="text-4xl md:text-5xl font-display font-semibold mb-2">
@@ -292,12 +273,11 @@ export default function HomePage() {
                   Thoughts on system design, scalability, and the craft of building.
                 </p>
               </div>
-              <Link
-                href="/blog"
-                className="text-blue-light text-sm font-medium flex items-center gap-1.5 hover:gap-2.5 transition-all shrink-0"
-              >
-                All Posts <ArrowUpRight size={14} />
-              </Link>
+              <MagneticButton as="a" href="/blog" strength={0.2}>
+                <span className="text-blue-light text-sm font-medium flex items-center gap-1.5 hover:gap-2.5 transition-all">
+                  All Posts <ArrowUpRight size={14} />
+                </span>
+              </MagneticButton>
             </div>
           </ScrollReveal>
 
@@ -376,7 +356,10 @@ export default function HomePage() {
             </div>
           </div>
         </div>
-      </section>
+      </SectionTransition>
+
+      {/* Terminal divider */}
+      <div className="terminal-divider mx-6" />
 
       {/* Experience */}
       <ExperienceCarousel
@@ -385,8 +368,11 @@ export default function HomePage() {
         achievements={data.experience.achievements}
       />
 
+      {/* Terminal divider */}
+      <div className="terminal-divider mx-6" />
+
       {/* CTA */}
-      <section id="cta" className="py-24 relative overflow-hidden">
+      <SectionTransition id="cta" className="py-24 relative overflow-hidden">
         {/* Aurora gradient background */}
         <div className="absolute inset-0 bg-gradient-to-br from-blue-core/8 via-bg-void to-purple-500/5 animate-aurora" />
         <div className="absolute inset-0 bg-gradient-to-t from-bg-void via-transparent to-bg-void" />
@@ -401,6 +387,8 @@ export default function HomePage() {
               </span>
             </div>
 
+            <TerminalPrompt command='echo $STATUS' className="justify-center mb-6" />
+
             <div className="text-center max-w-2xl mx-auto">
               <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-semibold mb-6 leading-tight">
                 Ready to build<br />
@@ -410,23 +398,24 @@ export default function HomePage() {
                 Let&apos;s turn your ideas into production-grade systems.
               </p>
               <div className="flex flex-col sm:flex-row justify-center gap-4">
-                <Link
-                  href="mailto:info@rojitpokharel.com.np"
-                  className="inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-blue-core text-white text-sm font-semibold rounded-lg hover:bg-blue-core/90 transition-all animate-pulse-glow"
-                >
-                  Start a Conversation
-                </Link>
-                <Link
-                  href="/contact"
-                  className="inline-flex items-center justify-center gap-2 px-7 py-3.5 border border-panel-border text-text-primary text-sm font-medium rounded-lg hover:bg-white/[0.03] hover:border-blue-core/20 transition-all"
-                >
-                  Book a Sync
-                </Link>
+                <MagneticButton as="a" href="mailto:info@rojitpokharel.com.np" strength={0.2}>
+                  <span className="inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-blue-core text-white text-sm font-semibold rounded-lg hover:bg-blue-core/90 transition-all animate-pulse-glow">
+                    Start a Conversation
+                  </span>
+                </MagneticButton>
+                <MagneticButton as="a" href="/contact" strength={0.2}>
+                  <span className="inline-flex items-center justify-center gap-2 px-7 py-3.5 border border-panel-border text-text-primary text-sm font-medium rounded-lg hover:bg-white/[0.03] hover:border-blue-core/20 transition-all">
+                    Book a Sync
+                  </span>
+                </MagneticButton>
               </div>
             </div>
           </ScrollReveal>
         </div>
-      </section>
+      </SectionTransition>
+
+      {/* Project Modal */}
+      <ProjectModal project={selectedProject} onClose={handleCloseModal} />
     </main>
   )
 }

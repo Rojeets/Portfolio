@@ -6,16 +6,24 @@ import gsap from 'gsap'
 
 const BOOT_LINES = [
   { text: 'SYSTEM::ONLINE', delay: 0, isTitle: true },
-  { text: 'Loading profile... OK', delay: 0.6 },
-  { text: 'Initializing portfolio... OK', delay: 1.1 },
-  { text: 'Welcome, visitor.', delay: 1.6 },
+  { text: 'Loading profile... OK', delay: 0.4 },
+  { text: 'Initializing portfolio... OK', delay: 0.7 },
+]
+
+const SYSTEM_CHECKS = [
+  { label: 'GSAP', status: 'OK' },
+  { label: 'React', status: 'OK' },
+  { label: 'Three.js', status: 'OK' },
+  { label: 'ScrollTrigger', status: 'OK' },
 ]
 
 export default function BootSequence() {
   const containerRef = useRef<HTMLDivElement>(null)
   const [visible, setVisible] = useState(true)
   const [lines, setLines] = useState<Array<{ text: string; isTitle?: boolean; done: boolean }>>([])
-  const [skipRequested, setSkipRequested] = useState(false)
+  const [checks, setChecks] = useState<Array<{ label: string; status: string }>>([])
+  const [progress, setProgress] = useState(0)
+  const [showReady, setShowReady] = useState(false)
   const timelineRef = useRef<gsap.core.Timeline | null>(null)
 
   const skipBoot = useCallback(() => {
@@ -58,12 +66,12 @@ export default function BootSequence() {
 
     timelineRef.current = tl
 
+    // Phase 1: Boot lines
     BOOT_LINES.forEach((line, i) => {
       tl.call(() => {
         setLines(prev => [...prev, { text: '', isTitle: line.isTitle, done: false }])
-      }, [], `+=${i === 0 ? 0.2 : line.delay - (BOOT_LINES[i - 1]?.delay || 0)}`)
+      }, [], `+=${i === 0 ? 0.3 : 0.15}`)
 
-      // Typewriter effect
       const chars = line.text.split('')
       chars.forEach((_, j) => {
         tl.call(() => {
@@ -78,7 +86,7 @@ export default function BootSequence() {
             }
             return newLines
           })
-        }, [], `+=${0.03}`)
+        }, [], `+=${0.025}`)
       })
 
       tl.call(() => {
@@ -93,8 +101,24 @@ export default function BootSequence() {
       })
     })
 
-    // Hold for a moment then fade
-    tl.to({}, { duration: 0.5 })
+    // Phase 2: System checks — staggered checkmarks
+    tl.call(() => setLines(prev => [...prev, { text: '', done: false }]), [], '+=0.15')
+
+    SYSTEM_CHECKS.forEach((check, i) => {
+      tl.call(() => {
+        setChecks(prev => [...prev, check])
+        setProgress(Math.round(((i + 1) / SYSTEM_CHECKS.length) * 80))
+      }, [], `+=${0.12}`)
+    })
+
+    // Phase 3: Progress bar fills to 100%
+    tl.call(() => setProgress(100), [], '+=0.2')
+
+    // Phase 4: "System ready" message
+    tl.call(() => setShowReady(true), [], '+=0.3')
+
+    // Hold briefly then fade
+    tl.to({}, { duration: 0.4 })
   }, { dependencies: [visible] })
 
   if (!visible) return null
@@ -107,6 +131,7 @@ export default function BootSequence() {
       onKeyDown={skipBoot}
     >
       <div className="max-w-lg w-full px-8">
+        {/* Boot lines */}
         {lines.map((line, i) => (
           <div
             key={i}
@@ -123,6 +148,42 @@ export default function BootSequence() {
             {!line.done && <span className="boot-cursor" />}
           </div>
         ))}
+
+        {/* System checks */}
+        {checks.length > 0 && (
+          <div className="mt-4 space-y-1">
+            {checks.map((check, i) => (
+              <div key={i} className="font-mono text-xs text-text-muted flex items-center gap-2">
+                <span className="text-green-live">✓</span>
+                <span>{check.label}</span>
+                <span className="text-green-live/60 ml-auto">{check.status}</span>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* Progress bar */}
+        {checks.length > 0 && (
+          <div className="mt-4">
+            <div className="h-0.5 w-full bg-panel-border rounded-full overflow-hidden">
+              <div
+                className="h-full bg-gradient-to-r from-blue-core to-blue-light transition-all duration-200 ease-out rounded-full"
+                style={{ width: `${progress}%` }}
+              />
+            </div>
+            <div className="flex justify-between mt-1">
+              <span className="text-[10px] font-mono text-text-muted">Loading portfolio assets...</span>
+              <span className="text-[10px] font-mono text-text-muted">{progress}%</span>
+            </div>
+          </div>
+        )}
+
+        {/* System ready */}
+        {showReady && (
+          <div className="mt-4 font-mono text-sm text-green-live glow-text">
+            System ready.
+          </div>
+        )}
 
         <div className="mt-8 text-xs text-text-muted font-mono">
           Click or press any key to skip

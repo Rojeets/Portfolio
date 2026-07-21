@@ -5,6 +5,8 @@ import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import ScrollReveal from '@/components/ScrollReveal'
+import TerminalPrompt from '@/components/TerminalPrompt'
+import SectionTransition from '@/components/SectionTransition'
 import portfolioData from '@/data/portfolio.json'
 import type { PortfolioData } from '@/lib/types'
 
@@ -85,13 +87,14 @@ export default function About() {
   }, { scope: statRef })
 
   return (
-    <section id="about" className="py-20 relative gradient-mesh">
+    <SectionTransition id="about" className="py-20 relative gradient-mesh">
       <div className="max-w-6xl mx-auto px-6">
         <ScrollReveal>
-          <div className="flex items-center gap-3 mb-10">
+          <div className="flex items-center gap-3 mb-4">
             <span className="text-gradient text-sm font-display font-semibold uppercase tracking-widest">About</span>
             <div className="h-px flex-1 bg-gradient-to-r from-blue-core/30 to-transparent" />
           </div>
+          <TerminalPrompt command="cat about.md" className="mb-4" />
         </ScrollReveal>
 
         <ScrollReveal>
@@ -112,12 +115,6 @@ export default function About() {
               <h3 className="text-2xl md:text-3xl font-display font-semibold leading-snug text-text-primary">
                 {data.about.statement}
               </h3>
-
-              <div className="space-y-4 text-body-md text-text-secondary leading-relaxed">
-                {data.about.details.map((detail, i) => (
-                  <p key={i}>{detail}</p>
-                ))}
-              </div>
 
               <ul className="space-y-3 mt-6">
                 {data.about.differentiators.map((item, i) => (
@@ -159,6 +156,6 @@ export default function About() {
           </div>
         </ScrollReveal>
       </div>
-    </section>
+    </SectionTransition>
   )
 }

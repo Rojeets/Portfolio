@@ -88,6 +88,7 @@ export interface BlogPost {
   excerpt: string
   tags: string[]
   image: string
+  file?: string
 }
 
 export interface BlogData {
