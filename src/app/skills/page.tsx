@@ -26,7 +26,7 @@ function GitHeatmap() {
     <div className="card-base overflow-hidden rounded-xl">
       <iframe
         ref={iframeRef}
-        src="https://git-stats.rojitpokharel.com.np/?github=Rojeets&gitlab=rojeets"
+        src="https://git-stats.rojitpokharel.com.np/embed?github=Rojeets&gitlab=rojeets"
         width="100%"
         height={height}
         style={{ border: 'none', transition: 'height 0.3s ease' }}
