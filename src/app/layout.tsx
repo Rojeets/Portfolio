@@ -11,6 +11,7 @@ import SpatialCore from '../components/three/SpatialCore'
 import CustomCursor from '../components/CustomCursor'
 import Script from 'next/script'
 import * as gtag from '../lib/gtag';
+import { Analytics } from "@vercel/analytics/next"
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
@@ -65,6 +66,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body className={`${spaceGrotesk.variable} ${geistSans.variable} ${geistMono.variable} min-h-screen bg-bg-void text-text-primary font-body flex flex-col antialiased`}>
+        <Analytics />
         <SmoothScroll>
           <a href="#hero" className="sr-only sr-only-focusable">
             Skip to content
