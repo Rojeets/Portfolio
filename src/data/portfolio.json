@@ -529,7 +529,7 @@
         "excerpt": "Deploy a lightweight open source server monitoring tool built in Go to detect website downtime before clients report it.",
         "tags": ["Go", "Monitoring", "DevOps", "Open Source", "Infrastructure"],
         "image": "/images/blog-server-monitor.jpg",
-        "file": "blogs/blog.md"
+        "file": "blogs/server-monitoring-tool-uptime-monitoring.md"
       },
       {
         "slug": "ai-referee-football-player-tracking",
@@ -539,7 +539,7 @@
         "excerpt": "Build an AI-powered football analytics pipeline using YOLOv5, SORT tracking, SSIM-based team classification, pitch mapping, and a Flask dashboard.",
         "tags": ["Computer Vision", "AI", "Football Analytics", "YOLOv5", "OpenCV", "Flask", "Machine Learning"],
         "image": "/images/blog-ai-referee.jpg",
-        "file": "BLOG.md"
+        "file": "blogs/ai-referee-football-player-tracking.md"
       }
     ]
   },

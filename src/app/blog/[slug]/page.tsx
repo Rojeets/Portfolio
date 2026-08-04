@@ -1,5 +1,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
+import { notFound } from 'next/navigation'
+import type { Metadata } from 'next'
 import { ArrowLeft } from '@/components/Icons'
 import CopyButton from '@/components/CopyButton'
 import { compileMDX } from 'next-mdx-remote/rsc'
@@ -58,21 +60,51 @@ async function getPostContent(slug: string) {
   return { post, content: mdxContent }
 }
 
+export function generateStaticParams() {
+  return data.blog.items.map((post: BlogPost) => ({ slug: post.slug }))
+}
+
+export const dynamicParams = false
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params
+  const post = data.blog.items.find((p: BlogPost) => p.slug === slug)
+
+  if (!post) {
+    return { title: 'Post not found' }
+  }
+
+  const title = post.title
+  const description = post.excerpt
+  const url = `/blog/${post.slug}`
+
+  return {
+    title,
+    description,
+    alternates: { canonical: url },
+    openGraph: {
+      title,
+      description,
+      type: 'article',
+      publishedTime: post.date,
+      url,
+      images: [{ url: post.image }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: [post.image],
+    },
+  }
+}
+
 export default async function BlogDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
   const result = await getPostContent(slug)
 
   if (!result) {
-    return (
-      <main className="pt-24 pb-24">
-        <div className="max-w-3xl mx-auto px-6 text-center">
-          <h1 className="text-3xl font-display font-semibold mb-4">Post not found</h1>
-          <Link href="/blog" className="text-blue-light text-sm hover:underline">
-            Back to blog
-          </Link>
-        </div>
-      </main>
-    )
+    notFound()
   }
 
   const { post, content } = result

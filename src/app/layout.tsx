@@ -33,10 +33,39 @@ const geistSans = localFont({
 })
 
 export const metadata: Metadata = {
-  title: 'Rojit Pokharel | Full-Stack Developer & System Architect',
+  metadataBase: new URL('https://portfolio.rojitpokharel.com.np'),
+  title: {
+    default: 'Rojit Pokharel | Full-Stack Developer & System Architect',
+    template: '%s | Rojit Pokharel',
+  },
   description: 'Full-stack developer building scalable web applications with Laravel, React, and modern technologies. Based in Kathmandu, Nepal.',
   keywords: ['Full-Stack Developer', 'Laravel', 'React', 'Next.js', 'Django', 'System Architecture', 'Nepal'],
   authors: [{ name: 'Rojit Pokharel' }],
+  alternates: {
+    canonical: '/',
+  },
+  openGraph: {
+    type: 'website',
+    locale: 'en_US',
+    url: '/',
+    siteName: 'Rojit Pokharel',
+    title: 'Rojit Pokharel | Full-Stack Developer & System Architect',
+    description: 'Full-stack developer building scalable web applications with Laravel, React, and modern technologies. Based in Kathmandu, Nepal.',
+    images: [
+      {
+        url: '/images/og-image.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Rojit Pokharel - Full-Stack Developer',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Rojit Pokharel | Full-Stack Developer & System Architect',
+    description: 'Full-stack developer building scalable web applications with Laravel, React, and modern technologies. Based in Kathmandu, Nepal.',
+    images: ['/images/og-image.jpg'],
+  },
   icons: {
     icon: [{ url: '/favicon.svg', type: 'image/svg+xml' }],
   },
