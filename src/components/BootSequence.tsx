@@ -17,9 +17,14 @@ const SYSTEM_CHECKS = [
   { label: 'ScrollTrigger', status: 'OK' },
 ]
 
+const MAX_BOOT_MS = 2500
+
+const BOT_PATTERN =
+  /googlebot|bingbot|baiduspider|yandex|duckduckbot|slurp|headlesschrome|facebookexternalhit|twitterbot|preview|screaming ?frog|curl|wget|python-requests/i
+
 export default function BootSequence() {
   const containerRef = useRef<HTMLDivElement>(null)
-  const [visible, setVisible] = useState(true)
+  const [visible, setVisible] = useState(false)
   const [lines, setLines] = useState<Array<{ text: string; isTitle?: boolean; done: boolean }>>([])
   const [checks, setChecks] = useState<Array<{ label: string; status: string }>>([])
   const [progress, setProgress] = useState(0)
@@ -33,11 +38,23 @@ export default function BootSequence() {
   }, [])
 
   useEffect(() => {
-    const sessionStorageKey = 'boot-seen'
-    if (sessionStorage.getItem(sessionStorageKey)) {
-      setVisible(false)
-      return
-    }
+    const prefersReducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches
+    let seen = false
+    try {
+      seen = !!sessionStorage.getItem('boot-seen')
+    } catch {}
+
+    if (seen || prefersReducedMotion || BOT_PATTERN.test(navigator.userAgent)) return
+
+    const timer = setTimeout(() => {
+      setVisible(true)
+    }, 200)
+
+    return () => clearTimeout(timer)
+  }, [])
+
+  useEffect(() => {
+    if (!visible) return
 
     const handleKey = () => skipBoot()
     const handleClick = () => skipBoot()
@@ -48,14 +65,23 @@ export default function BootSequence() {
       window.removeEventListener('keydown', handleKey)
       window.removeEventListener('click', handleClick)
     }
-  }, [skipBoot])
+  }, [visible, skipBoot])
+
+  useEffect(() => {
+    if (!visible) return
+
+    const hardCap = setTimeout(skipBoot, MAX_BOOT_MS)
+    return () => clearTimeout(hardCap)
+  }, [visible, skipBoot])
 
   useGSAP(() => {
     if (!visible || !containerRef.current) return
 
     const tl = gsap.timeline({
       onComplete: () => {
-        sessionStorage.setItem('boot-seen', '1')
+        try {
+          sessionStorage.setItem('boot-seen', '1')
+        } catch {}
         gsap.to(containerRef.current, {
           opacity: 0,
           duration: 0.4,
@@ -126,6 +152,8 @@ export default function BootSequence() {
   return (
     <div
       ref={containerRef}
+      role="presentation"
+      aria-hidden="true"
       className="fixed inset-0 z-[100] bg-bg-void flex items-center justify-center cursor-pointer"
       onClick={skipBoot}
       onKeyDown={skipBoot}

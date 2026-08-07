@@ -11,6 +11,8 @@ import SkillConstellation from '@/components/SkillConstellation'
 import ProjectCard from '@/components/ProjectCard'
 import ProjectModal from '@/components/ProjectModal'
 import MagneticButton from '@/components/MagneticButton'
+import Services from '@/components/Services'
+import FaqSection from '@/components/FaqSection'
 import portfolioData from '@/data/portfolio.json'
 import type { PortfolioData, Project } from '@/lib/types'
 
@@ -201,6 +203,12 @@ export default function HomePage() {
       {/* Terminal divider */}
       <div className="terminal-divider mx-6" />
 
+      {/* Services */}
+      <Services />
+
+      {/* Terminal divider */}
+      <div className="terminal-divider mx-6" />
+
       {/* Projects Preview */}
       <SectionTransition id="projects" className="py-20 relative">
         <div className="max-w-6xl mx-auto px-6">
@@ -367,6 +375,12 @@ export default function HomePage() {
         education={data.experience.education}
         achievements={data.experience.achievements}
       />
+
+      {/* Terminal divider */}
+      <div className="terminal-divider mx-6" />
+
+      {/* FAQ */}
+      <FaqSection />
 
       {/* Terminal divider */}
       <div className="terminal-divider mx-6" />

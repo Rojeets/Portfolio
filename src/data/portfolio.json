@@ -507,7 +507,7 @@
   },
   "blog": {
     "sectionTitle": "Latest Articles",
-    "sectionSubtitle": "Deep dives into full-stack development, AI/ML systems, server infrastructure, and technical craftsmanship.",
+    "sectionSubtitle": "Guides and deep dives for businesses and developers — web app development in Kathmandu, website costs in Nepal, payment gateway integration, and production engineering.",
     "backgroundImage": "/images/blog-bg.jpg",
     "postsPath": "/blogs",
     "items": [
@@ -540,6 +540,66 @@
         "tags": ["Computer Vision", "AI", "Football Analytics", "YOLOv5", "OpenCV", "Flask", "Machine Learning"],
         "image": "/images/blog-ai-referee.jpg",
         "file": "blogs/ai-referee-football-player-tracking.md"
+      },
+      {
+        "slug": "website-cost-nepal",
+        "title": "How Much Does a Website Cost in Nepal? (2026 Pricing Guide)",
+        "date": "2026-08-05",
+        "readTime": "9 min read",
+        "excerpt": "A realistic 2026 pricing guide for websites and web applications in Nepal — from personal portfolios to custom web apps, plus what silently drives the price up.",
+        "tags": ["Web Development", "Nepal", "Pricing", "E-commerce", "Business"],
+        "image": "/images/blog-cost.jpg",
+        "file": "blogs/website-cost-nepal.md"
+      },
+      {
+        "slug": "payment-gateway-integration-nepal",
+        "title": "Payment Gateway Integration in Nepal: eSewa, Khalti, ConnectIPS, FonePay",
+        "date": "2026-08-01",
+        "readTime": "10 min read",
+        "excerpt": "How to integrate Nepali payment gateways — eSewa, Khalti, ConnectIPS, FonePay — and how NRB rules shape e-commerce checkout, plus the common mistakes that cost money.",
+        "tags": ["Payments", "eSewa", "Khalti", "E-commerce", "Nepal", "Laravel"],
+        "image": "/images/blog-payments.jpg",
+        "file": "blogs/payment-gateway-integration-nepal.md"
+      },
+      {
+        "slug": "laravel-vs-django-vs-nodejs",
+        "title": "Laravel vs Django vs Node.js for Web Applications in 2026",
+        "date": "2026-07-28",
+        "readTime": "10 min read",
+        "excerpt": "A practical 2026 comparison of Laravel, Django, and Node.js — performance, developer experience, hiring, and which backend to choose for your web application.",
+        "tags": ["Laravel", "Django", "Node.js", "Backend", "Web Development"],
+        "image": "/images/blog-frameworks.jpg",
+        "file": "blogs/laravel-vs-django-vs-nodejs.md"
+      },
+      {
+        "slug": "choose-web-development-company-kathmandu",
+        "title": "How to Choose a Web Development Company in Kathmandu",
+        "date": "2026-07-22",
+        "readTime": "8 min read",
+        "excerpt": "A practical checklist for choosing a web development company or freelancer in Kathmandu — portfolios, contracts, payment gates, support, and the red flags to avoid.",
+        "tags": ["Web Development", "Kathmandu", "Nepal", "Freelance", "Business"],
+        "image": "/images/blog-choose.jpg",
+        "file": "blogs/choose-web-development-company-kathmandu.md"
+      },
+      {
+        "slug": "web-app-development-kathmandu",
+        "title": "Web App Development in Kathmandu: What Businesses Should Know",
+        "date": "2026-07-14",
+        "readTime": "9 min read",
+        "excerpt": "What business owners in Kathmandu should know before building a web application in 2026 — custom vs off-the-shelf, scoping, budgets, timelines, and how to avoid costly failures.",
+        "tags": ["Web Apps", "SaaS", "Kathmandu", "Nepal", "Custom Software"],
+        "image": "/images/blog-webapp.jpg",
+        "file": "blogs/web-app-development-kathmandu.md"
+      },
+      {
+        "slug": "fullstack-developer-skills-2026",
+        "title": "Full-Stack Developer Skills Checklist for 2026",
+        "date": "2026-07-08",
+        "readTime": "9 min read",
+        "excerpt": "The essential full-stack developer skills for 2026 — backend, frontend, databases, DevOps, AI integration, and delivery — with a self-assessment to find your gaps.",
+        "tags": ["Full-Stack", "Skills", "Career", "DevOps", "AI", "Web Development"],
+        "image": "/images/blog-skills.jpg",
+        "file": "blogs/fullstack-developer-skills-2026.md"
       }
     ]
   },

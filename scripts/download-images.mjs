@@ -18,6 +18,12 @@ const images = {
   'blog-frontend.jpg': 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80',
   'blog-server-monitor.jpg': 'https://opengraph.githubassets.com/1/rojeets/servermonitortool',
   'blog-ai-referee.jpg': 'https://opengraph.githubassets.com/1/ultralytics/yolov5',
+  'blog-cost.jpg': 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&q=80',
+  'blog-payments.jpg': 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&q=80',
+  'blog-frameworks.jpg': 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800&q=80',
+  'blog-choose.jpg': 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=80',
+  'blog-webapp.jpg': 'https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=800&q=80',
+  'blog-skills.jpg': 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&q=80',
 }
 
 function download(url, dest) {

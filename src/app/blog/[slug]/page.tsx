@@ -109,8 +109,33 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ slu
 
   const { post, content } = result
 
+  const articleJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    mainEntityOfPage: `${process.env.NEXT_PUBLIC_SITE_URL ?? 'https://portfolio.rojitpokharel.com.np'}/blog/${post.slug}`,
+    headline: post.title,
+    description: post.excerpt,
+    image: post.image,
+    datePublished: post.date,
+    dateModified: post.date,
+    author: {
+      '@type': 'Person',
+      name: 'Rojit Pokharel',
+      url: 'https://portfolio.rojitpokharel.com.np',
+    },
+    publisher: {
+      '@type': 'Person',
+      name: 'Rojit Pokharel',
+    },
+    keywords: post.tags.join(', '),
+  }
+
   return (
     <main className="pt-24 pb-24">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+      />
       <article className="max-w-3xl mx-auto px-6">
         <div>
           <Link

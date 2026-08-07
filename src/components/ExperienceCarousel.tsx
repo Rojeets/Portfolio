@@ -187,7 +187,7 @@ export default function ExperienceTimeline({
                         <Calendar size={11} />
                         {role.period}
                       </span>
-                      <span className="text-text-muted/30">|</span>
+                      <span className="text-text-muted">|</span>
                       <span className="text-[11px] font-mono text-text-muted flex items-center gap-1.5">
                         <MapPin size={11} />
                         {role.location}
