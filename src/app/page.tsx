@@ -328,7 +328,7 @@ export default function HomePage() {
 
             {/* Remaining posts — stacked */}
             <div className="flex flex-col gap-4">
-              {data.blog.items.slice(1).map((blog: any, idx: number) => (
+              {data.blog.items.slice(1, 4).map((blog: any, idx: number) => (
                 <ScrollReveal key={blog.slug} direction="right" delay={idx * 0.1}>
                   <Link href={`/blog/${blog.slug}`} className="block">
                     <article className="card-blog group relative overflow-hidden group-hover:-translate-y-1 group-hover:border-blue-core/20 group-hover:shadow-lg group-hover:shadow-blue-core/5 transition-all duration-300 flex flex-row">

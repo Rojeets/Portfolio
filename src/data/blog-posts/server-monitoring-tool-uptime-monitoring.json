@@ -1,0 +1,277 @@
+{
+  "slug": "server-monitoring-tool-uptime-monitoring",
+  "sections": [
+    {
+      "type": "paragraph",
+      "content": "Enterprise website uptime monitoring doesn't have to be expensive or complex. Learn how a lightweight Go binary helps you detect downtime before clients report it — with multi-site health checks, Slack alerts, and Prometheus metrics in a single binary."
+    },
+    {
+      "type": "divider"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "The Real Cost of Reactive Website Monitoring"
+    },
+    {
+      "type": "paragraph",
+      "content": "When your team lacks proper **downtime detection**, every outage costs more than it should:"
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "**Client trust erodes** — every minute of unmonitored downtime is a minute your client wonders why you have not fixed it yet",
+        "**Engineer time wasted** — context-switching from planned work to firefighting destroys team velocity",
+        "**SLAs breached** — undetected outages eat into your uptime guarantees and may trigger contractual penalties",
+        "**Revenue lost** — for e-commerce and SaaS, every second of downtime carries a direct dollar cost"
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": "Organizations need a **server monitoring tool** that alerts them *before* the client picks up the phone."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Evaluating Website Uptime Monitoring Solutions"
+    },
+    {
+      "type": "paragraph",
+      "content": "Enterprise environments come with constraints. Here is how common solutions compare:"
+    },
+    {
+      "type": "table",
+      "header": [
+        "Tool",
+        "Drawback"
+      ],
+      "rows": [
+        [
+          "Datadog, New Relic",
+          "Expensive per-host licensing — cost grows with every server"
+        ],
+        [
+          "Nagios, Zabbix",
+          "Overkill for basic health checks; complex setup and outdated UI"
+        ],
+        [
+          "Prometheus + Grafana",
+          "Powerful but requires significant supporting infrastructure"
+        ],
+        [
+          "Pingdom, UptimeRobot",
+          "SaaS-only — monitoring data leaves your network boundary"
+        ]
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": "What most teams actually need is dead simple: **ping a list of URLs every N seconds, alert the right people when something fails, and get out of the way.** No agents. No SaaS dependency. No per-host fees."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Server Monitor Tool: A Lightweight Open Source Go Binary"
+    },
+    {
+      "type": "paragraph",
+      "content": "[**Server Monitor Tool**](https://github.com/Rojeets/ServerMonitorTool) is an open source, single-binary **uptime monitoring tool** written in Go. It does one thing well:"
+    },
+    {
+      "type": "code",
+      "lang": "bash",
+      "content": "monitor start"
+    },
+    {
+      "type": "paragraph",
+      "content": "That is it. It reads a YAML config file, runs health checks against each site at your configured interval, and displays a live terminal dashboard. When a site goes down, it fires alerts via email, Slack, or a custom webhook."
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "content": "Why Go for Server Monitoring?"
+    },
+    {
+      "type": "paragraph",
+      "content": "One binary. Zero runtime dependencies. Cross-compile for Linux and macOS in seconds. Copy it to any server with `scp` and it runs immediately. For operations teams who do not want to babysit a full **monitoring stack**, Go is the ideal choice."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Key Features"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "content": "Multi-Site Health Checks"
+    },
+    {
+      "type": "paragraph",
+      "content": "Define as many endpoints as you need — internal apps, client sites, APIs, and databases all in one YAML file:"
+    },
+    {
+      "type": "code",
+      "lang": "yaml",
+      "content": "sites:\n  - name: Client Dashboard\n    url: https://client.example.com\n    expect_status: 200\n  - name: Internal API\n    url: https://api.internal.example/health\n    expect_status: 200\n  - name: Payment Gateway\n    url: https://payments.example.com/status\n    method: GET\n    expect_status: 200"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "content": "Flexible Alerting"
+    },
+    {
+      "type": "table",
+      "header": [
+        "Alert Method",
+        "Best Use Case"
+      ],
+      "rows": [
+        [
+          "**Email (SMTP)**",
+          "Official incident tickets, after-hours escalation"
+        ],
+        [
+          "**Slack Webhook**",
+          "Team channels, real-time awareness during business hours"
+        ],
+        [
+          "**Generic Webhook**",
+          "PagerDuty, OpsGenie, or any custom incident management integration"
+        ]
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "content": "Prometheus Metrics Export"
+    },
+    {
+      "type": "paragraph",
+      "content": "Feed `/metrics` into your existing observability stack:"
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "`monitor_checks_total{site, status}` — check volume grouped by status",
+        "`monitor_check_duration_seconds{site}` — per-site latency tracking over time",
+        "`monitor_uptime_seconds` — process uptime for parent health monitoring"
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "content": "Real-Time TUI Dashboard"
+    },
+    {
+      "type": "paragraph",
+      "content": "See every site status at a glance — green for healthy, yellow for degraded, red for down. No browser required. No dashboard fatigue from yet another web UI."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "How to Install the Server Monitoring Tool"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "content": "One-Line Install (Recommended)"
+    },
+    {
+      "type": "code",
+      "lang": "bash",
+      "content": "curl -fsSL https://raw.githubusercontent.com/Rojeets/ServerMonitorTool/v0.1.0/install.sh | bash"
+    },
+    {
+      "type": "paragraph",
+      "content": "The installer detects your OS and CPU architecture, downloads the correct binary, and creates a starter `config.yaml` from the example template."
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "content": "Manual Binary Install"
+    },
+    {
+      "type": "code",
+      "lang": "bash",
+      "content": "# Linux x86_64\nsudo wget -O /usr/local/bin/monitor \\\n  https://github.com/Rojeets/ServerMonitorTool/releases/download/v0.1.0/monitor_linux_amd64\nsudo chmod +x /usr/local/bin/monitor\n\n# macOS ARM64\nsudo wget -O /usr/local/bin/monitor \\\n  https://github.com/Rojeets/ServerMonitorTool/releases/download/v0.1.0/monitor_darwin_arm64\nsudo chmod +x /usr/local/bin/monitor"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "content": "Docker Deployment"
+    },
+    {
+      "type": "code",
+      "lang": "bash",
+      "content": "docker build -t server-monitor .\ndocker run --rm -v $(pwd)/config.yaml:/config.yaml:ro server-monitor start"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Configuration Walkthrough"
+    },
+    {
+      "type": "code",
+      "lang": "yaml",
+      "content": "interval: 30s       # how often to check each site\ntimeout: 10s        # per-request timeout\nretries: 3          # failed attempts before declaring downtime\nslow_threshold: 5s  # response times above this are flagged degraded\n\nsites:\n  - name: Google\n    url: https://www.google.com\n    expect_status: 200\n\nsmtp:\n  enabled: true\n  host: smtp.gmail.com\n  port: 587\n  username: \"YOUR_EMAIL\"\n  password: \"YOUR_APP_PASSWORD\"\n  from: monitor@example.com\n  to:\n    - admin@example.com\n\nwebhooks:\n  slack:\n    enabled: true\n    webhook_url: \"https://hooks.slack.com/services/...\"\n    channel: \"#alerts\""
+    },
+    {
+      "type": "paragraph",
+      "content": "The `retries` field is especially important — it eliminates false positives from transient network blips so your team is paged only for real outages."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Real-World Impact"
+    },
+    {
+      "type": "paragraph",
+      "content": "Since deploying this **server monitoring tool**, teams using it report:"
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "**Detection time**: from client-reported (30–60 min) to sub-minute automated detection",
+        "**False positives**: near zero — configurable retries filter out transient glitches",
+        "**Engineer overhead**: roughly 5 minutes to set up, zero ongoing maintenance",
+        "**Client satisfaction**: teams now call clients before clients call them"
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Roadmap"
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "**Status page generator** — share a public status page directly with clients",
+        "**PagerDuty integration** — first-class incident management workflow",
+        "**Multi-region checks** — monitor services from multiple geographic vantage points",
+        "**HTTP method support** — POST, PUT, and custom header checks for API monitoring"
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Get Started Today"
+    },
+    {
+      "type": "paragraph",
+      "content": "Stop waiting for clients to tell you your servers are down. Install **Server Monitor Tool** in under one minute:"
+    },
+    {
+      "type": "code",
+      "lang": "bash",
+      "content": "curl -fsSL https://raw.githubusercontent.com/Rojeets/ServerMonitorTool/v0.1.0/install.sh | bash"
+    },
+    {
+      "type": "paragraph",
+      "content": "Or visit the [GitHub repository](https://github.com/Rojeets/ServerMonitorTool) for full documentation, issue tracking, and community contributions."
+    }
+  ]
+}

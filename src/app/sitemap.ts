@@ -1,6 +1,7 @@
 import type { MetadataRoute } from 'next'
 import portfolioData from '@/data/portfolio.json'
 import { answers } from '@/data/answers'
+import { serviceGroups } from '@/data/services'
 import type { PortfolioData, BlogPost, Project } from '@/lib/types'
 
 const data = portfolioData as PortfolioData
@@ -32,6 +33,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.8,
+    },
+    {
+      url: `${BASE_URL}/services`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.9,
     },
     {
       url: `${BASE_URL}/blog`,
@@ -67,6 +74,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.9,
   }))
 
+  const serviceRoutes: MetadataRoute.Sitemap = serviceGroups.flatMap((group) =>
+    group.pillars.map((pillar) => ({
+      url: `${BASE_URL}/services/${pillar.slug}`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    })),
+  )
+
   const answerRoutes: MetadataRoute.Sitemap = answers.map((answer) => ({
     url: `${BASE_URL}/answers/${answer.slug}`,
     lastModified: new Date(),
@@ -74,5 +90,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }))
 
-  return [...staticRoutes, ...blogRoutes, ...projectRoutes, ...answerRoutes]
+  return [...staticRoutes, ...blogRoutes, ...projectRoutes, ...serviceRoutes, ...answerRoutes]
 }

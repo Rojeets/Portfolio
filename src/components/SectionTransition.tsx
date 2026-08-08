@@ -22,46 +22,27 @@ export default function SectionTransition({
   id,
   parallax = false,
   parallaxAmount = 50,
-  fadeIn = true,
 }: SectionTransitionProps) {
   const ref = useRef<HTMLDivElement>(null)
 
   useGSAP(() => {
-    if (!ref.current) return
+    if (!ref.current || !parallax) return
 
+    const el = ref.current
     const mm = gsap.matchMedia()
 
-    mm.add('(prefers-reduced-motion: reduce)', () => {
-      // No animations — elements visible immediately
-    })
-
     mm.add('(prefers-reduced-motion: no-preference)', () => {
-      if (fadeIn) {
-        gsap.from(ref.current!, {
-          opacity: 0,
-          y: 30,
-          duration: 1,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: ref.current!,
-            start: 'top 90%',
-            once: true,
-          },
-        })
-      }
-
-      if (parallax) {
-        gsap.to(ref.current!, {
-          y: -parallaxAmount,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: ref.current!,
-            start: 'top bottom',
-            end: 'bottom top',
-            scrub: 1.5,
-          },
-        })
-      }
+      // Additive parallax only — sections stay visible regardless of trigger state
+      gsap.to(el, {
+        y: -parallaxAmount,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: el,
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: 1.5,
+        },
+      })
     })
 
     return () => mm.revert()

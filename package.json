@@ -25,6 +25,7 @@
     "lucide-react": "^1.24.0",
     "next": "^16.2.6",
     "next-mdx-remote": "^6.0.0",
+    "nodemailer": "^9.0.5",
     "react": "^19.2.6",
     "react-dom": "^19.2.6",
     "rehype-highlight": "^7.0.2",
@@ -36,6 +37,7 @@
   },
   "devDependencies": {
     "@types/node": "^25.7.0",
+    "@types/nodemailer": "^8.0.1",
     "@types/react": "^19.2.14",
     "@types/three": "^0.185.1",
     "postcss": "^8.5.14",

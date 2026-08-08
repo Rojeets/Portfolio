@@ -1,0 +1,355 @@
+{
+  "slug": "realworld-impact-projects",
+  "sections": [
+    {
+      "type": "paragraph",
+      "content": "Every project I build is designed to solve a real business problem. No toy apps, no tutorial clones — these are production systems handling real users, real payments, and real data. Here's a walkthrough of six projects that demonstrate the full stack of capabilities I bring to the table."
+    },
+    {
+      "type": "divider"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Restaurant Management SaaS"
+    },
+    {
+      "type": "paragraph",
+      "content": "**Stack:** Laravel, Filament, Laravel Reverb, Livewire, MySQL, Stripe"
+    },
+    {
+      "type": "paragraph",
+      "content": "This is a multi-tenant SaaS platform built for restaurant chains that need centralized control over menus, orders, and staff — with a real-time kitchen display that updates instantly when an order comes in."
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "content": "What makes it production-grade"
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "**Multi-gateway payment integration** — Supports Khalti, eSewa, and Stripe. The payment abstraction layer routes transactions to the correct gateway based on region and restaurant configuration, with automatic retry logic and webhook reconciliation.",
+        "**Real-time kitchen display** — Laravel Reverb (WebSockets) pushes order updates to kitchen screens the moment a customer places an order. No polling, no page refreshes. The kitchen sees the order within milliseconds.",
+        "**Filament admin panel** — Restaurant owners manage menus, track orders, and configure staff roles through a Filament v5 admin panel. Custom resources handle complex relationships between restaurants, menu items, and modifiers."
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "content": "Architecture decisions"
+    },
+    {
+      "type": "paragraph",
+      "content": "The multi-tenant architecture uses database-level isolation — each restaurant gets its own schema. This keeps queries fast and data clean, even as the platform scales. Queue workers handle payment processing and email notifications asynchronously so the request cycle stays snappy."
+    },
+    {
+      "type": "code",
+      "lang": "php",
+      "content": "// Payment gateway routing based on restaurant region\n$gateway = match($restaurant->region) {\n    'nepal' => $restaurant->payment_method === 'khalti'\n        ? new KhaltiGateway()\n        : new eSewaGateway(),\n    default => new StripeGateway(),\n};\n\n$gateway->charge($order->total, $order->paymentMeta());"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "content": "Impact"
+    },
+    {
+      "type": "paragraph",
+      "content": "This platform runs in production for multiple restaurant chains, handling daily orders and staff coordination. The real-time kitchen display alone cut average order-to-preparation time by eliminating the lag between the POS system and the kitchen."
+    },
+    {
+      "type": "divider"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Insurance Claim Platform"
+    },
+    {
+      "type": "paragraph",
+      "content": "**Stack:** Django, DRF, Django Channels, Celery, React Native, PostgreSQL, Redis, Cohere Vision"
+    },
+    {
+      "type": "paragraph",
+      "content": "A multi-subsystem UK insurance platform handling the full claim lifecycle — from initial assessment through AI-powered room analysis to final PDF report generation."
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "content": "What makes it production-grade"
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "**AI-powered room analysis** — Uses Cohere Vision API to analyze room photos submitted by field assessors. The system identifies damage, estimates repair costs, and generates structured assessment data from unstructured images.",
+        "**Real-time chat** — Django Channels (WebSockets) enables instant communication between assessors, adjusters, and claimants. The chat system persists messages in PostgreSQL and handles reconnection gracefully.",
+        "**Automated PDF reports** — Celery background tasks generate comprehensive claim reports as PDFs, including room analysis results, adjuster notes, and cost breakdowns. Reports are generated asynchronously to keep the API responsive.",
+        "**React Native mobile app** — Field assessors use a mobile app to capture photos, submit assessments, and communicate with the claims team — all offline-first with sync when connectivity returns."
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "content": "Architecture decisions"
+    },
+    {
+      "type": "paragraph",
+      "content": "The system uses Celery with Redis as the message broker to handle long-running tasks: PDF generation, image analysis, and email notifications. Django Channels manages WebSocket connections for real-time chat, with a separate ASGI worker to avoid blocking the HTTP layer."
+    },
+    {
+      "type": "code",
+      "lang": "python",
+      "content": "# Celery task for AI-powered room analysis\n@shared_task(bind=True, max_retries=3)\ndef analyze_room_damage(self, assessment_id, image_paths):\n    assessment = ClaimAssessment.objects.get(id=assessment_id)\n    results = []\n\n    for image_path in image_paths:\n        with open(image_path, 'rb') as f:\n            response = cohere_client.generate(\n                model='command',\n                prompt=f\"Analyze this insurance claim room photo for damage...\",\n            )\n        results.append(parse_damage_response(response.text))\n\n    assessment.damage_analysis = results\n    assessment.save()\n    generate_claim_report.delay(assessment_id)"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "content": "Impact"
+    },
+    {
+      "type": "paragraph",
+      "content": "The platform handles 1000+ insurance claims with full audit trails. AI-powered analysis reduced average assessment time from hours to minutes, and the automated PDF generation eliminated manual report writing entirely."
+    },
+    {
+      "type": "divider"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "E-commerce Multi-Vendor Platform"
+    },
+    {
+      "type": "paragraph",
+      "content": "**Stack:** Laravel, Filament, Laravel Reverb, React, MySQL"
+    },
+    {
+      "type": "paragraph",
+      "content": "A full multi-vendor marketplace supporting 50+ vendors with real-time inventory management, automated invoicing, and role-based dashboards."
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "content": "What makes it production-grade"
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "**Multi-vendor architecture** — Each vendor has isolated product catalogs, order management, and analytics. The system handles vendor onboarding, product approval workflows, and commission calculations automatically.",
+        "**Real-time notifications** — Laravel Reverb pushes order confirmations, stock alerts, and payment updates to vendors and customers in real time.",
+        "**Automated PDF invoicing** — Every completed order triggers a Celery task that generates a branded PDF invoice, including tax calculations, itemized products, and vendor details.",
+        "**Filament admin panels** — Separate admin panels for platform administrators and vendors. Vendors see only their own products, orders, and analytics. Platform admins have full visibility."
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "content": "Architecture decisions"
+    },
+    {
+      "type": "paragraph",
+      "content": "The platform uses a shared database with vendor-scoped queries. Product moderation goes through an approval pipeline: vendors submit products, admins review and approve, then products go live. The Filament Shield package handles role-based access control across both admin panels."
+    },
+    {
+      "type": "code",
+      "lang": "php",
+      "content": "// Vendor-scoped product query\nclass ProductResource extends FilamentResource\n{\n    public static function getEloquentQuery(): Builder\n    {\n        return parent::getEloquentQuery()\n            ->where('vendor_id', auth()->user()->vendor_id);\n    }\n}"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "content": "Impact"
+    },
+    {
+      "type": "paragraph",
+      "content": "The platform supports 50+ active vendors with real-time order processing. Automated invoicing saved dozens of hours per month in manual bookkeeping, and the real-time notification system eliminated the delay between order placement and vendor awareness."
+    },
+    {
+      "type": "divider"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Multi-Container Deployments"
+    },
+    {
+      "type": "paragraph",
+      "content": "**Stack:** Docker, Docker Compose, Nginx, Supervisor, PM2"
+    },
+    {
+      "type": "paragraph",
+      "content": "Production deployment isn't just about code — it's about keeping everything running. I've built deployment architectures that handle multiple services, queue workers, and static assets across containers."
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "content": "The deployment stack"
+    },
+    {
+      "type": "paragraph",
+      "content": "A typical deployment includes:"
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "**Nginx** — Reverse proxy handling SSL termination (Certbot), static file serving, and routing requests to the appropriate backend service",
+        "**PHP-FPM** — Laravel backend running behind Nginx with OPcache enabled",
+        "**Node.js** — Next.js or React frontend, managed by PM2 in cluster mode",
+        "**Queue workers** — Supervisor-managed Laravel Horizon or Celery workers processing background jobs",
+        "**Redis** — Cache layer and message broker",
+        "**PostgreSQL/MySQL** — Primary database with automated backups"
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "content": "Docker Compose orchestration"
+    },
+    {
+      "type": "code",
+      "lang": "yaml",
+      "content": "services:\n  nginx:\n    image: nginx:alpine\n    ports:\n      - \"80:80\"\n      - \"443:443\"\n    volumes:\n      - ./nginx/conf.d:/etc/nginx/conf.d\n      - ./certbot/conf:/etc/letsencrypt\n    depends_on:\n      - php\n      - node\n\n  php:\n    build:\n      context: .\n      dockerfile: Dockerfile.php\n    volumes:\n      - ./src:/var/www/html\n    environment:\n      - DB_HOST=postgres\n      - REDIS_HOST=redis\n    depends_on:\n      - postgres\n      - redis\n\n  node:\n    build:\n      context: .\n      dockerfile: Dockerfile.node\n    volumes:\n      - ./frontend:/app\n    command: pm2 start ecosystem.config.js\n\n  postgres:\n    image: postgres:16-alpine\n    volumes:\n      - pgdata:/var/lib/postgresql/data\n    environment:\n      POSTGRES_DB: ${DB_NAME}\n      POSTGRES_USER: ${DB_USER}\n      POSTGRES_PASSWORD: ${DB_PASS}\n\n  redis:\n    image: redis:7-alpine\n    volumes:\n      - redisdata:/data"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "content": "Why this matters"
+    },
+    {
+      "type": "paragraph",
+      "content": "This isn't a \"docker run and hope\" setup. Each service has its own Dockerfile with multi-stage builds to minimize image size. Health checks ensure services start in the right order. Volume mounts handle persistent data. The whole stack can be deployed with a single `docker compose up -d` command on any server."
+    },
+    {
+      "type": "divider"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Document Generation & Reporting"
+    },
+    {
+      "type": "paragraph",
+      "content": "**Stack:** Laravel, DomPDF, Excel (Maatwebsite), Celery"
+    },
+    {
+      "type": "paragraph",
+      "content": "Production applications need to generate documents — invoices, reports, data exports. I've built document generation systems that handle complex PDF layouts and large Excel exports without blocking the application."
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "content": "Capabilities"
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "**PDF generation** — DomPDF creates branded invoices, reports, and certificates with custom fonts, tables, and images. Templates are blade-based, so non-developers can modify layouts.",
+        "**Excel exports** — Maatwebsite/Excel handles large dataset exports with chunked reading, streaming, and memory-efficient processing. Exports 50,000+ row datasets without hitting PHP memory limits.",
+        "**Async generation** — Long-running reports are queued as Celery tasks. Users get a notification when their report is ready, with a download link that expires after 24 hours."
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "content": "Pattern: async report generation"
+    },
+    {
+      "type": "code",
+      "lang": "php",
+      "content": "class GenerateSalesReport implements ShouldQueue\n{\n    use Dispatchable, InteractsWithQueue, Queueable;\n\n    public function handle()\n    {\n        $data = Order::whereBetween('created_at', $this->dateRange)\n            ->with('items', 'vendor')\n            ->chunkById(500, function ($orders) {\n                // Stream rows to Excel without loading all into memory\n            });\n\n        $path = Storage::disk('local')->path(\"reports/{$this->reportId}.xlsx\");\n\n        Excel::store(new SalesExport($this->dateRange), $path);\n\n        // Notify user that report is ready\n        $this->user->notify(new ReportReady($this->reportId));\n    }\n}"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "content": "Impact"
+    },
+    {
+      "type": "paragraph",
+      "content": "Automated document generation replaced manual Excel work that previously took hours per week. The async pattern means users never wait — they submit a request and get notified when the report is ready."
+    },
+    {
+      "type": "divider"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Real-time Communication Systems"
+    },
+    {
+      "type": "paragraph",
+      "content": "**Stack:** Laravel Reverb, Django Channels, WebSockets, Redis"
+    },
+    {
+      "type": "paragraph",
+      "content": "Real-time features are no longer optional. I've built WebSocket-based systems that keep users connected to live data — from kitchen displays and chat systems to live dashboards and notifications."
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "content": "What I've built"
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "**Laravel Reverb** — Real-time order updates in the restaurant SaaS platform. Kitchen staff see new orders appear instantly. Managers see live order status on their dashboard.",
+        "**Django Channels** — Persistent chat connections for the insurance platform. Assessors, adjusters, and claimants communicate in real time with message history and reconnection handling.",
+        "**Live dashboards** — Server monitoring tools that push status updates to web dashboards via WebSocket. No polling, no wasted bandwidth."
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "content": "The WebSocket pattern"
+    },
+    {
+      "type": "paragraph",
+      "content": "The key challenge with WebSockets is connection management. Clients disconnect, servers restart, networks flap. The pattern I follow:"
+    },
+    {
+      "type": "code",
+      "lang": "python",
+      "content": "# Django Channels consumer with reconnection handling\nclass ChatConsumer(WebsocketConsumer):\n    def connect(self):\n        self.room = self.scope['url_route']['kwargs']['room_id']\n        self.room_group = f'chat_{self.room}'\n\n        async_to_sync(self.channel_layer.group_add)(\n            self.room_group, self.channel_name\n        )\n        self.accept()\n\n        # Send message history on connect\n        history = Message.objects.filter(room_id=self.room).order_by('-created_at')[:50]\n        self.send(text_data=json.dumps({\n            'type': 'history',\n            'messages': [m.to_dict() for m in reversed(history)]\n        }))\n\n    def disconnect(self, close_code):\n        async_to_sync(self.channel_layer.group_discard)(\n            self.room_group, self.channel_name\n        )"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "content": "Impact"
+    },
+    {
+      "type": "paragraph",
+      "content": "Real-time features transformed the user experience across multiple applications. The restaurant platform's kitchen display alone reduced order-to-preparation time. The insurance chat eliminated email-based communication delays. Every real-time feature follows the same principle: push updates to clients the moment they happen, handle disconnections gracefully, and maintain message history for reliability."
+    },
+    {
+      "type": "divider"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "The Common Thread"
+    },
+    {
+      "type": "paragraph",
+      "content": "These projects share a few principles that guide how I build:"
+    },
+    {
+      "type": "list",
+      "ordered": true,
+      "items": [
+        "**Production-first architecture** — Every system is designed for reliability from day one. Queue workers, health checks, error handling, and monitoring aren't afterthoughts.",
+        "**Real-time where it matters** — WebSockets for anything that benefits from instant updates. Polling is a fallback, not a default.",
+        "**Admin panels that actually work** — Filament and Django admin panels that non-developers can use. Custom resources, role-based access, and clean UX.",
+        "**Document generation built in** — PDFs, Excel exports, and automated reports are part of the stack, not bolted on later.",
+        "**Deployment automation** — Docker Compose, Supervisor, PM2, Nginx configs — the infrastructure that keeps code running in production."
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": "Every project is a full delivery: from database schema to production deployment, including the server configuration underneath. That's the difference between writing code and shipping software."
+    }
+  ]
+}

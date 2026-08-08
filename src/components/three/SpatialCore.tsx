@@ -253,7 +253,7 @@ export default function SpatialCore() {
   const isDetailPage = /^\/(projects|blog)\/[^/]+/.test(pathname)
 
   // Standalone pages — no section IDs for useActiveSection, so 3D scene would default to hero config
-  const isStandalonePage = ['/skills', '/blog', '/contact', '/projects'].includes(pathname)
+  const isStandalonePage = ['/skills', '/blog', '/contact', '/projects', '/services'].includes(pathname)
 
   useEffect(() => {
     setIsMobile(window.matchMedia('(max-width: 768px)').matches || 'ontouchstart' in window)

@@ -1,0 +1,294 @@
+{
+  "slug": "ai-referee-football-player-tracking",
+  "sections": [
+    {
+      "type": "paragraph",
+      "content": "*How I built a system that detects, tracks, and analyzes football players from broadcast video — and serves it all through an interactive dashboard.*"
+    },
+    {
+      "type": "divider"
+    },
+    {
+      "type": "paragraph",
+      "content": "Football analytics is booming. From expected goals models to pressing triggers, clubs are hungry for data. But most existing solutions are either expensive (Opta, StatsBomb) or limited in scope. What if you could build your own player tracking system from a single broadcast video?"
+    },
+    {
+      "type": "paragraph",
+      "content": "I set out to do exactly that: a computer vision pipeline that detects football players, tracks them across frames, identifies their teams, maps their positions onto a 2D pitch, detects collisions, and visualizes everything through a real-time web dashboard. Here's how it works."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "The Pipeline at a Glance"
+    },
+    {
+      "type": "code",
+      "lang": "text",
+      "content": "Video Frame → YOLOv5 Detection → SORT Tracking → Team Classification → Pitch Mapping → CSV Export → Flask Dashboard"
+    },
+    {
+      "type": "paragraph",
+      "content": "Each stage chains into the next. Let's walk through them."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Step 1: Player Detection with YOLOv5"
+    },
+    {
+      "type": "paragraph",
+      "content": "The system uses two YOLOv5 models loaded via PyTorch Hub:"
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "**`yolov5s`** — The standard small COCO-pretrained model for detecting persons (class 0)",
+        "**`goals.pt`** — A custom fine-tuned model for detecting goal posts"
+      ]
+    },
+    {
+      "type": "code",
+      "lang": "python",
+      "content": "goal_model = torch.hub.load('../yolov5', 'custom', path='../models/goals.pt', source='local')\nplayer_model = torch.hub.load('../yolov5', 'custom', path='../models/yolov5s.pt', source='local')"
+    },
+    {
+      "type": "paragraph",
+      "content": "On each frame, both models run inference. The player model returns bounding boxes, which we filter to class 0 (person):"
+    },
+    {
+      "type": "code",
+      "lang": "python",
+      "content": "for result in results:\n    if result['class'] == 0:\n        x1, y1 = int(result['xmin']), int(result['ymin'])\n        x2, y2 = int(result['xmax']), int(result['ymax'])\n        boxes.append(((x1, y1), (x2, y2)))"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Step 2: Tracking with SORT"
+    },
+    {
+      "type": "paragraph",
+      "content": "Raw detections are frame-by-frame — they don't tell you which detections belong to the same player. Enter **SORT** (Simple Online and Realtime Tracking), a Kalman-filter-based tracker that assigns persistent IDs."
+    },
+    {
+      "type": "code",
+      "lang": "python",
+      "content": "detections = []\nfor (x1, y1), (x2, y2) in boxes:\n    detections.append([x1, y1, x2, y2, 1.0])\n\ntracker = Sort()\ntracked_objects = tracker.update(np.array(detections))"
+    },
+    {
+      "type": "paragraph",
+      "content": "SORT handles:"
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "**ID assignment** via Hungarian algorithm on IoU (Intersection over Union)",
+        "**Motion prediction** via Kalman filter (constant velocity model)",
+        "**Birth/death** of tracks (players entering/leaving frame)"
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": "The output is a list of `[x1, y1, x2, y2, id]` for each tracked player."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Step 3: Team Classification with SSIM"
+    },
+    {
+      "type": "paragraph",
+      "content": "To distinguish teams (and the referee), I use **SSIM — Structural Similarity Index** — to compare cropped jersey regions against reference template images."
+    },
+    {
+      "type": "code",
+      "lang": "python",
+      "content": "for team, template in jersey_templates.items():\n    score, _ = ssim(resized_gray, template_gray, full=True)\n    if score > max_score:\n        max_score = score\n        best_match = team"
+    },
+    {
+      "type": "paragraph",
+      "content": "The process:"
+    },
+    {
+      "type": "list",
+      "ordered": true,
+      "items": [
+        "Crop the upper 50% of each player bounding box (where the jersey is)",
+        "Resize to 40×40 pixels",
+        "Convert to grayscale",
+        "Compare against pre-loaded template images (`jersyredwhite.png`, `jersyblue.png`, `refreee.png`, etc.) using SSIM",
+        "Assign the team with the highest similarity score"
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": "It's simple but effective. SSIM captures luminance, contrast, and structure — more robust than raw pixel comparison or simple color histogram matching."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Step 4: Pitch Line Detection"
+    },
+    {
+      "type": "paragraph",
+      "content": "To map players onto a tactical view, we need to understand the camera perspective. The system detects pitch lines through a multi-step computer vision pipeline:"
+    },
+    {
+      "type": "list",
+      "ordered": true,
+      "items": [
+        "**HSV masking** — Isolate green pixels (the pitch) using a tuned range (`[40, 40, 40]` to `[70, 255, 255]`)",
+        "**Canny edge detection** on the masked region",
+        "**Hough Transform** to extract lines from edges",
+        "**Line clipping** — Clip infinite lines to frame boundaries",
+        "**Green region analysis** — Score remaining lines by how much \"non-green\" area they separate (pitch lines should separate green pitch from non-green stands/boards)"
+      ]
+    },
+    {
+      "type": "code",
+      "lang": "python",
+      "content": "hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)\nlower_green = np.array([40, 40, 40])\nupper_green = np.array([70, 255, 255])\nbitwise = cv2.bitwise_and(image, image, mask=cv2.inRange(hsv, lower_green, upper_green))\nedges = cv2.Canny(bitwise, 100, 200)\nlines = cv2.HoughLines(edges, 1, np.pi * 1 / 180, 150)"
+    },
+    {
+      "type": "paragraph",
+      "content": "The best two lines are classified as \"left\" or \"right\" touchlines based on their angle — this tells us which side of the pitch the camera is pointing at."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Step 5: Perspective Transform to Pitch Coordinates"
+    },
+    {
+      "type": "paragraph",
+      "content": "This is the most interesting part. We need to convert pixel coordinates `(x, y)` in the video frame to normalized pitch coordinates `(0–1, 0–1)`."
+    },
+    {
+      "type": "paragraph",
+      "content": "The approach uses a **pinhole camera model** with estimated field of view:"
+    },
+    {
+      "type": "code",
+      "lang": "python",
+      "content": "# Estimate FOV from average player bounding box size\nfov_h = 21 / avg_player_width     # WIDTH_CONST / avg_width\nfov_v = 24 / avg_player_height    # HEIGHT_CONST / avg_height\nscaled = 2 * tan(fov / 2)         # Scale to pinhole distance 1"
+    },
+    {
+      "type": "paragraph",
+      "content": "Once pixel positions are scaled to the pinhole image plane, we compute:"
+    },
+    {
+      "type": "list",
+      "ordered": true,
+      "items": [
+        "**The pitch corner** — Intersection of the two detected pitch lines",
+        "**Rotation matrices** — Rotate around X and Y axes to align the camera view with the pitch plane",
+        "**Ray-plane intersection** — Project a ray from the pinhole through the scaled pixel position onto the pitch plane (XZ at a fixed Y)"
+      ]
+    },
+    {
+      "type": "code",
+      "lang": "python",
+      "content": "R = matmul(Rx, Ry)\npinhole = [50 - 100*lft, -7, -70]   # Estimated camera position\nvec = R.dot(pinhole)                 # Rotated view direction\nt = pinhole[1] / vec[1]\npoint = [pinhole[0] - t*vec[0], pinhole[1] - t*vec[1], pinhole[2] - t*vec[2]]"
+    },
+    {
+      "type": "paragraph",
+      "content": "The result is normalized: `((x + 52) / 104, (z + 32) / 64)` — giving pitch coordinates in the `[0, 1]` range."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Step 6: Collision Detection"
+    },
+    {
+      "type": "paragraph",
+      "content": "With position data logged per frame, collision detection is straightforward: any two players whose pitch coordinates are within **1.5 units** get flagged. The system tracks collision duration and saves events to a separate CSV."
+    },
+    {
+      "type": "code",
+      "lang": "python",
+      "content": "dx = p1['X (Pitch)'] - p2['X (Pitch)']\ndy = p1['Y (Pitch)'] - p2['Y (Pitch)']\ndist = math.hypot(dx, dy)\n\nif dist <= 1.5:\n    active_pairs.add(key)\n    # Track start_time, duration, position"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Step 7: The AI Referee Dashboard"
+    },
+    {
+      "type": "paragraph",
+      "content": "The final output is a **Flask-based web dashboard** styled as a \"VAR Command Center\" — dark theme, tactical pitch, live stats."
+    },
+    {
+      "type": "code",
+      "lang": "text",
+      "content": "app.py → reads output/player_positions.csv → renders index.html"
+    },
+    {
+      "type": "paragraph",
+      "content": "The dashboard features:"
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "**Live match feed** — Embedded YouTube video (placeholder for now)",
+        "**Tactical pitch map** — CSS-drawn football pitch with positioned player dots (team A in blue, team B in red)",
+        "**Game clock** — Running timer starting at 48:00 (second half)",
+        "**Event log** — Scrollable list of match events",
+        "**AI alerts panel** — Critical alerts (e.g., red card detection) with VAR review buttons",
+        "**Player detail popups** — Click a player dot on the pitch to see their photo, name, team, and stats",
+        "**Live polls** — Fan voting UI showing percentage bars",
+        "**Match statistics** — Possession, shots, tackles, etc. with animated bar comparisons"
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": "The CSS pitch is drawn entirely with CSS — penalty areas, center circle, goals, corner arcs — all using `border-radius`, `aspect-ratio`, and absolute positioning."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "What's Next"
+    },
+    {
+      "type": "paragraph",
+      "content": "This is a prototype. Some obvious next steps:"
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "**Ball tracking** — The goal model detects goals, and there's a \"ball\" jersey template, but ball tracking isn't fully integrated",
+        "**Re-identification** — SSIM works but could be replaced with a learned embedding (e.g., ReID models) for better accuracy across different camera angles",
+        "**Multiple camera fusion** — Combine feeds from multiple broadcast angles for 3D position reconstruction",
+        "**Event detection** — Beyond collisions: detect goals, corners, offsides from position data",
+        "**Live streaming** — Connect to live video feeds instead of pre-recorded clips",
+        "**Proper calibration** — Replace FOV estimation constants with actual camera calibration"
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Try It Yourself"
+    },
+    {
+      "type": "paragraph",
+      "content": "The full source is available. Here's what you need:"
+    },
+    {
+      "type": "code",
+      "lang": "bash",
+      "content": "# Clone YOLOv5\ngit clone https://github.com/ultralytics/yolov5 ../yolov5\n\n# Install dependencies\npip install torch opencv-python numpy pandas flask scikit-image sort-track\n\n# Run the pipeline\ncd tests && python main.py\n\n# Start the dashboard\ncd .. && python app.py"
+    },
+    {
+      "type": "paragraph",
+      "content": "You'll need your own video files, jersey template images, and model weights (`goals.pt`, `yolov5s.pt`)."
+    },
+    {
+      "type": "divider"
+    },
+    {
+      "type": "paragraph",
+      "content": "From broadcast video to tactical pitch map in one pipeline — it's amazing what's possible with open-source computer vision tools and a bit of linear algebra. Whether you're building analytics for a club, a coaching tool, or just exploring sports tech, the building blocks are more accessible than ever."
+    }
+  ]
+}

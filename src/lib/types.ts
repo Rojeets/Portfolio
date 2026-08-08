@@ -108,6 +108,11 @@ export interface ProjectsData {
   items: Project[]
 }
 
+export interface BlogFaq {
+  question: string
+  answer: string
+}
+
 export interface BlogPost {
   slug: string
   title: string
@@ -116,14 +121,27 @@ export interface BlogPost {
   excerpt: string
   tags: string[]
   image: string
-  file?: string
+  keywords: string[]
+  faq: BlogFaq[]
 }
 
 export interface BlogData {
   sectionTitle: string
   sectionSubtitle: string
-  postsPath: string
   items: BlogPost[]
+}
+
+export type BlogSection =
+  | { type: 'paragraph'; content: string }
+  | { type: 'heading'; level: 2 | 3; content: string }
+  | { type: 'list'; ordered: boolean; items: string[]; checked?: boolean[] }
+  | { type: 'table'; header: string[]; rows: string[][] }
+  | { type: 'code'; lang: string; content: string }
+  | { type: 'divider' }
+
+export interface BlogPostContent {
+  slug: string
+  sections: BlogSection[]
 }
 
 export interface ContactFormData {

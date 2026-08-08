@@ -3,10 +3,7 @@
 import { useState, useRef, useEffect, useMemo } from 'react'
 import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import type { SkillCategory, TechSkill } from '@/lib/types'
-
-gsap.registerPlugin(ScrollTrigger)
 
 interface NodeData {
   tech: TechSkill
@@ -210,69 +207,14 @@ export default function SkillConstellation({ categories }: { categories: SkillCa
     setTooltip(null)
   }
 
-  // GSAP: entrance + breathing
+  // GSAP: breathing / floating only — entrance reveals are removed so
+  // content is always visible.
   useGSAP(() => {
     if (!containerRef.current) return
 
     const mm = gsap.matchMedia()
-    mm.add('(prefers-reduced-motion: reduce)', () => {})
     mm.add('(prefers-reduced-motion: no-preference)', () => {
-      // Constellation lines draw-in
-      const svgPaths = containerRef.current!.querySelectorAll('.constellation-line')
-      if (svgPaths.length) {
-        svgPaths.forEach((path) => {
-          const length = (path as SVGLineElement).getTotalLength?.() ?? 200
-          gsap.set(path, { strokeDasharray: length, strokeDashoffset: length })
-        })
-        gsap.to(svgPaths, {
-          strokeDashoffset: 0,
-          duration: 1.2,
-          stagger: 0.04,
-          ease: 'power2.inOut',
-          scrollTrigger: {
-            trigger: containerRef.current,
-            start: 'top 80%',
-            once: true,
-          },
-        })
-      }
-
-      // Category labels fade in
-      const catLabels = containerRef.current!.querySelectorAll('.category-label')
-      gsap.from(catLabels, {
-        opacity: 0,
-        y: 10,
-        duration: 0.8,
-        stagger: 0.2,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: 'top 80%',
-          once: true,
-        },
-      })
-
-      // Nodes: fade in category by category with stagger
       const allNodes = nodesRef.current?.querySelectorAll('.skill-node')
-      if (allNodes?.length) {
-        gsap.from(allNodes, {
-          opacity: 0,
-          scale: 0.3,
-          duration: 0.6,
-          stagger: {
-            each: 0.06,
-            from: 'start',
-          },
-          ease: 'back.out(1.7)',
-          scrollTrigger: {
-            trigger: containerRef.current,
-            start: 'top 80%',
-            once: true,
-          },
-        })
-      }
-
-      // Breathing / floating animation
       if (allNodes?.length) {
         breatheTl.current = gsap.timeline({ repeat: -1 })
         allNodes.forEach((node, i) => {

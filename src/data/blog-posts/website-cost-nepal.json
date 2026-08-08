@@ -1,0 +1,236 @@
+{
+  "slug": "website-cost-nepal",
+  "sections": [
+    {
+      "type": "paragraph",
+      "content": "If you are searching \"website cost in Nepal\" or \"how much does a website cost,\" you probably want a straight answer — not a vague \"it depends.\" Here is the honest, numbers-based reality for 2026, whether you are a startup, an established business, or a non-profit in Kathmandu."
+    },
+    {
+      "type": "divider"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "The short answer"
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "**Personal portfolio / landing page:** NPR 15,000 – 60,000",
+        "**Business website (5–10 pages):** NPR 40,000 – 150,000",
+        "**E-commerce store:** NPR 150,000 – 500,000+",
+        "**Custom web application / SaaS:** NPR 400,000 – 3,000,000+",
+        "**Maintenance & support:** NPR 5,000 – 30,000 per month"
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": "These are working ranges, not quotes. The real price depends on what you are actually building, and this guide breaks down every factor so you can budget correctly."
+    },
+    {
+      "type": "divider"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Why the price range is so wide"
+    },
+    {
+      "type": "paragraph",
+      "content": "A \"website\" can mean anything from a single HTML page to a multi-vendor marketplace with real-time payments. The three biggest cost drivers are:"
+    },
+    {
+      "type": "list",
+      "ordered": true,
+      "items": [
+        "**Complexity** — brochure site vs. login system vs. real-time dashboards.",
+        "**Custom work** — a template-based site is cheap; custom logic is not.",
+        "**Integration** — payments (eSewa, Khalti, ConnectIPS), SMS, and third-party APIs add real development time."
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "content": "The Nepali market in 2026"
+    },
+    {
+      "type": "paragraph",
+      "content": "The local market has matured. Most serious developers in Kathmandu now build on **Laravel (PHP)** and **React/Next.js**, with **Django** and **Node.js** as strong alternatives. Technology choice matters less than the developer's track record, but it does affect long-term maintenance and hiring."
+    },
+    {
+      "type": "divider"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Website types and what you can expect to pay"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "content": "1. Personal portfolio / landing page"
+    },
+    {
+      "type": "paragraph",
+      "content": "A single page (or a few pages) that represents you or your small brand."
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "**Typical budget:** NPR 15,000 – 60,000",
+        "**What you get:** 1–5 pages, responsive design, contact form, basic SEO setup, hosting deployment.",
+        "**Timeline:** 1–3 weeks."
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "content": "2. Business website"
+    },
+    {
+      "type": "paragraph",
+      "content": "The standard for hotels, clinics, restaurants, and consultancies in Kathmandu."
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "**Typical budget:** NPR 40,000 – 150,000",
+        "**What you get:** 5–10 pages, blog or news section, enquiry forms, WhatsApp integration, Google Maps, image galleries, basic on-page SEO.",
+        "**Timeline:** 3–6 weeks."
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "content": "3. E-commerce store"
+    },
+    {
+      "type": "paragraph",
+      "content": "Where things start to get serious — products, carts, payments, and delivery."
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "**Typical budget:** NPR 150,000 – 500,000+",
+        "**What you get:** product catalog, cart and checkout, **Nepali payment gateway integration** (eSewa, Khalti, ConnectIPS, or FonePay), order management, admin dashboard, delivery tracking.",
+        "**Timeline:** 6–12 weeks."
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "content": "4. Custom web application / SaaS"
+    },
+    {
+      "type": "paragraph",
+      "content": "The most expensive category — and the one with the highest return."
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "**Typical budget:** NPR 400,000 – 3,000,000+",
+        "**What you get:** multi-tenant systems, role-based access, automated invoicing, booking engines, real-time features, admin panels, API integrations.",
+        "**Timeline:** 2–6 months."
+      ]
+    },
+    {
+      "type": "divider"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "What silently increases the price"
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "**Payment gateways** — NRB licensing rules for payment providers, plus integration effort, add NPR 50,000 – 150,000 to a build.",
+        "**Custom design** — a bespoke Figma design costs more than a template.",
+        "**Real-time features** — WebSockets, live dashboards, and chat systems are complex.",
+        "**Third-party integrations** — SMS, email marketing, HR, accounting (Tally), or accounting software sync.",
+        "**Content migration** — moving old content, images, and SEO equity adds hours.",
+        "**Speed and SEO** — Core Web Vitals optimization and schema markup take expertise most \"cheap\" developers skip."
+      ]
+    },
+    {
+      "type": "divider"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Cheap vs. right: what NPR 20,000 actually buys"
+    },
+    {
+      "type": "paragraph",
+      "content": "A very cheap website is almost always a template with your logo on it. It may look fine in a screenshot and fail badly in the real world:"
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "**2–3 second load times** on mobile, hurting Google rankings.",
+        "**No structured data**, so Google can't understand your business.",
+        "**No payment security** planning for e-commerce.",
+        "**No maintenance plan**, leaving you stranded when things break."
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": "The \"expensive\" developer who builds fast, SEO-ready, maintainable code usually costs **less over three years** than the cheap one you keep paying to fix."
+    },
+    {
+      "type": "divider"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "How to get an accurate quote"
+    },
+    {
+      "type": "paragraph",
+      "content": "When you contact developers in Kathmandu, provide this up front:"
+    },
+    {
+      "type": "list",
+      "ordered": true,
+      "items": [
+        "**Goal** — what must the site achieve? (sell products, book rooms, generate leads)",
+        "**Pages/features list** — every page and every function you can think of.",
+        "**Integrations** — which payment gateways, SMS, or tools you need.",
+        "**Timeline** — when do you need it live?",
+        "**Budget range** — be honest; it helps the developer scope realistically."
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": "A developer who gives you a price without asking these questions is quoting a template, not your project."
+    },
+    {
+      "type": "divider"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Payment plans & maintenance"
+    },
+    {
+      "type": "paragraph",
+      "content": "Most Kathmandu developers work in **50/40/10 milestones** (50% to start, 40% at review, 10% at launch) or **40/30/30**. Some offer monthly retainers that include hosting, backups, updates, and small changes — worth it if you want the site to stay secure."
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "content": "About the author"
+    },
+    {
+      "type": "paragraph",
+      "content": "This guide comes from my experience building production systems for agency clients in Kathmandu — from e-commerce and travel booking platforms to insurance and restaurant management systems. If you are scoping a project, [get in touch](/contact) and I will give you a straight, itemized estimate."
+    }
+  ]
+}

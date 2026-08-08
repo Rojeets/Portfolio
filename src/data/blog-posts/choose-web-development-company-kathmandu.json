@@ -1,0 +1,228 @@
+{
+  "slug": "choose-web-development-company-kathmandu",
+  "sections": [
+    {
+      "type": "paragraph",
+      "content": "Kathmandu has no shortage of web agencies, freelancers, and everything in between. The hard part isn't finding a developer — it's finding the right one. This guide gives you the exact questions to ask and the red flags to avoid before you sign anything."
+    },
+    {
+      "type": "divider"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "First, decide what you actually need"
+    },
+    {
+      "type": "paragraph",
+      "content": "Before comparing anyone, write down:"
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "**The goal** — generate leads, sell products, book appointments, or run internal operations.",
+        "**The features** — every page and function you can list.",
+        "**The integrations** — payment gateways, SMS, WhatsApp, accounting tools.",
+        "**The timeline and budget** — be realistic about both."
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": "Vendors quote accurately when your scope is clear. Vague briefs produce vague (and often inflated) quotes."
+    },
+    {
+      "type": "divider"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "The evaluation checklist"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "content": "1. Portfolio quality over quantity"
+    },
+    {
+      "type": "paragraph",
+      "content": "Look for **relevance and results**, not just \"10 years of experience.\""
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "Have they built projects **like yours** (e-commerce, booking, SaaS)?",
+        "Are the sites **fast and mobile-first**? Open one on your phone.",
+        "Can they show **case studies** — problem → approach → outcome — not just screenshots?"
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "content": "2. Real technical depth"
+    },
+    {
+      "type": "paragraph",
+      "content": "Ask about their stack and how they handle the unglamorous parts:"
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "**SEO structure** — semantic HTML, meta tags, sitemaps, structured data.",
+        "**Performance** — Core Web Vitals, image optimization, caching.",
+        "**Security** — HTTPS, input validation, dependency updates, backups.",
+        "**Deployments** — do they use version control and CI/CD, or do they edit files on the server?"
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "content": "3. Payment and checkout experience"
+    },
+    {
+      "type": "paragraph",
+      "content": "For any e-commerce or booking site in Nepal, confirm they have integrated **eSewa, Khalti, ConnectIPS, or FonePay** in real projects — and understand NRB settlement rules (see my [payment gateway guide](/blog/payment-gateway-integration-nepal))."
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "content": "4. Clear contracts and milestones"
+    },
+    {
+      "type": "paragraph",
+      "content": "A professional contract includes:"
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "**Scope** — features, pages, revisions, and what's out of scope.",
+        "**Milestones and payment schedule** — typically 40/30/30 or 50/40/10.",
+        "**Ownership** — you own the code, domain, and content at the end.",
+        "**Post-launch support** — what's included for the first 30–90 days.",
+        "**Maintenance pricing** — hosting, updates, backups, hourly rates for changes."
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "content": "5. Communication"
+    },
+    {
+      "type": "paragraph",
+      "content": "A good developer over-communicates: weekly updates, a demo environment you can click around in, and honest answers about what's hard. If they promise everything in one day, that's a red flag."
+    },
+    {
+      "type": "divider"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Red flags to avoid"
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "**\"Cheapest quote, no questions asked.\"** A vendor who prices your project without asking about features is quoting a template.",
+        "**No contract or vague milestones.** You will discover the gap at delivery time.",
+        "**No Git/version control.** You can't verify what changed or roll back when something breaks.",
+        "**Your domain/hosting held hostage.** Keep domain registration in your own account.",
+        "**Zero support plan.** Websites rot; security updates and backups are not optional.",
+        "**Stock-photo portfolio or stolen work.** Reverse-image search suspicious \"case studies.\""
+      ]
+    },
+    {
+      "type": "divider"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Freelancer vs. agency"
+    },
+    {
+      "type": "table",
+      "header": [
+        "",
+        "Freelancer",
+        "Agency"
+      ],
+      "rows": [
+        [
+          "Cost",
+          "Lower",
+          "Higher"
+        ],
+        [
+          "Communication",
+          "Direct, fast",
+          "Sometimes layered"
+        ],
+        [
+          "Capacity",
+          "Limited (one person)",
+          "Teams, more bandwidth"
+        ],
+        [
+          "Specialization",
+          "Often deep in one stack",
+          "Broader range of services"
+        ],
+        [
+          "Risk",
+          "Depends on one person",
+          "Spread across team"
+        ]
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": "For a focused web application built by an experienced individual, a **senior freelancer** usually beats a generic agency on price and communication. For a large multi-service digital program, an agency's redundancy matters."
+    },
+    {
+      "type": "divider"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "A concrete interview template"
+    },
+    {
+      "type": "paragraph",
+      "content": "Ask every candidate these five questions:"
+    },
+    {
+      "type": "list",
+      "ordered": true,
+      "items": [
+        "\"Show me a project similar to mine and tell me what you built vs. what you reused.\"",
+        "\"How do you handle payments, backups, and security updates after launch?\"",
+        "\"What happens if you're unavailable — who maintains my site?\"",
+        "\"What's your approach to SEO and page speed?\"",
+        "\"Can you put the scope, milestones, and ownership terms in writing?\""
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": "Their answers will tell you more than any portfolio page."
+    },
+    {
+      "type": "divider"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "The bottom line"
+    },
+    {
+      "type": "paragraph",
+      "content": "Choose the developer who understands **your business outcome**, not the one with the fanciest website of their own. The right partner in Kathmandu will ask hard questions, put terms in writing, and treat your project as a long-term relationship."
+    },
+    {
+      "type": "paragraph",
+      "content": "I'm a full-stack web and web app developer in Kathmandu building production systems with Laravel, React, and Next.js. If you'd like a straight, written estimate for your project, [get in touch](/contact)."
+    }
+  ]
+}

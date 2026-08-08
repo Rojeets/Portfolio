@@ -10,6 +10,7 @@ const navItems = [
   { name: 'About', href: '/about' },
   { name: 'Projects', href: '/projects' },
   { name: 'Skills', href: '/skills' },
+  { name: 'Services', href: '/services' },
   { name: 'Blog', href: '/blog' },
   { name: 'Answers', href: '/answers' },
   { name: 'Contact', href: '/contact' },
@@ -52,7 +53,7 @@ export default function Navigation() {
           <span className="text-blue-core">&lt;</span>Rojit<span className="text-blue-core"> /&gt;</span>
         </Link>
 
-        <nav className="hidden md:flex items-center gap-1">
+        <nav className="hidden lg:flex items-center gap-1">
           {navItems.map((item) => (
             <Link
               key={item.name}
@@ -91,7 +92,7 @@ export default function Navigation() {
       </div>
 
       {isOpen && (
-        <div className="md:hidden bg-bg-void/95 backdrop-blur-xl border-b border-panel-border">
+        <div className="lg:hidden bg-bg-void/95 backdrop-blur-xl border-b border-panel-border">
           <nav className="px-6 py-4 flex flex-col gap-1">
             {navItems.map((item) => (
               <Link

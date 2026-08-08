@@ -1147,97 +1147,382 @@
     "sectionTitle": "Latest Articles",
     "sectionSubtitle": "Guides and deep dives for businesses and developers — web app development in Kathmandu, website costs in Nepal, payment gateway integration, and production engineering.",
     "backgroundImage": "/images/blog-bg.jpg",
-    "postsPath": "/blogs",
     "items": [
       {
         "slug": "realworld-impact-projects",
-        "title": "Real-World Impact: Production Projects That Deliver Results",
+        "title": "Production Web Applications: Six Real-World Projects That Deliver Results",
         "date": "2026-07-19",
         "readTime": "12 min read",
-        "excerpt": "A deep dive into six production projects that solve real business problems — from restaurant SaaS and insurance platforms to multi-container deployments and real-time systems.",
+        "excerpt": "Explore six production web applications that solve real business problems — restaurant SaaS, insurance platforms, multi-vendor marketplaces, and real-time systems.",
         "tags": ["Full-Stack", "Laravel", "Django", "Docker", "Real-Time", "Production"],
         "image": "/images/blog-rbac.jpg",
-        "file": "blogs/realworld-impact-projects.md"
+        "keywords": [
+          "production web applications",
+          "full stack developer portfolio",
+          "full stack developer projects",
+          "restaurant management system",
+          "multi-vendor marketplace",
+          "insurance claim management software",
+          "real-time web applications",
+          "full stack developer Nepal",
+          "custom software projects",
+          "web application examples"
+        ],
+        "faq": [
+          {
+            "question": "What kind of production web applications does this full stack developer build?",
+            "answer": "Rojit Pokharel builds end-to-end production web applications — a multi-tenant restaurant management SaaS, a UK insurance claim platform, e-commerce multi-vendor marketplaces, multi-container deployments, automated document generation, and real-time WebSocket systems."
+          },
+          {
+            "question": "What is a full stack developer portfolio?",
+            "answer": "A full stack developer portfolio is a collection of real production projects that demonstrate end-to-end delivery — from database schema and API design to frontend experience and server deployment. It shows live users, payments, and data, not just tutorial demos."
+          },
+          {
+            "question": "What stack is used for the restaurant management system?",
+            "answer": "The restaurant management SaaS is built with Laravel, Filament, Laravel Reverb, Livewire, MySQL, and Stripe, with multi-gateway payment support (Khalti, eSewa, Stripe) and a real-time kitchen display."
+          },
+          {
+            "question": "Can I see examples of full stack developer projects?",
+            "answer": "Yes — this page walks through six production projects: a restaurant SaaS, an insurance claim platform, a multi-vendor e-commerce marketplace, multi-container deployment architecture, document generation systems, and real-time communication systems."
+          }
+        ]
       },
       {
         "slug": "server-monitoring-tool-uptime-monitoring",
-        "title": "Server Monitoring Tool: Detect Website Downtime Before Your Clients Do",
+        "title": "Open Source Server Monitoring Tool & Website Uptime Monitoring in Go",
         "date": "2026-05-13",
         "readTime": "10 min read",
-        "excerpt": "Deploy a lightweight open source server monitoring tool built in Go to detect website downtime before clients report it.",
+        "excerpt": "Deploy a lightweight open source server monitoring tool built in Go for website uptime monitoring — detect downtime before clients report it, with health checks, Slack alerts, and Prometheus metrics.",
         "tags": ["Go", "Monitoring", "DevOps", "Open Source", "Infrastructure"],
         "image": "/images/blog-server-monitor.jpg",
-        "file": "blogs/server-monitoring-tool-uptime-monitoring.md"
+        "keywords": [
+          "server monitoring tool",
+          "website uptime monitoring",
+          "open source uptime monitoring",
+          "uptime monitoring tool",
+          "website monitoring software",
+          "server monitoring open source",
+          "detect website downtime",
+          "self-hosted uptime monitoring",
+          "Go server monitoring",
+          "website monitoring tool"
+        ],
+        "faq": [
+          {
+            "question": "What is the best open source server monitoring tool?",
+            "answer": "Server Monitor Tool is a lightweight open source uptime monitoring tool written in Go — a single binary that runs health checks against any number of sites, alerts via email, Slack, or webhook, and exports Prometheus metrics. For teams that do not need a full monitoring stack, it is a strong free alternative to Pingdom or Datadog."
+          },
+          {
+            "question": "How do I monitor website uptime?",
+            "answer": "Monitor website uptime by pinging each URL at a fixed interval, checking the HTTP status code, and alerting the right people when a check fails. Server Monitor Tool does this from a YAML config — no agents, no SaaS dependency, no per-host fees."
+          },
+          {
+            "question": "How do I detect website downtime?",
+            "answer": "Detect website downtime by running automated health checks every few seconds and alerting on repeated failures. Configurable retries filter out transient network blips so you only get paged for real outages — cutting detection time from 30–60 minutes to under a minute."
+          },
+          {
+            "question": "Is there a free uptime monitoring tool?",
+            "answer": "Yes — Server Monitor Tool is free and open source, distributed as a single Go binary with a one-line installer. It supports multi-site health checks, Slack and email alerts, a real-time terminal dashboard, and Prometheus metrics export."
+          }
+        ]
       },
       {
         "slug": "ai-referee-football-player-tracking",
-        "title": "Building an AI Referee: Computer Vision for Football Player Detection and Tracking",
+        "title": "Football Player Tracking with Computer Vision: Building an AI Referee",
         "date": "2026-05-17",
         "readTime": "14 min read",
-        "excerpt": "Build an AI-powered football analytics pipeline using YOLOv5, SORT tracking, SSIM-based team classification, pitch mapping, and a Flask dashboard.",
+        "excerpt": "How to build a football player tracking system with computer vision — YOLOv5 detection, SORT tracking, SSIM team classification, pitch mapping, and a live AI football analytics dashboard.",
         "tags": ["Computer Vision", "AI", "Football Analytics", "YOLOv5", "OpenCV", "Flask", "Machine Learning"],
         "image": "/images/blog-ai-referee.jpg",
-        "file": "blogs/ai-referee-football-player-tracking.md"
+        "keywords": [
+          "football player tracking",
+          "computer vision football",
+          "AI football analytics",
+          "football player detection",
+          "YOLOv5 player detection",
+          "SORT tracking",
+          "sports analytics AI",
+          "player tracking system",
+          "computer vision sports analytics",
+          "AI referee"
+        ],
+        "faq": [
+          {
+            "question": "How does football player tracking work?",
+            "answer": "Football player tracking works by running object detection (YOLOv5) on every video frame, assigning persistent IDs with SORT tracking, classifying teams by jersey similarity (SSIM), and projecting players onto a 2D pitch map via a perspective transform."
+          },
+          {
+            "question": "What is YOLOv5 and how is it used for player detection?",
+            "answer": "YOLOv5 is a real-time object detection model from Ultralytics. In this pipeline, a YOLOv5 model detects players (class 0: person) in broadcast video frames, returning bounding boxes that feed the SORT tracker."
+          },
+          {
+            "question": "Can I build a player tracking system from a single broadcast video?",
+            "answer": "Yes — the full pipeline runs on one broadcast video: detect players with YOLOv5, track with SORT, classify teams with SSIM, map positions to pitch coordinates, and visualize everything in a Flask dashboard styled as a VAR command center."
+          },
+          {
+            "question": "What is AI football analytics used for?",
+            "answer": "AI football analytics turns video into data — player positions, team classification, collisions, and match events. Clubs use it for tactics and coaching; analysts use it to measure pressing, possession, and player movement without manual tagging."
+          }
+        ]
       },
       {
         "slug": "website-cost-nepal",
-        "title": "How Much Does a Website Cost in Nepal? (2026 Pricing Guide)",
+        "title": "Website Cost in Nepal 2026: How Much Does a Website Cost?",
         "date": "2026-08-05",
         "readTime": "9 min read",
-        "excerpt": "A realistic 2026 pricing guide for websites and web applications in Nepal — from personal portfolios to custom web apps, plus what silently drives the price up.",
+        "excerpt": "A realistic 2026 pricing guide to the website cost in Nepal — how much a website costs from landing pages to custom web apps, what drives web development cost, and what silently inflates the price.",
         "tags": ["Web Development", "Nepal", "Pricing", "E-commerce", "Business"],
         "image": "/images/blog-cost.jpg",
-        "file": "blogs/website-cost-nepal.md"
+        "keywords": [
+          "website cost in Nepal",
+          "website development cost Nepal",
+          "how much does a website cost",
+          "web development price Nepal",
+          "web design pricing",
+          "e-commerce website cost Nepal",
+          "website maintenance cost Nepal",
+          "custom web application cost Nepal",
+          "website cost in Nepal 2026",
+          "web development cost guide"
+        ],
+        "faq": [
+          {
+            "question": "How much does a website cost in Nepal?",
+            "answer": "A website in Nepal costs NPR 15,000–60,000 for a personal portfolio or landing page, NPR 40,000–150,000 for a business website, NPR 150,000–500,000+ for an e-commerce store, and NPR 400,000–3,000,000+ for a custom web application or SaaS. Maintenance runs NPR 5,000–30,000 per month."
+          },
+          {
+            "question": "How much does an e-commerce website cost in Nepal?",
+            "answer": "An e-commerce website in Nepal costs NPR 150,000–500,000+ — including a product catalog, cart and checkout, Nepali payment gateway integration (eSewa, Khalti, ConnectIPS, or FonePay), order management, an admin dashboard, and delivery tracking."
+          },
+          {
+            "question": "What affects web development cost in Nepal?",
+            "answer": "Three factors drive cost: complexity (brochure site vs. real-time dashboards), custom work (template vs. custom logic), and integrations (payments, SMS, third-party APIs). Payment gateway integration alone adds NPR 50,000–150,000 to a build."
+          },
+          {
+            "question": "What is the average website price in Nepal for a small business?",
+            "answer": "A small business website in Kathmandu typically costs NPR 40,000–150,000 for 5–10 pages with enquiry forms, WhatsApp integration, Google Maps, galleries, and basic on-page SEO, built over 3–6 weeks."
+          },
+          {
+            "question": "How much does website maintenance cost in Nepal?",
+            "answer": "Website maintenance in Nepal costs NPR 5,000–30,000 per month, covering hosting, backups, updates, and small changes — some developers bundle it into a monthly retainer that keeps the site secure."
+          }
+        ]
       },
       {
         "slug": "payment-gateway-integration-nepal",
-        "title": "Payment Gateway Integration in Nepal: eSewa, Khalti, ConnectIPS, FonePay",
+        "title": "Payment Gateway Integration in Nepal: eSewa, Khalti, ConnectIPS & International",
         "date": "2026-08-01",
         "readTime": "10 min read",
-        "excerpt": "How to integrate Nepali payment gateways — eSewa, Khalti, ConnectIPS, FonePay — and how NRB rules shape e-commerce checkout, plus the common mistakes that cost money.",
+        "excerpt": "How to integrate payment gateways in Nepal — eSewa, Khalti, ConnectIPS, FonePay — plus Stripe and PayPal for international customers, and how NRB rules shape online payment integration.",
         "tags": ["Payments", "eSewa", "Khalti", "E-commerce", "Nepal", "Laravel"],
         "image": "/images/blog-payments.jpg",
-        "file": "blogs/payment-gateway-integration-nepal.md"
+        "keywords": [
+          "payment gateway Nepal",
+          "payment gateway integration Nepal",
+          "eSewa integration",
+          "Khalti payment gateway",
+          "ConnectIPS integration",
+          "online payment Nepal",
+          "e-commerce payment gateway Nepal",
+          "payment gateway integration guide",
+          "digital wallet integration",
+          "accept online payments Nepal",
+          "international payments from Nepal"
+        ],
+        "faq": [
+          {
+            "question": "How to integrate a payment gateway in Nepal?",
+            "answer": "To integrate a payment gateway in Nepal: create a merchant account and get API keys, build an order in your backend, initiate payment, redirect the customer to the gateway, then verify the callback signature server-side before updating the order. Always use an NRB-licensed gateway."
+          },
+          {
+            "question": "Which payment gateways are available in Nepal?",
+            "answer": "The main payment gateways in Nepal are eSewa (largest wallet), Khalti (wallet + card, developer-friendly), ConnectIPS (direct bank transfer), and FonePay (QR + wallet). For international customers, add Stripe or PayPal for USD transactions."
+          },
+          {
+            "question": "How does eSewa integration work?",
+            "answer": "eSewa integration follows the standard flow: your server initiates a payment with your product code and a unique reference ID, the customer pays on eSewa's hosted page, and eSewa calls back with a signed response you verify server-side using your secret key."
+          },
+          {
+            "question": "Can I accept international payments from Nepal?",
+            "answer": "Yes — use Stripe or PayPal alongside Nepali gateways to accept USD from foreign customers. Plan for currency conversion and fee costs, and route domestic payments through eSewa or Khalti where wallet adoption is high."
+          },
+          {
+            "question": "What are the common payment gateway integration mistakes?",
+            "answer": "Trusting the frontend callback (always verify server-side), missing idempotency keys, ignoring webhooks, skipping daily reconciliation, and storing merchant secrets in frontend code are the most common and expensive mistakes in production."
+          }
+        ]
       },
       {
         "slug": "laravel-vs-django-vs-nodejs",
-        "title": "Laravel vs Django vs Node.js for Web Applications in 2026",
+        "title": "Laravel vs Django vs Node.js: Best Backend Framework for 2026",
         "date": "2026-07-28",
         "readTime": "10 min read",
-        "excerpt": "A practical 2026 comparison of Laravel, Django, and Node.js — performance, developer experience, hiring, and which backend to choose for your web application.",
+        "excerpt": "A practical 2026 comparison of Laravel vs Django vs Node.js — performance, developer experience, hiring, and which backend framework to choose for your web application or SaaS.",
         "tags": ["Laravel", "Django", "Node.js", "Backend", "Web Development"],
         "image": "/images/blog-frameworks.jpg",
-        "file": "blogs/laravel-vs-django-vs-nodejs.md"
+        "keywords": [
+          "Laravel vs Django vs Node.js",
+          "best backend framework",
+          "Laravel vs Django",
+          "Node.js vs Laravel",
+          "Django vs Node.js",
+          "backend framework comparison",
+          "backend framework 2026",
+          "web framework comparison",
+          "best backend for web applications",
+          "best backend for SaaS"
+        ],
+        "faq": [
+          {
+            "question": "Which backend framework should I use?",
+            "answer": "Choose Laravel for fast, batteries-included business apps and easy hiring; Django for data-heavy, ML-adjacent products with a built-in admin; and Node.js for real-time, high-concurrency, API-first systems or a single TypeScript stack."
+          },
+          {
+            "question": "Is Laravel better than Django?",
+            "answer": "Laravel ships business apps faster with Eloquent, migrations, and Filament admin panels, and hiring PHP developers is easy in South Asia. Django is stronger when your product needs Python — analytics, machine learning, or computer vision."
+          },
+          {
+            "question": "Is Node.js better than Laravel or Django for web apps?",
+            "answer": "Node.js excels at real-time features, WebSockets, and high concurrency per process, and TypeScript lets one team own the full stack. Laravel and Django provide more batteries out of the box — Node assembles more by hand."
+          },
+          {
+            "question": "What is the best backend for a SaaS in 2026?",
+            "answer": "Most SaaS products in 2026 are polyglot: a Laravel API for the business logic, a Node.js real-time service for WebSockets, and a Python worker for ML tasks. Start with the stack you can ship fastest and keep services cleanly separated."
+          },
+          {
+            "question": "How do I compare backend frameworks for my project?",
+            "answer": "Ask three questions: where does your data live (ML-heavy means Django, CRUD-heavy means Laravel), do you need real-time (then Node.js or Django channels), and who will maintain it (choose a stack your future team can hire for)."
+          }
+        ]
       },
       {
         "slug": "choose-web-development-company-kathmandu",
-        "title": "How to Choose a Web Development Company in Kathmandu",
+        "title": "How to Choose a Web Development Company in Kathmandu (Checklist)",
         "date": "2026-07-22",
         "readTime": "8 min read",
-        "excerpt": "A practical checklist for choosing a web development company or freelancer in Kathmandu — portfolios, contracts, payment gates, support, and the red flags to avoid.",
+        "excerpt": "How to choose a web development company or web developer in Kathmandu — portfolio checks, contracts, payment gateways, support, and the red flags to avoid before you sign.",
         "tags": ["Web Development", "Kathmandu", "Nepal", "Freelance", "Business"],
         "image": "/images/blog-choose.jpg",
-        "file": "blogs/choose-web-development-company-kathmandu.md"
+        "keywords": [
+          "web development company Kathmandu",
+          "web development company Nepal",
+          "how to choose a web development company",
+          "web design company Nepal",
+          "hire web developer Kathmandu",
+          "hire web developer Nepal",
+          "web development agency Nepal",
+          "web agency checklist",
+          "freelancer vs agency",
+          "questions to ask a web developer"
+        ],
+        "faq": [
+          {
+            "question": "How to choose a web development company in Kathmandu?",
+            "answer": "Evaluate portfolio relevance and results, test real technical depth (SEO, performance, security, deployments), confirm payment gateway experience (eSewa, Khalti, ConnectIPS), and insist on clear contracts with milestones, ownership, and post-launch support."
+          },
+          {
+            "question": "What questions should I ask a web developer before hiring?",
+            "answer": "Ask: show me a similar project and what you built vs. reused; how do you handle payments, backups, and security after launch; who maintains the site if you are unavailable; what is your SEO and page speed approach; and can you put scope and milestones in writing."
+          },
+          {
+            "question": "Freelancer vs agency: which is better for a web project in Nepal?",
+            "answer": "For a focused web application, a senior freelancer usually beats a generic agency on price and communication. For a large multi-service program, an agency's team redundancy matters more. Match the provider to the project's complexity."
+          },
+          {
+            "question": "What are the red flags when hiring a web development company?",
+            "answer": "A cheap quote with no questions asked, no contract or vague milestones, no version control, domain or hosting held hostage, zero support plan, and stock-photo portfolios or stolen case studies are all red flags to avoid."
+          },
+          {
+            "question": "How much does a web developer in Kathmandu charge?",
+            "answer": "Kathmandu developers commonly work on 40/30/30 or 50/40/10 milestones, with monthly maintenance retainers covering hosting, backups, and small changes. Get itemized quotes scoped to your features rather than comparing headline prices."
+          }
+        ]
       },
       {
         "slug": "web-app-development-kathmandu",
-        "title": "Web App Development in Kathmandu: What Businesses Should Know",
+        "title": "Web App Development in Kathmandu & Nepal: What Businesses Should Know",
         "date": "2026-07-14",
         "readTime": "9 min read",
-        "excerpt": "What business owners in Kathmandu should know before building a web application in 2026 — custom vs off-the-shelf, scoping, budgets, timelines, and how to avoid costly failures.",
+        "excerpt": "What businesses should know before web application development in Kathmandu or Nepal — custom vs off-the-shelf software, scoping, budgets, timelines, and how to avoid costly failures.",
         "tags": ["Web Apps", "SaaS", "Kathmandu", "Nepal", "Custom Software"],
         "image": "/images/blog-webapp.jpg",
-        "file": "blogs/web-app-development-kathmandu.md"
+        "keywords": [
+          "web app development Kathmandu",
+          "web application development Nepal",
+          "custom web application development",
+          "web app developer Kathmandu",
+          "web application development company",
+          "SaaS development Nepal",
+          "custom software development Nepal",
+          "custom web app",
+          "web application vs website",
+          "MVP development"
+        ],
+        "faq": [
+          {
+            "question": "What is a web application?",
+            "answer": "A web application is software that runs in the browser and does work for you — it processes orders, manages users, runs operations, and generates revenue. Unlike a website that presents information, a web app has logins, roles, data, automation, or payments."
+          },
+          {
+            "question": "What is the difference between a website and a web application?",
+            "answer": "A website presents information to visitors; a web application performs tasks for registered users, staff, or customers. Websites have limited interactivity, while web apps are built around backend logic, dashboards, and workflows."
+          },
+          {
+            "question": "Custom web app vs off-the-shelf software: which should I choose?",
+            "answer": "Use off-the-shelf when your process matches standard tools, you need it live this month, or budget is tight. Build a custom web app when your process gives a competitive advantage, needs deep integration, or is a unique product you plan to scale."
+          },
+          {
+            "question": "How much does a web app cost in Nepal?",
+            "answer": "A simple internal web application in Nepal costs NPR 400k–800k, and a complex platform runs NPR 1M–3M+. The main cost drivers are core domain logic, multi-tenancy, real-time features, payments, integrations, admin interfaces, and DevOps."
+          },
+          {
+            "question": "How long does it take to develop a web app?",
+            "answer": "An MVP of a moderate web app takes 6–10 weeks with a senior developer, a full platform with admin and integrations takes 3–6 months, and a complex multi-tenant SaaS with payments takes 4–8 months."
+          }
+        ]
       },
       {
         "slug": "fullstack-developer-skills-2026",
-        "title": "Full-Stack Developer Skills Checklist for 2026",
+        "title": "Full Stack Developer Skills for 2026: The Complete Checklist",
         "date": "2026-07-08",
         "readTime": "9 min read",
-        "excerpt": "The essential full-stack developer skills for 2026 — backend, frontend, databases, DevOps, AI integration, and delivery — with a self-assessment to find your gaps.",
+        "excerpt": "The essential full stack developer skills for 2026 — backend, databases, frontend, DevOps, AI integration, and security — with a self-assessment to find your gaps.",
         "tags": ["Full-Stack", "Skills", "Career", "DevOps", "AI", "Web Development"],
         "image": "/images/blog-skills.jpg",
-        "file": "blogs/fullstack-developer-skills-2026.md"
+        "keywords": [
+          "full stack developer skills",
+          "full stack developer skills 2026",
+          "full stack developer checklist",
+          "full stack developer roadmap",
+          "skills needed to be a full stack developer",
+          "what does a full stack developer do",
+          "how to become a full stack developer",
+          "full stack developer requirements",
+          "full stack developer hiring checklist",
+          "web developer skills 2026"
+        ],
+        "faq": [
+          {
+            "question": "What skills does a full stack developer need in 2026?",
+            "answer": "A full stack developer needs backend fundamentals (APIs, auth, queues), databases (SQL, indexing, migrations), frontend (React/Next.js, SSR/CSR, Core Web Vitals), DevOps (Docker, Nginx, CI/CD, monitoring), AI integration, security, and delivery skills."
+          },
+          {
+            "question": "What does a full stack developer do?",
+            "answer": "A full stack developer takes a product from an empty database to a deployed, monitored, production system — designing the schema, building the API, creating the frontend, setting up the servers, and wiring in monitoring and AI features."
+          },
+          {
+            "question": "How to become a full stack developer in 2026?",
+            "answer": "Master one backend language and one frontend framework, learn databases and deployment, then ship real projects with actual users. Score yourself against a full stack developer checklist and build on your two weakest areas."
+          },
+          {
+            "question": "What are the most important full stack developer skills to hire for?",
+            "answer": "When hiring, prioritize production experience and full-stack ownership: schema design, API and frontend delivery, server competence (Nginx, Docker, SSL, queues), honest communication, and now AI integration — the 2026 baseline."
+          },
+          {
+            "question": "Is AI a required full stack developer skill in 2026?",
+            "answer": "Yes — AI integration is the new baseline. You do not need to train models; you need to call LLM APIs with proper context and error handling, build retrieval-augmented features, and wire AI into user flows safely and cost-effectively."
+          }
+        ]
       }
     ]
   },
@@ -1247,7 +1532,7 @@
     "backgroundImage": "/images/contact-bg.jpg",
     "contactMethods": ["linkedin", "github", "email"],
     "availability": {
-      "title": "Currently",
+      "title": "Full Stack Developer Skills for 2026: The Complete Checklist",
       "text": "Open to freelance projects and full-time opportunities where I can contribute to building scalable, enterprise-grade applications.",
       "responseTime": "Usually within 24 hours"
     },
@@ -1284,7 +1569,7 @@
     "sectionSubtitle": "Agency work building production applications with Laravel and modern full-stack tooling.",
     "roles": [
       {
-        "title": "Junior Full Stack Developer",
+        "title": "Full Stack Developer Skills for 2026: The Complete Checklist",
         "company": "Infinity Digital Agency",
         "location": "Ratopul, Kathmandu",
         "period": "Feb 2026 - Present",
@@ -1298,7 +1583,7 @@
         ]
       },
       {
-        "title": "Full Stack Intern",
+        "title": "Full Stack Developer Skills for 2026: The Complete Checklist",
         "company": "Infinity Digital Agency",
         "location": "Ratopul, Kathmandu",
         "period": "Aug 2025 - Feb 2026",
@@ -1311,7 +1596,7 @@
         ]
       },
       {
-        "title": "Outreach Coordinator",
+        "title": "Full Stack Developer Skills for 2026: The Complete Checklist",
         "company": "Pie N AI",
         "location": "Kathmandu",
         "period": "Dec 2024 - Present",

@@ -380,9 +380,11 @@ html.lenis body {
   );
 }
 
-/* Terminal grid dot pattern */
+/* Terminal grid dot pattern.
+   NOTE: must NOT set pointer-events:none — that disables interactivity for every
+   child (blog cards, FAQ accordions, skill nodes). The pattern is painted on the
+   section background, behind content, so children stay clickable. */
 @utility terminal-grid {
-  pointer-events: none;
   background-image: radial-gradient(
     circle,
     rgba(61, 99, 255, 0.04) 1px,

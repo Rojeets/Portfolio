@@ -1,13 +1,9 @@
 'use client'
 
 import { useRef, useState, useCallback } from 'react'
-import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { MapPin, Calendar } from './Icons'
 import type { ExperienceRole } from '@/lib/types'
-
-gsap.registerPlugin(ScrollTrigger)
 
 const roleColors = [
   { accent: 'text-blue-light', dot: 'bg-blue-core', line: 'bg-blue-core', glow: 'rgba(61,99,255,0.15)' },
@@ -82,49 +78,6 @@ export default function ExperienceTimeline({
       })
     }
   }, [expandedIndex])
-
-  useGSAP(() => {
-    if (!sectionRef.current || !trackRef.current) return
-
-    const mm = gsap.matchMedia()
-    mm.add('(prefers-reduced-motion: reduce)', () => {
-      gsap.set('.timeline-entry', { opacity: 1, y: 0, x: 0 })
-      gsap.set('.timeline-node', { scale: 1, opacity: 1 })
-    })
-
-    mm.add('(prefers-reduced-motion: no-preference)', () => {
-      const entries = trackRef.current!.querySelectorAll('.timeline-entry')
-      const nodes = trackRef.current!.querySelectorAll('.timeline-node')
-
-      gsap.from(entries, {
-        y: 50,
-        opacity: 0,
-        duration: 0.7,
-        stagger: 0.15,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 75%',
-          once: true,
-        },
-      })
-
-      gsap.from(nodes, {
-        scale: 0,
-        opacity: 0,
-        duration: 0.5,
-        stagger: 0.15,
-        ease: 'back.out(2)',
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 75%',
-          once: true,
-        },
-      })
-    })
-
-    return () => mm.revert()
-  }, { scope: sectionRef })
 
   return (
     <section ref={sectionRef} className="py-20 relative" id="experience">

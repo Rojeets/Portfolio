@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useCallback } from 'react'
+import { usePathname } from 'next/navigation'
 import { ReactLenis, type LenisRef } from 'lenis/react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -13,6 +14,7 @@ interface SmoothScrollProps {
 
 export default function SmoothScroll({ children }: SmoothScrollProps) {
   const lenisRef = useRef<LenisRef>(null)
+  const pathname = usePathname()
 
   const raf = useCallback((time: number) => {
     lenisRef.current?.lenis?.raf(time)
@@ -52,6 +54,15 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
       gsap.ticker.remove(lenis.raf as any)
     }
   }, [])
+
+  // Recalculate trigger positions after client-side route navigation.
+  // Without this, reveals created on a freshly navigated page keep stale
+  // positions (document.fonts.ready / window.load already fired) and cards
+  // can stay stuck at opacity: 0.
+  useEffect(() => {
+    const t = setTimeout(() => ScrollTrigger.refresh(), 150)
+    return () => clearTimeout(t)
+  }, [pathname])
 
   // Expose lenis on window for other components that need direct access
   useEffect(() => {

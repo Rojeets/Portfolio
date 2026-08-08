@@ -1,0 +1,265 @@
+{
+  "slug": "laravel-vs-django-vs-nodejs",
+  "sections": [
+    {
+      "type": "paragraph",
+      "content": "Every year developers re-litigate the same fight: which backend should you build your web application on? After shipping production systems in all three ecosystems — Laravel for agency clients, Django for AI/ML projects, and Node.js for real-time services — here is my honest 2026 take."
+    },
+    {
+      "type": "divider"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "The TL;DR"
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "**Laravel (PHP):** Best balance of speed-to-market, batteries-included features, and easy hiring. The workhorse of custom business apps.",
+        "**Django (Python):** Best when your app is **data-heavy or ML-adjacent** — admin interfaces, analytics, computer vision backends.",
+        "**Node.js (Express/Nest):** Best for **real-time**, high-concurrency, API-first products and when you want one language across front and back."
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": "All three are production-proven. Pick based on your **team, your data, and your real-time needs** — not hype."
+    },
+    {
+      "type": "divider"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Laravel — the batteries-included workhorse"
+    },
+    {
+      "type": "paragraph",
+      "content": "Laravel excels at the things most business apps actually need: auth, migrations, queues, scheduled jobs, and an elegant ORM."
+    },
+    {
+      "type": "paragraph",
+      "content": "**Strengths in 2026**"
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "**Faster iteration.** Eloquent, migrations, blade/Livewire, and artisan scaffolding get you to a working product quickly.",
+        "**Huge ecosystem.** Cashier (subscriptions), Horizon (queues), Filament (admin panels), Sanctum (API auth).",
+        "**Easy to hire and maintain.** PHP skills are abundant and cheap, especially in Nepal and South Asia.",
+        "**Mature server tooling.** Standard PHP-FPM + Nginx + Redis stacks are boring and reliable."
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": "**Weaknesses**"
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "Long-running jobs and WebSocket-heavy workloads need extra infrastructure (queues, Redis, or a separate Node/Python service).",
+        "PHP's concurrency model means you think in processes, not event loops."
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": "**Best for:** e-commerce, CMS-style business apps, admin panels, SaaS MVPs, marketplace backends."
+    },
+    {
+      "type": "divider"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Django — the data and ML powerhouse"
+    },
+    {
+      "type": "paragraph",
+      "content": "Django gives you an ORM, an auto-generated admin, and the Python ecosystem. If your product involves **models, analytics, or machine learning**, Django is a natural fit."
+    },
+    {
+      "type": "paragraph",
+      "content": "**Strengths in 2026**"
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "**Best-in-class admin.** Django's built-in admin is still the fastest way to get a working back office.",
+        "**Python ecosystem.** For anything touching pandas, scikit-learn, or deep learning, you avoid awkward cross-language bridges.",
+        "**Strong security defaults.** Django ships with sensible protection against common web attacks.",
+        "**Async support has matured.** Django 4+/5+ async views and channels handle real-time needs when configured well."
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": "**Weaknesses**"
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "Heavier to run than a Laravel app; async setups are more complex.",
+        "ORM is powerful but performance tuning takes care."
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": "**Best for:** analytics dashboards, ML/AI backends, data-heavy products, research tools."
+    },
+    {
+      "type": "divider"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Node.js — the real-time, API-first choice"
+    },
+    {
+      "type": "paragraph",
+      "content": "Node's event loop shines for I/O-heavy, concurrent workloads. With TypeScript, it also lets a single team own the full stack."
+    },
+    {
+      "type": "paragraph",
+      "content": "**Strengths in 2026**"
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "**One language everywhere.** TypeScript on the server, React/Next.js on the client — fewer context switches.",
+        "**Excellent real-time story.** WebSockets, SSE, and event-driven services are natural.",
+        "**Vast package ecosystem.** Whatever you need, there's an npm package.",
+        "**High concurrency per process.** Great for APIs under load."
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": "**Weaknesses**"
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "More decision fatigue — the framework is lighter, so architecture discipline matters more.",
+        "Some \"batteries\" you get for free in Laravel/Django must be assembled by hand.",
+        "Callback-heavy legacy codebases are common; TypeScript mitigates this."
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": "**Best for:** real-time apps, chat, live dashboards, API-first SaaS, serverless functions, microservices."
+    },
+    {
+      "type": "divider"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Head-to-head"
+    },
+    {
+      "type": "table",
+      "header": [
+        "Criteria",
+        "Laravel",
+        "Django",
+        "Node.js"
+      ],
+      "rows": [
+        [
+          "Time-to-MVP",
+          "Fastest",
+          "Fast",
+          "Medium"
+        ],
+        [
+          "Admin panels",
+          "Great (Filament)",
+          "Great (built-in)",
+          "DIY"
+        ],
+        [
+          "Real-time / WebSockets",
+          "Needs extras",
+          "Good (channels)",
+          "Native"
+        ],
+        [
+          "ML / data integration",
+          "Via APIs",
+          "Native",
+          "Via libraries"
+        ],
+        [
+          "Hiring ease (Nepal/SA)",
+          "Very easy",
+          "Easy",
+          "Easy"
+        ],
+        [
+          "Long-run cost",
+          "Low",
+          "Medium",
+          "Medium"
+        ]
+      ]
+    },
+    {
+      "type": "divider"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "What I actually use, and why"
+    },
+    {
+      "type": "paragraph",
+      "content": "There is no \"best framework\" — there is the right tool per project. My default is **Laravel** for client-facing business apps because it ships fastest and stays maintainable. I reach for **Django** whenever a project touches AI/ML, computer vision, or heavy analytics — that's where Python pays for itself. I use **Node.js** for the real-time and event-driven pieces (WebSockets, background workers) that sit alongside those systems."
+    },
+    {
+      "type": "paragraph",
+      "content": "Most products in 2026 are **polyglot under the hood** anyway. A Laravel API, a Node real-time service, and a Python ML worker is a completely normal production architecture."
+    },
+    {
+      "type": "divider"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "How to decide for your project"
+    },
+    {
+      "type": "paragraph",
+      "content": "Ask three questions:"
+    },
+    {
+      "type": "list",
+      "ordered": true,
+      "items": [
+        "**Where does your data live?** ML/analytics-heavy → Django. CRUD-heavy business logic → Laravel.",
+        "**Do you need real-time?** Yes → Node.js or Django channels, with a dedicated service.",
+        "**Who will maintain it?** Choose the stack your (future) team can actually hire for."
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": "If you are still unsure, start with the stack you can ship fastest, and keep the architecture clean enough to split services later."
+    },
+    {
+      "type": "divider"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "content": "Final word"
+    },
+    {
+      "type": "paragraph",
+      "content": "I've built insurance platforms, restaurant SaaS, server monitoring tools, and AI pipelines across these ecosystems. If you want a no-hype recommendation for your specific product, [let's talk](/contact)."
+    }
+  ]
+}

@@ -12,6 +12,7 @@ const footerNav = [
   { name: 'Projects', href: '/projects' },
   { name: 'Case Studies', href: '/projects#case-studies' },
   { name: 'Skills', href: '/skills' },
+  { name: 'Services', href: '/services' },
   { name: 'Blog', href: '/blog' },
   { name: 'Answers', href: '/answers' },
   { name: 'Contact', href: '/contact' },
