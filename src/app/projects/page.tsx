@@ -166,14 +166,15 @@ export default function ProjectsPage() {
           </div>
         </ScrollReveal>
 
-        <ScrollReveal className="grid md:grid-cols-2 gap-5" stagger={0.1}>
+        <div id="case-studies" className="grid md:grid-cols-2 gap-5">
           {data.projects.items.map((project: Project) => {
             const Icon = iconMap[project.icon] || Cpu
             return (
-              <div
+              <Link
                 key={project.title}
-                className="card-base p-5 h-full flex flex-col group hover:border-blue-core/20 transition-all duration-300"
-                id={project.title.toLowerCase().replace(/\s+/g, '-')}
+                href={`/projects/${project.slug}`}
+                className="card-base p-5 h-full flex flex-col group hover:border-blue-core/20 hover:-translate-y-1 transition-all duration-300"
+                id={project.slug}
               >
                 <div className="flex items-start justify-between mb-3">
                   <div className="w-10 h-10 rounded-xl bg-blue-core/10 flex items-center justify-center text-blue-light">
@@ -229,11 +230,14 @@ export default function ProjectsPage() {
                       </span>
                     ))}
                   </div>
+                  <span className="inline-flex items-center gap-1.5 text-xs font-mono text-blue-light mt-3 group-hover:gap-2.5 transition-all">
+                    Read the case study <ArrowUpRight size={12} />
+                  </span>
                 </div>
-              </div>
+              </Link>
             )
           })}
-        </ScrollReveal>
+        </div>
 
         <ScrollReveal>
           <div className="mt-12 text-center">

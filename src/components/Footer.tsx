@@ -7,6 +7,16 @@ const socialLinks = [
   { icon: EnvelopeSimple, url: 'mailto:info@rojitpokharel.com.np', label: 'Email' },
 ]
 
+const footerNav = [
+  { name: 'About', href: '/about' },
+  { name: 'Projects', href: '/projects' },
+  { name: 'Case Studies', href: '/projects#case-studies' },
+  { name: 'Skills', href: '/skills' },
+  { name: 'Blog', href: '/blog' },
+  { name: 'Answers', href: '/answers' },
+  { name: 'Contact', href: '/contact' },
+]
+
 export default function Footer() {
   return (
     <footer className="w-full border-t border-panel-border bg-bg-void/80 backdrop-blur-sm relative z-10">
@@ -17,9 +27,24 @@ export default function Footer() {
               <span className="text-blue-core">&lt;</span>Rojit<span className="text-blue-core"> /&gt;</span>
             </Link>
             <p className="text-sm text-text-muted">
-              &copy; {new Date().getFullYear()} Rojit Pokharel
+              &copy; {new Date().getFullYear()} Rojit Pokharel — Full-Stack Web Developer &amp; System Architect
+            </p>
+            <p className="text-xs text-text-muted max-w-xs">
+              Rojit Pokharel is a Full-Stack Web Developer &amp; System Architect from Kathmandu, Nepal, building production web applications with Laravel, Django, React, and Next.js.
             </p>
           </div>
+
+          <nav className="flex flex-col items-center md:items-start gap-2" aria-label="Footer navigation">
+            {footerNav.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="text-sm text-text-muted hover:text-blue-light transition-colors"
+              >
+                {link.name}
+              </Link>
+            ))}
+          </nav>
 
           <div className="flex items-center gap-1">
             {socialLinks.map((link) => (

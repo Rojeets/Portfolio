@@ -43,9 +43,9 @@ const jsonLd = {
       name: 'Rojit Pokharel',
       url: SITE_URL,
       image: `${SITE_URL}/images/og-image.jpg`,
-      jobTitle: 'Web & Web App Developer',
+      jobTitle: 'Full-Stack Web Developer & System Architect',
       description:
-        'Full-stack web and web app developer in Kathmandu, Nepal, specializing in Laravel, React, Next.js, and scalable production systems.',
+        'Full-Stack Web Developer and System Architect from Kathmandu, Nepal, specializing in production web applications built with Laravel, Django, React, Next.js, and scalable infrastructure.',
       email: 'mailto:info@rojitpokharel.com.np',
       address: {
         '@type': 'PostalAddress',
@@ -92,7 +92,7 @@ const jsonLd = {
       '@type': 'WebSite',
       '@id': `${SITE_URL}/#website`,
       url: SITE_URL,
-      name: 'Rojit Pokharel | Web & WebApp Developer in Kathmandu, Nepal',
+      name: 'Rojit Pokharel | Full-Stack Web Developer & System Architect in Kathmandu, Nepal',
       inLanguage: 'en',
       publisher: { '@id': `${SITE_URL}/#person` },
     },
@@ -138,7 +138,7 @@ const jsonLd = {
           name: 'Is Rojit Pokharel a web and web app developer in Kathmandu, Nepal?',
           acceptedAnswer: {
             '@type': 'Answer',
-            text: 'Yes. Rojit Pokharel is a full-stack web and web app developer based in Kathmandu, Nepal, specializing in custom web applications, e-commerce platforms, SaaS products, and API development using Laravel, React, and Next.js.',
+            text: 'Yes. Rojit Pokharel is a Full-Stack Web Developer and System Architect based in Kathmandu, Nepal, specializing in production web applications, e-commerce platforms, SaaS products, and API development using Laravel, Django, React, and Next.js.',
           },
         },
         {
@@ -181,18 +181,21 @@ const jsonLd = {
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: 'Rojit Pokharel | Web & WebApp Developer in Kathmandu, Nepal',
+    default: 'Rojit Pokharel | Full-Stack Web Developer & System Architect in Kathmandu, Nepal',
     template: '%s | Rojit Pokharel',
   },
   description:
-    'Full-stack web & web app developer in Kathmandu, Nepal. I build scalable web applications, e-commerce platforms, and SaaS products with Laravel, React, and Next.js.',
+    'Rojit Pokharel is a Full-Stack Web Developer and System Architect from Kathmandu, Nepal. He builds production web applications, SaaS platforms, e-commerce systems, and AI/ML systems with Laravel, Django, React, Next.js, and scalable infrastructure.',
   keywords: [
+    'Rojit Pokharel',
+    'Full-Stack Web Developer Nepal',
     'Web Developer Kathmandu',
     'Web App Developer Nepal',
-    'Full-Stack Developer Nepal',
+    'System Architect Nepal',
     'Laravel Developer Nepal',
     'React Developer Kathmandu',
     'Next.js Developer',
+    'Django Developer Nepal',
     'Website Developer Kathmandu',
     'E-commerce Development Nepal',
     'SaaS Development',
@@ -214,21 +217,21 @@ export const metadata: Metadata = {
     locale: 'en_NP',
     url: '/',
     siteName: 'Rojit Pokharel',
-    title: 'Rojit Pokharel | Web & WebApp Developer in Kathmandu, Nepal',
-    description: 'Full-stack web & web app developer in Kathmandu, Nepal, building scalable web applications with Laravel, React, and Next.js.',
+    title: 'Rojit Pokharel | Full-Stack Web Developer & System Architect in Kathmandu, Nepal',
+    description: 'Rojit Pokharel is a Full-Stack Web Developer and System Architect from Kathmandu, Nepal, building production web applications with Laravel, Django, React, and Next.js.',
     images: [
       {
         url: '/images/og-image.jpg',
         width: 1200,
         height: 630,
-        alt: 'Rojit Pokharel - Web & Web App Developer in Kathmandu, Nepal',
+        alt: 'Rojit Pokharel - Full-Stack Web Developer & System Architect in Kathmandu, Nepal',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Rojit Pokharel | Web & WebApp Developer in Kathmandu, Nepal',
-    description: 'Full-stack web & web app developer in Kathmandu, Nepal, building scalable web applications with Laravel, React, and Next.js.',
+    title: 'Rojit Pokharel | Full-Stack Web Developer & System Architect in Kathmandu, Nepal',
+    description: 'Rojit Pokharel is a Full-Stack Web Developer and System Architect from Kathmandu, Nepal, building production web applications with Laravel, Django, React, and Next.js.',
     images: ['/images/og-image.jpg'],
   },
   icons: {

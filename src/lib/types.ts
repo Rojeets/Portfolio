@@ -63,7 +63,34 @@ export interface SkillsData {
   levelStyles: Record<string, { borderColor: string; bgColor: string }>
 }
 
+export interface ProjectCaseStudy {
+  year: string
+  client?: string
+  clientProblem: string[]
+  role: string[]
+  architecture: string[]
+  databaseDesign: string[]
+  apiArchitecture: string[]
+  authentication: string[]
+  realTime?: string[]
+  payments?: string[]
+  deployment: string[]
+  performance: string[]
+  problems: string[]
+  solutions: string[]
+  results: string[]
+  lessons: string[]
+  repoUrl?: string
+  liveUrl?: string
+  code?: {
+    language: string
+    caption: string
+    lines: string[]
+  }
+}
+
 export interface Project {
+  slug: string
   title: string
   description: string
   tech: string[]
@@ -72,6 +99,7 @@ export interface Project {
   icon: string
   metric: string
   terminal?: string
+  caseStudy?: ProjectCaseStudy
 }
 
 export interface ProjectsData {

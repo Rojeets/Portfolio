@@ -1,5 +1,6 @@
 'use client'
 import Link from 'next/link'
+import Image from 'next/image'
 import { ArrowRight } from '@/components/Icons'
 import ScrollReveal from '@/components/ScrollReveal'
 import portfolioData from '@/data/portfolio.json'
@@ -29,10 +30,12 @@ export default function BlogPage() {
             <Link href={`/blog/${post.slug}`} key={post.slug}>
               <article className="card-blog group hover:border-blue-core/20 transition-all duration-300 h-full flex flex-col cursor-pointer">
                 <div className="relative h-44 overflow-hidden bg-panel-bg">
-                  <img
+                  <Image
                     src={post.image}
                     alt={post.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    sizes="(max-width: 768px) 100vw, 50vw"
                   />
                 </div>
                 <div className="p-5 flex flex-col flex-1">

@@ -1,29 +1,27 @@
 'use client'
 
 import { useRef, type MouseEvent } from 'react'
-import { Cpu } from '@/components/Icons'
+import Link from 'next/link'
+import { ArrowUpRight } from '@/components/Icons'
 import type { Project } from '@/lib/types'
 
 interface ProjectCardProps {
   project: Project
   index?: number
   variant?: 'featured' | 'standard'
-  onSelect: (project: Project) => void
 }
 
 export default function ProjectCard({
   project,
   index = 0,
   variant = 'standard',
-  onSelect,
 }: ProjectCardProps) {
-  const cardRef = useRef<HTMLDivElement>(null)
+  const cardRef = useRef<HTMLAnchorElement>(null)
   const glowRef = useRef<HTMLDivElement>(null)
   const prefersReducedMotion = useRef(false)
 
-  const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
+  const handleMouseMove = (e: MouseEvent<HTMLAnchorElement>) => {
     if (prefersReducedMotion.current || !cardRef.current) return
-    // Skip 3D tilt on touch devices
     if ('ontouchstart' in window) return
 
     const rect = cardRef.current.getBoundingClientRect()
@@ -53,16 +51,13 @@ export default function ProjectCard({
   const isFeatured = variant === 'featured'
 
   return (
-    <div
+    <Link
+      href={`/projects/${project.slug}`}
       ref={cardRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      onClick={() => onSelect(project)}
-      onKeyDown={(e) => { if (e.key === 'Enter') onSelect(project) }}
-      role="button"
-      tabIndex={0}
       data-cursor="project"
-      className={`card-base group relative overflow-hidden cursor-pointer transition-all duration-300 ease-out
+      className={`card-base group relative overflow-hidden transition-all duration-300 ease-out block
         ${isFeatured ? 'p-6 md:p-8 h-full' : 'p-5 h-full'}
         hover:-translate-y-1 hover:border-blue-core/20 hover:shadow-lg hover:shadow-blue-core/5`}
     >
@@ -78,7 +73,7 @@ export default function ProjectCard({
       <div className="relative flex-1 flex flex-col">
         <div className="flex items-center justify-between mb-4">
           <div className={`${isFeatured ? 'w-11 h-11' : 'w-9 h-9'} rounded-xl bg-blue-core/10 flex items-center justify-center text-blue-light`}>
-            <Cpu size={isFeatured ? 22 : 18} />
+            <ArrowUpRight size={isFeatured ? 22 : 18} />
           </div>
           <span className="text-[11px] font-mono text-green-live flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-green-live/5 border border-green-live/10">
             <span className="w-1.5 h-1.5 rounded-full bg-green-live animate-pulse-dot" />
@@ -90,7 +85,7 @@ export default function ProjectCard({
           {project.title}
         </h3>
 
-        <p className={`${isFeatured ? 'text-sm' : 'text-sm'} text-text-secondary mb-4 leading-relaxed ${isFeatured ? 'line-clamp-4' : 'line-clamp-2'}`}>
+        <p className={`text-sm text-text-secondary mb-4 leading-relaxed ${isFeatured ? 'line-clamp-4' : 'line-clamp-2'}`}>
           {project.description}
         </p>
 
@@ -110,7 +105,11 @@ export default function ProjectCard({
             </span>
           )}
         </div>
+
+        <span className="inline-flex items-center gap-1.5 text-xs font-mono text-blue-light mt-4 group-hover:gap-2.5 transition-all">
+          Read case study <ArrowUpRight size={12} />
+        </span>
       </div>
-    </div>
+    </Link>
   )
 }

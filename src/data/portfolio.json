@@ -1,7 +1,7 @@
 {
   "meta": {
-    "siteTitle": "Rojit Pokharel - Full Stack Developer",
-    "description": "Full-stack developer building production web applications across PHP, Python, Go, and JavaScript ecosystems with AI/ML systems and server infrastructure.",
+    "siteTitle": "Rojit Pokharel - Full-Stack Web Developer & System Architect",
+    "description": "Full-Stack Web Developer and System Architect from Kathmandu, Nepal, building production web applications with Laravel, Django, React, and Next.js — including scalable infrastructure, real-time systems, and AI/ML pipelines.",
     "keywords": ["PHP", "Python", "JavaScript", "Go", "Laravel", "Django", "React", "Next.js", "Docker", "Linux", "Server Management", "Computer Vision", "AI/ML"],
     "author": "Rojit Pokharel",
     "ogImage": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1200&q=80"
@@ -9,10 +9,10 @@
   "personal": {
     "name": "Rojit Pokharel",
     "logoTag": "<Rojit />",
-    "title": "Full Stack Developer",
-    "subtitle": "Full Stack Developer",
-    "tagline": "Agency developer building production web applications, AI systems, and infrastructure across PHP, Python, Go, and JavaScript ecosystems.",
-    "footerDescription": "Full-stack developer specializing in web applications across Laravel, Django, React, and modern infrastructure.",
+    "title": "Full-Stack Web Developer & System Architect",
+    "subtitle": "Full-Stack Web Developer & System Architect",
+    "tagline": "Full-stack web developer and system architect from Kathmandu, Nepal, building production web applications with Laravel, Django, React, and Next.js — including scalable infrastructure, real-time systems, and AI/ML pipelines.",
+    "footerDescription": "Full-Stack Web Developer & System Architect from Kathmandu, Nepal, specializing in production web applications built with Laravel, Django, React, and Next.js.",
     "copyright": "Rojit Pokharel",
     "location": "Kathmandu, Nepal",
     "availability": "Open to freelance and full-time opportunities"
@@ -93,7 +93,7 @@
     ]
   },
   "hero": {
-    "badgeText": "Full Stack Developer",
+    "badgeText": "Full-Stack Web Developer & System Architect",
     "backgroundImage": "/images/hero-bg.jpg",
     "ctaButtons": [
       { "text": "View My Work", "href": "/projects", "style": "primary" },
@@ -413,42 +413,343 @@
     },
     "items": [
       {
+        "slug": "insurance-claim-platform",
         "title": "Insurance Claim Platform",
         "description": "Multi-subsystem UK insurance platform with real-time AI-powered room analysis via Cohere Vision, Django Channels chat, Celery async pipelines, automated PDF report generation, and a React Native mobile app for field assessors.",
         "tech": ["Django", "DRF", "Django Channels", "Celery", "React Native", "PostgreSQL", "Redis", "Cohere Vision"],
         "highlights": ["AI Room Analysis", "Real-time Chat", "PDF Reports", "Mobile Field App"],
         "headerType": "workflow",
         "icon": "ShieldCheck",
-        "metric": "Claims: 1000+"
+        "metric": "Claims: 1000+",
+        "caseStudy": {
+          "year": "2025",
+          "client": "UK-based insurance provider",
+          "clientProblem": [
+            "Claims assessments relied on manual review of photos and notes, taking hours per claim and producing inconsistent reports.",
+            "Assessors, adjusters, and claimants communicated through email chains with no central record of a claim's lifecycle.",
+            "Report generation was manual, slow, and error-prone, with no automated audit trail.",
+            "Field assessors needed to capture photos and assessments on site, often in low-connectivity environments."
+          ],
+          "role": [
+            "Full-stack developer on a multi-subsystem insurance platform — Django REST API, Django Channels real-time chat, Celery async pipelines, AI analysis integration, and the React Native field app.",
+            "Designed the claim lifecycle data model and the async task architecture."
+          ],
+          "architecture": [
+            "Multi-subsystem platform covering the full claim lifecycle — initial assessment, AI room analysis, adjuster review, and final PDF report.",
+            "Django REST Framework API for the web and mobile clients, with Django Channels running on a separate ASGI worker for WebSockets.",
+            "Celery with Redis as the message broker handles long-running tasks: AI image analysis, PDF generation, and notifications.",
+            "PostgreSQL as the primary store, Redis for caching and the broker."
+          ],
+          "databaseDesign": [
+            "Claim-centric schema: claims, assessments, rooms, damage analyses, adjuster notes, messages, and reports.",
+            "PostgreSQL foreign keys and constraints keep the claim lifecycle referentially intact.",
+            "Indexes on claim status and assessor for the operational queries the team runs daily."
+          ],
+          "apiArchitecture": [
+            "DRF view sets with serializer-level validation for the claim, assessment, and message endpoints.",
+            "WebSocket consumers for real-time chat with message-history replay on connect.",
+            "Celery task chain: AI analysis completes → assessment saved → PDF report generation queued → user notified."
+          ],
+          "authentication": [
+            "SimpleJWT token authentication for the mobile and web clients.",
+            "Role-based permissions distinguishing assessors, adjusters, and claimants across API endpoints.",
+            "Channel-layer scope checks so WebSocket chat connects only to authorized claim rooms."
+          ],
+          "realTime": [
+            "Django Channels WebSocket chat between assessors, adjusters, and claimants with persisted history.",
+            "Graceful reconnection handling and message history replay on reconnect.",
+            "ASGI worker separated from the HTTP layer so real-time traffic never blocks the API."
+          ],
+          "payments": [],
+          "deployment": [
+            "ASGI (Daphne) for Channels alongside the WSGI Django app, behind Nginx with SSL.",
+            "Supervisor-managed Celery workers for the async task queue.",
+            "Redis as broker and cache, PostgreSQL with automated backups."
+          ],
+          "performance": [
+            "Async pipeline means the API stays responsive while PDFs and AI analysis run in the background.",
+            "Redis caching for frequently read claim metadata.",
+            "Batch-friendly serializers so mobile assessors can sync many assessments efficiently."
+          ],
+          "problems": [
+            "AI image analysis is slow and occasionally fails on ambiguous photos — a synchronous call would block the API.",
+            "Real-time chat must survive flaky mobile networks on site.",
+            "PDF reports must include AI results, adjuster notes, and cost breakdowns in one auditable document."
+          ],
+          "solutions": [
+            "Moved analysis into a Celery task with retries and graceful degradation when the vision API is unavailable.",
+            "Channels consumers replay message history on reconnect so no communication is lost on patchy connections.",
+            "A deterministic report template renders every assessment field, AI output, and note into a versioned PDF."
+          ],
+          "results": [
+            "The platform handles 1000+ insurance claims with full audit trails.",
+            "AI-powered room analysis reduced average assessment time from hours to minutes.",
+            "Automated PDF generation eliminated manual report writing entirely.",
+            "Field assessors capture and sync assessments offline via the React Native app."
+          ],
+          "lessons": [
+            "AI features must be async and fail-soft — never let a vision API outage block a claim.",
+            "Real-time chat needs offline resilience and history replay to be trusted by field staff.",
+            "An auditable document trail is non-negotiable in insurance."
+          ],
+          "code": {
+            "language": "python",
+            "caption": "Celery task for AI-powered room damage analysis",
+            "lines": [
+              "@shared_task(bind=True, max_retries=3)",
+              "def analyze_room_damage(self, assessment_id, image_paths):",
+              "    assessment = ClaimAssessment.objects.get(id=assessment_id)",
+              "    for image_path in image_paths:",
+              "        response = cohere_client.generate(",
+              "            model='command',",
+              "            prompt=f'Analyze this insurance claim room photo for damage...',",
+              "        )",
+              "    assessment.damage_analysis = results",
+              "    assessment.save()",
+              "    generate_claim_report.delay(assessment_id)"
+            ]
+          }
+        }
       },
       {
+        "slug": "restaurant-management-saas",
         "title": "Restaurant Management SaaS",
         "description": "Multi-restaurant SaaS platform with real-time kitchen display via Laravel Reverb, multi-gateway payment integration (Khalti, eSewa, Stripe), and full admin panels for menu, orders, and staff management.",
         "tech": ["Laravel", "Filament", "Reverb", "Livewire", "MySQL", "Stripe"],
         "highlights": ["Multi-gateway Payments", "Real-time Kitchen Display", "Filament Admin Panel"],
         "headerType": "workflow",
         "icon": "ClipboardText",
-        "metric": "Live Orders"
+        "metric": "Live Orders",
+        "caseStudy": {
+          "year": "2025",
+          "client": "Restaurant chains and multi-outlet food businesses in Nepal",
+          "clientProblem": [
+            "Restaurant chains managing multiple outlets struggled with scattered order channels, manual kitchen coordination, and inconsistent payment handling.",
+            "Orders placed at a counter or online had to be verbally relayed to the kitchen, causing delays, mistakes, and no audit trail.",
+            "Owners had no central view of menus, staff, or revenue across outlets, and no way to reconcile payments across Khalti, eSewa, and Stripe.",
+            "An off-the-shelf POS did not fit Nepal's payment landscape or the operational flow of multi-outlet restaurant chains."
+          ],
+          "role": [
+            "Full-stack developer responsible for the complete Laravel SaaS build — database schema, API layer, real-time kitchen system, payment abstraction, and Filament admin panels.",
+            "Designed the multi-tenant architecture and the payment gateway abstraction layer."
+          ],
+          "architecture": [
+            "Multi-tenant SaaS with database-level isolation — each restaurant gets its own schema so queries stay fast and tenant data stays clean as the platform scales.",
+            "Laravel backend with Livewire for reactive admin interactions and Laravel Reverb (WebSockets) for real-time order push.",
+            "Queue workers process payments and notifications asynchronously so the HTTP request cycle stays responsive.",
+            "Filament v5 admin panels give owners menu, order, staff, and analytics management without custom dashboard work."
+          ],
+          "databaseDesign": [
+            "Schema designed around tenants: restaurants, branches, menus, menu modifiers, orders, order items, payments, staff, and roles.",
+            "Database-level tenant isolation using separate schemas per restaurant rather than a shared-table tenant_id pattern.",
+            "Indexed order and payment tables for the high-write workload of a live kitchen ordering system.",
+            "Order items and modifiers normalized to keep kitchen ticket generation fast and reporting accurate."
+          ],
+          "apiArchitecture": [
+            "RESTful JSON API for the frontend and mobile-facing flows, with Laravel form request validation on every endpoint.",
+            "Payment gateway abstraction pattern routes a charge to Khalti, eSewa, or Stripe based on restaurant region and configuration.",
+            "Webhook endpoints reconcile payment statuses asynchronously, with retry logic and idempotent processing to prevent double charges."
+          ],
+          "authentication": [
+            "Laravel Sanctum token authentication for API clients.",
+            "Role-based access via Spatie Permissions — owner, manager, and staff roles scoped within the tenant schema.",
+            "Filament Shield secures the admin panels so staff only see the resources their role allows."
+          ],
+          "realTime": [
+            "Laravel Reverb WebSocket server pushes new orders to kitchen display screens the moment an order is placed — no polling, no page refreshes.",
+            "Order status updates (received, preparing, ready, served) broadcast to the kitchen display and owner dashboard in real time.",
+            "Connection management handles reconnects and missed events so the kitchen display never silently misses an order."
+          ],
+          "payments": [
+            "Multi-gateway integration supporting Khalti, eSewa, and Stripe in one payment abstraction layer.",
+            "Region-based gateway routing: Nepal-based restaurants use Khalti/eSewa, international use Stripe.",
+            "Webhook reconciliation with automatic retries and idempotency keys to keep financial records accurate."
+          ],
+          "deployment": [
+            "Production deployment with Docker Compose — Nginx, PHP-FPM, MySQL, Redis, and the Reverb WebSocket server as separate services.",
+            "Certbot SSL via Nginx, Supervisor-managed queue workers, and PM2 where Node services were involved.",
+            "Environment-based configuration across staging and production."
+          ],
+          "performance": [
+            "Database-level tenant isolation kept multi-restaurant queries fast even as tenants grew.",
+            "Queue workers offloaded payment processing and notifications from the request cycle.",
+            "Real-time WebSockets replaced polling, cutting unnecessary HTTP traffic for kitchen displays."
+          ],
+          "problems": [
+            "Reconciling payments across three gateways with different webhook payloads and retry semantics.",
+            "Keeping kitchen display screens in sync during brief network disconnects.",
+            "Designing a tenant model that scales without leaking data between restaurants."
+          ],
+          "solutions": [
+            "Built a gateway adapter per provider and a normalization layer so the rest of the app sees one payment interface; added idempotency keys for webhook reconciliation.",
+            "Implemented reconnection and catch-up logic in the Reverb client so missed events are re-synced on reconnect.",
+            "Chose database-level tenant isolation with middleware that locks every query to the active restaurant schema."
+          ],
+          "results": [
+            "Runs in production for multiple restaurant chains, handling daily orders and staff coordination.",
+            "The real-time kitchen display cut average order-to-preparation time by eliminating the lag between POS and kitchen.",
+            "Owners get a single dashboard across outlets and reconciled multi-gateway payments."
+          ],
+          "lessons": [
+            "Real-time features belong on the critical path for any restaurant operation — milliseconds matter in a kitchen.",
+            "Payment abstraction must be built before the second gateway is integrated, not after.",
+            "Tenant isolation choices made at schema design time are the most expensive decision to reverse later."
+          ],
+          "code": {
+            "language": "php",
+            "caption": "Payment gateway routing based on restaurant region",
+            "lines": [
+              "$gateway = match($restaurant->region) {",
+              "    'nepal' => $restaurant->payment_method === 'khalti'",
+              "        ? new KhaltiGateway()",
+              "        : new eSewaGateway(),",
+              "    default => new StripeGateway(),",
+              "};",
+              "",
+              "$gateway->charge($order->total, $order->paymentMeta());"
+            ]
+          }
+        }
       },
       {
+        "slug": "servicelink-marketplace",
         "title": "ServiceLink Marketplace",
         "description": "Home repair marketplace with Django REST Framework backend, React Native Expo mobile app, offline-first sync, text-to-speech accessibility, and Stripe payment integration with WCAG compliance.",
         "tech": ["Django", "DRF", "React Native", "Expo", "Stripe", "PostgreSQL"],
         "highlights": ["Offline Sync", "TTS Accessibility", "WCAG Compliance", "Stripe Payments"],
         "headerType": "layers",
         "icon": "Wrench",
-        "metric": "Active Users"
+        "metric": "Active Users",
+        "caseStudy": {
+          "year": "2025",
+          "client": "Home services startup connecting customers with vetted local repair professionals",
+          "clientProblem": [
+            "Customers had no trusted way to find and book home repair professionals; providers had no pipeline of qualified leads.",
+            "Field conditions meant poor connectivity — the mobile app could not depend on a live API connection.",
+            "The product needed to serve users with accessibility needs, including low-vision users who rely on screen readers.",
+            "Payments between customers and providers had to be handled securely and simply."
+          ],
+          "role": [
+            "Full-stack developer — Django REST Framework backend, React Native Expo mobile app, offline sync engine, accessibility layer, and Stripe payment integration.",
+            "Designed the marketplace data model and the offline-first synchronization protocol."
+          ],
+          "architecture": [
+            "Django REST Framework API serving the React Native Expo client.",
+            "Offline-first mobile architecture: local-first writes with a background sync engine that reconciles when connectivity returns.",
+            "Stripe payment integration for marketplace transactions.",
+            "Text-to-speech and screen-reader-friendly UI for accessibility compliance."
+          ],
+          "databaseDesign": [
+            "Marketplace schema: services, providers, bookings, reviews, payments, and messages.",
+            "PostgreSQL with foreign keys across bookings → providers and payments → bookings.",
+            "Sync-friendly design — client-generated IDs and updated-at timestamps so offline changes merge without conflicts."
+          ],
+          "apiArchitecture": [
+            "DRF view sets for services, providers, bookings, and reviews with serializer validation.",
+            "Sync endpoint that exchanges incremental changes between device and server based on updated_at watermarks.",
+            "Idempotent booking and payment endpoints so retried requests do not double-create records."
+          ],
+          "authentication": [
+            "Token-based auth for mobile clients with role separation between customers and providers.",
+            "JWT with refresh rotation for long-lived mobile sessions.",
+            "Stripe Connect-style flow to route marketplace payouts to the correct provider."
+          ],
+          "realTime": [],
+          "payments": [
+            "Stripe integration for secure marketplace payments and provider payouts.",
+            "Idempotency keys prevent duplicate charges on retried requests over flaky mobile networks."
+          ],
+          "deployment": [
+            "Django app behind Nginx with SSL, PostgreSQL for the primary store.",
+            "Environment-based configuration across development, staging, and production API."
+          ],
+          "performance": [
+            "Offline-first sync reduced API round-trips and made the app usable in low-connectivity areas.",
+            "Incremental sync rather than full payload transfer kept mobile data usage low.",
+            "Indexed updated_at columns keep the sync watermark query fast as data grows."
+          ],
+          "problems": [
+            "Users on construction sites and rural areas lost connectivity mid-booking.",
+            "Accessibility requirements demanded full screen-reader and text-to-speech support, not an afterthought.",
+            "Payment retries over unreliable networks risked duplicate charges."
+          ],
+          "solutions": [
+            "Built a local-first data layer with a background sync engine and conflict resolution based on timestamps.",
+            "Implemented WCAG-compliant components with text-to-speech output and screen-reader labels tested against assistive tech.",
+            "Used idempotency keys on payment endpoints so retries are safe and clients can resume interrupted flows."
+          ],
+          "results": [
+            "Live marketplace with an offline-capable mobile app for both customers and providers.",
+            "WCAG compliance and text-to-speech accessibility made the platform usable by a wider audience.",
+            "Secure Stripe payments with reliable behavior on poor connections."
+          ],
+          "lessons": [
+            "Offline-first is a data-model decision, not a client-layer afterthought.",
+            "Accessibility wins users and differentiates a marketplace in a crowded space.",
+            "Idempotency on payment endpoints is the difference between a retry and a chargeback."
+          ]
+        }
       },
       {
+        "slug": "ai-referee-football-analytics",
         "title": "AI Referee: Football Analytics",
         "description": "Computer vision pipeline using YOLOv5 + SORT tracking for player detection, SSIM template matching for team classification, and pitch mapping for real-time football analytics with a Flask dashboard.",
         "tech": ["Python", "YOLOv5", "OpenCV", "SORT", "Flask", "PyTorch"],
         "highlights": ["Real-time Tracking", "Team Classification", "Pitch Mapping"],
         "headerType": "metrics",
         "icon": "ChartBar",
-        "metric": "FPS: 30+"
+        "metric": "FPS: 30+",
+        "caseStudy": {
+          "year": "2025",
+          "clientProblem": [
+            "Football coaches and analysts need objective, real-time player data — positions, speed, and team identity — without manual video review.",
+            "Detecting and classifying players by team from broadcast footage is noisy: occlusion, jersey similarity, and fast motion break naive detectors."
+          ],
+          "role": [
+            "Computer vision engineer — built the full YOLOv5 detection and SORT tracking pipeline with OpenCV frame processing and a Flask dashboard.",
+            "Designed the team-classification and pitch-mapping logic."
+          ],
+          "architecture": [
+            "YOLOv5 for player detection, SORT (Kalman filter + IoU) for multi-object tracking across frames.",
+            "SSIM template matching for team classification against known jersey templates.",
+            "Perspective transform for pitch mapping, with a Flask dashboard serving live analytics."
+          ],
+          "databaseDesign": [],
+          "apiArchitecture": [
+            "Flask backend streaming processed video and aggregated tracking stats to the dashboard."
+          ],
+          "authentication": [],
+          "realTime": [
+            "Real-time video inference pipeline sustaining 30+ FPS with detection, tracking, and classification per frame."
+          ],
+          "payments": [],
+          "deployment": [
+            "GPU-backed inference environment running the PyTorch pipeline, with the Flask dashboard served over HTTP."
+          ],
+          "performance": [
+            "Frame-by-frame YOLOv5 inference optimized to sustain real-time rates.",
+            "SORT tracking keeps player identities stable between detections, reducing per-frame compute."
+          ],
+          "problems": [
+            "Occlusion and similar jersey colors confuse both detection and classification.",
+            "Tracking IDs must remain stable when players cross paths or leave frame briefly."
+          ],
+          "solutions": [
+            "Combined detection with SORT tracking so identity persists through brief occlusions.",
+            "SSIM template matching on player crops assigns team affiliation before downstream analytics."
+          ],
+          "results": [
+            "End-to-end AI football analytics pipeline: detect, track, classify, and map players in real time.",
+            "Demonstrates production-grade computer vision with YOLOv5, OpenCV, SORT, and PyTorch."
+          ],
+          "lessons": [
+            "Tracking is the bridge that turns detection frames into useful sports analytics.",
+            "Template-based classification is robust when lighting and jerseys are controlled."
+          ]
+        }
       },
       {
+        "slug": "server-uptime-monitoring",
         "title": "Server Uptime Monitoring",
         "description": "Lightweight Go-based uptime monitoring tool with multi-site health checks, Slack alerts, and Prometheus metrics. Detects downtime before clients report it.",
         "tech": ["Go", "Prometheus", "Docker", "REST API", "YAML"],
@@ -456,52 +757,389 @@
         "headerType": "terminal",
         "icon": "ChartBar",
         "terminal": "./servermonitor --config sites.yaml",
-        "metric": "Uptime: 99.9%"
+        "metric": "Uptime: 99.9%",
+        "caseStudy": {
+          "year": "2025",
+          "clientProblem": [
+            "Agencies discover client-site downtime only after a client complains — too late, and reputational.",
+            "Existing monitoring SaaS is overkill, per-site priced, and adds external dependencies for simple uptime checks.",
+            "Teams need one lightweight tool that checks many sites, alerts on failure, and exposes metrics."
+          ],
+          "role": [
+            "Open-source developer — built the tool in Go from scratch: config-driven multi-site health checks, Slack alerting, Prometheus metrics, and a REST API.",
+            "Authored the project documentation and deployment guide."
+          ],
+          "architecture": [
+            "Go binary configured via YAML declaring sites and check intervals.",
+            "Concurrent health checks with configurable HTTP methods, expected status codes, and timeouts.",
+            "Prometheus metric exposition endpoint plus a REST API for on-demand status queries.",
+            "Slack webhook alerts fired on state transitions (up→down, down→up) to avoid alert spam."
+          ],
+          "databaseDesign": [],
+          "apiArchitecture": [
+            "REST API exposing current status and check history for integration into dashboards."
+          ],
+          "authentication": [],
+          "realTime": [],
+          "payments": [],
+          "deployment": [
+            "Distributed as a single static Go binary — runs anywhere with zero runtime dependencies.",
+            "Docker image provided so teams can drop it into an existing compose stack."
+          ],
+          "performance": [
+            "Go's concurrency model checks many sites in parallel with low resource footprint.",
+            "Prometheus metrics enable alerting and long-term trend analysis without a heavy backend."
+          ],
+          "problems": [
+            "Alert fatigue — naive per-failed-check alerts spam a Slack channel during an outage window.",
+            "Misconfigured checks (too-fast timeouts) produced false positives on slow-but-alive sites."
+          ],
+          "solutions": [
+            "State-transition alerting fires only when status changes, with optional re-notify intervals.",
+            "Configurable timeouts and retry thresholds per site eliminate most false positives."
+          ],
+          "results": [
+            "Open-source uptime monitoring in Go with Slack alerts and Prometheus metrics — detecting downtime before clients do.",
+            "Used to monitor production client sites with 99.9%+ target uptime."
+          ],
+          "lessons": [
+            "Alert on state changes, not on every failed check.",
+            "A single static binary is the lowest-friction way to get ops teams to adopt a monitoring tool."
+          ],
+          "repoUrl": "https://github.com/rojeets/ServerMonitorTool"
+        }
       },
       {
+        "slug": "ecommerce-multi-vendor-platform",
         "title": "E-commerce Multi-Vendor Platform",
         "description": "Multi-vendor marketplace with real-time notifications via Laravel Reverb, automated PDF invoicing, Filament admin panels, and role-based dashboards for vendors and administrators.",
         "tech": ["Laravel", "Filament", "Reverb", "React", "MySQL"],
         "highlights": ["Multi-vendor Architecture", "Real-time Notifications", "PDF Invoicing"],
         "headerType": "blueprint",
         "icon": "Store",
-        "metric": "Vendors: 50+"
+        "metric": "Vendors: 50+",
+        "caseStudy": {
+          "year": "2025",
+          "clientProblem": [
+            "Marketplace operators needed a platform where many independent vendors can sell while the operator controls approvals, commissions, and platform-wide visibility.",
+            "Vendors had no real-time awareness of new orders, stock alerts, or payment updates.",
+            "Manual invoice and bookkeeping work consumed hours per month across hundreds of orders."
+          ],
+          "role": [
+            "Full-stack developer — Laravel marketplace with Filament admin panels, Reverb real-time notifications, automated invoicing, and role-based dashboards.",
+            "Designed the vendor-scoped data model and product approval workflow."
+          ],
+          "architecture": [
+            "Shared database with vendor-scoped queries — every product, order, and report is scoped to the authenticated vendor.",
+            "Laravel Reverb pushes order confirmations, stock alerts, and payment updates in real time.",
+            "Filament admin panels for both platform admins and vendors, secured with Filament Shield role management.",
+            "Automated PDF invoicing queued asynchronously on every completed order."
+          ],
+          "databaseDesign": [
+            "Schema: vendors, products, product variants, orders, order items, invoices, and commissions.",
+            "Foreign-key integrity between orders, items, and vendors; indexes on vendor_id and order status.",
+            "Commission calculation stored at order time to keep reports stable against later price changes."
+          ],
+          "apiArchitecture": [
+            "Laravel API resources for product and order endpoints consumed by the React frontend.",
+            "Vendor-scoped Eloquent scopes enforced in queries so no vendor ever sees another's data."
+          ],
+          "authentication": [
+            "Sanctum auth for API clients; Spatie roles separating vendor and administrator capabilities.",
+            "Filament Shield governs panel access with permission-based resource visibility."
+          ],
+          "realTime": [
+            "Reverb WebSockets deliver real-time order and stock notifications to vendor dashboards.",
+            "Live inventory indicators so vendors react to stock alerts instantly."
+          ],
+          "payments": [],
+          "deployment": [
+            "Laravel app behind Nginx with SSL, MySQL database, Redis for cache and Reverb.",
+            "Supervisor-managed queue workers processing invoices and notifications."
+          ],
+          "performance": [
+            "Vendor-scoped queries with proper indexes keep marketplace queries fast as catalogs grow.",
+            "Queued invoice generation keeps the order request cycle responsive."
+          ],
+          "problems": [
+            "Ensuring a vendor can never query or mutate another vendor's products through the API.",
+            "Generating branded PDF invoices for hundreds of orders without blocking checkout."
+          ],
+          "solutions": [
+            "Global vendor scopes plus explicit query filtering on every product/order endpoint.",
+            "Celery-style queued job per order generating the PDF with taxes, itemized products, and vendor details."
+          ],
+          "results": [
+            "Live multi-vendor marketplace supporting 50+ active vendors.",
+            "Real-time order awareness and automated invoicing saved dozens of bookkeeping hours per month."
+          ],
+          "lessons": [
+            "Vendor isolation must be enforced at the query layer, not just the UI.",
+            "Automated invoicing is a queue job, never a synchronous request-time task."
+          ],
+          "code": {
+            "language": "php",
+            "caption": "Vendor-scoped product query in Filament",
+            "lines": [
+              "class ProductResource extends FilamentResource",
+              "{",
+              "    public static function getEloquentQuery(): Builder",
+              "    {",
+              "        return parent::getEloquentQuery()",
+              "            ->where('vendor_id', auth()->user()->vendor_id);",
+              "    }",
+              "}"
+            ]
+          }
+        }
       },
       {
+        "slug": "gold-exchange-mis",
         "title": "Gold Exchange MIS",
         "description": "Operations and inventory management system for a gold exchange with transaction tracking, Excel/PDF reporting, Redis caching, and comprehensive Filament admin panels.",
         "tech": ["Laravel", "Filament", "Livewire", "Redis", "MySQL"],
         "highlights": ["Inventory Tracking", "Excel/PDF Reports", "Redis Caching"],
         "headerType": "code",
         "icon": "Calculator",
-        "metric": "Transactions"
+        "metric": "Transactions",
+        "caseStudy": {
+          "year": "2024",
+          "clientProblem": [
+            "A gold exchange ran operations and inventory on spreadsheets — no real-time visibility into stock, transactions, or pricing.",
+            "Managers needed structured reporting (Excel/PDF) for audits and daily reconciliation.",
+            "High-read operational queries needed caching to stay fast during market hours."
+          ],
+          "role": [
+            "Full-stack developer — Laravel management information system with Filament panels, transaction tracking, reporting, and Redis caching.",
+            "Designed the inventory and transaction schema."
+          ],
+          "architecture": [
+            "Laravel + Filament admin panels for inventory, transactions, pricing, and reporting.",
+            "Redis caching for frequently read lookup data (current rates, item catalogs).",
+            "Excel and PDF report generation for audits and daily reconciliation."
+          ],
+          "databaseDesign": [
+            "Schema for items, batches, inventory movements, transactions, and pricing history.",
+            "Inventory movements normalized so stock levels are computed from an immutable ledger."
+          ],
+          "apiArchitecture": [],
+          "authentication": [
+            "Role-based access distinguishing operators, managers, and administrators in Filament."
+          ],
+          "realTime": [],
+          "payments": [],
+          "deployment": [
+            "Laravel behind Nginx, MySQL, Redis cache, Supervisor-managed workers for report generation."
+          ],
+          "performance": [
+            "Redis-cached rates and catalogs keep the busiest queries off the database.",
+            "Report generation runs in the background and streams large Excel exports."
+          ],
+          "problems": [
+            "Inventory reconciliation was error-prone when tracked in spreadsheets.",
+            "Large report exports could stall the web process if run synchronously."
+          ],
+          "solutions": [
+            "Immutable inventory-movement ledger makes stock levels auditable and computable.",
+            "Queued, chunked Excel/PDF export generation with a ready notification."
+          ],
+          "results": [
+            "Production MIS replacing spreadsheet operations with structured, auditable transaction tracking and reporting."
+          ],
+          "lessons": [
+            "An immutable ledger is the right foundation for any inventory system.",
+            "Cache the hot reads; queue the heavy reports."
+          ]
+        }
       },
       {
+        "slug": "chatbot-api",
         "title": "Chat-bot API",
         "description": "Multi-modal chatbot API built with Flask and Google Gemini, featuring speech recognition, image understanding, and context-aware conversations through a clean REST interface.",
         "tech": ["Flask", "Gemini API", "Python", "REST API"],
         "highlights": ["Multi-modal Chat", "Speech Recognition", "Image Understanding"],
         "headerType": "code",
         "icon": "Bot",
-        "metric": "API Latency"
+        "metric": "API Latency",
+        "caseStudy": {
+          "year": "2025",
+          "clientProblem": [
+            "Teams wanted a single API to power chatbots that accept text, speech, and images — not separate integrations per modality.",
+            "Multi-modal interactions need a clean, consistent REST interface over the raw Gemini calls."
+          ],
+          "role": [
+            "Backend developer — built a Flask REST API wrapping Google Gemini for text, speech, and image inputs.",
+            "Designed the request/response contract and prompt engineering for context-aware conversations."
+          ],
+          "architecture": [
+            "Flask REST API with blueprint-based route organization.",
+            "Gemini API integration for multimodal generation — text, audio, and vision inputs.",
+            "Speech recognition layer converts audio to text before prompting.",
+            "Conversation context passed across turns for coherent multi-turn dialogue."
+          ],
+          "databaseDesign": [],
+          "apiArchitecture": [
+            "Clean REST endpoints for chat, speech-to-text, and image understanding.",
+            "Centralized prompt builder keeps system instructions consistent across modalities."
+          ],
+          "authentication": [
+            "API-key authentication guarding the chat endpoints."
+          ],
+          "realTime": [],
+          "payments": [],
+          "deployment": [
+            "Flask app behind Nginx with SSL; environment-managed Gemini API keys."
+          ],
+          "performance": [
+            "Streamed responses where supported to keep perceived latency low.",
+            "Request timeouts and retries around Gemini to handle transient API failures."
+          ],
+          "problems": [
+            "Gemini latency varies with input modality, making consistent API response times hard.",
+            "Raw model calls scattered through routes made prompts and keys hard to manage."
+          ],
+          "solutions": [
+            "Centralized Gemini client with streaming and timeout handling per modality.",
+            "A single prompt-builder module standardizes system context and message history."
+          ],
+          "results": [
+            "A production-ready multi-modal chatbot API handling text, speech, and image conversations through one REST interface."
+          ],
+          "lessons": [
+            "Multimodal apps need a clean API contract before the model calls.",
+            "Centralize provider integration — it will be replaced or versioned."
+          ]
+        }
       },
       {
+        "slug": "anonymous-discussion-platform",
         "title": "Anonymous Discussion Platform",
         "description": "Encrypted anonymous discussion platform with topic-based channels, real-time messaging, admin moderation tools, and end-to-end encryption for privacy.",
         "tech": ["Laravel", "Next.js", "React", "MySQL", "WebSockets"],
         "highlights": ["End-to-end Encryption", "Topic Channels", "Admin Moderation"],
         "headerType": "layers",
         "icon": "Lock",
-        "metric": "Channels"
+        "metric": "Channels",
+        "caseStudy": {
+          "year": "2025",
+          "clientProblem": [
+            "Communities wanted open discussion without the toxicity and privacy leaks of name-attached forums.",
+            "Anonymous platforms need privacy (end-to-end encryption) while still allowing admins to moderate abuse.",
+            "Messages must arrive in real time across topic-based channels."
+          ],
+          "role": [
+            "Full-stack developer — Laravel backend with WebSocket messaging, Next.js/React frontend, encryption layer, and moderation tools. Built at the R-Hackathon 2025.",
+            "Designed the channel, message, and encryption model."
+          ],
+          "architecture": [
+            "Laravel backend serving a Next.js/React frontend.",
+            "Real-time messaging over WebSockets with topic-based channels.",
+            "End-to-end encryption for message content with admin moderation surfaces that can review and remove posts.",
+            "Anonymous identity model — no profile persistence required to participate."
+          ],
+          "databaseDesign": [
+            "Schema for channels, messages, and moderation actions; messages store encrypted content payloads.",
+            "Channel-based indexes keep real-time queries scoped and fast."
+          ],
+          "apiArchitecture": [
+            "REST endpoints for channels and moderation; WebSocket layer for live message delivery."
+          ],
+          "authentication": [
+            "Anonymous session identities for participants; privileged admin role for moderators."
+          ],
+          "realTime": [
+            "WebSocket delivery of new messages to subscribed channel members in real time."
+          ],
+          "payments": [],
+          "deployment": [
+            "Laravel + Next.js behind Nginx; MySQL database; WebSocket server managed for production."
+          ],
+          "performance": [
+            "Channel-scoped subscriptions limit broadcast fan-out to relevant members."
+          ],
+          "problems": [
+            "Reconciling end-to-end encryption with the need for admin moderation.",
+            "Keeping anonymous identities from being trivially linkable."
+          ],
+          "solutions": [
+            "Encrypted message content with separate moderation actions that can quarantine or remove content without exposing identity.",
+            "Anonymous session design that avoids storing identifying metadata."
+          ],
+          "results": [
+            "A working anonymous discussion platform with real-time channels and moderation — built and demonstrated at a hackathon."
+          ],
+          "lessons": [
+            "Privacy and moderation are solvable together if the data model separates identity from content.",
+            "Real-time messaging needs channel-scoped fan-out to scale."
+          ]
+        }
       },
       {
+        "slug": "travel-booking-admin-panel",
         "title": "Travel Booking & Admin Panel",
         "description": "Full tour and package management system with Filament v5 admin panel, Sanctum API authentication, AWS S3 media storage, Spatie role management, and CI/CD deployment pipeline.",
         "tech": ["Laravel", "Filament", "Sanctum", "AWS S3", "Spatie"],
         "highlights": ["Package Management", "API Auth", "S3 Media Storage", "CI/CD"],
         "headerType": "terminal",
         "icon": "Backpack",
-        "metric": "Bookings"
+        "metric": "Bookings",
+        "caseStudy": {
+          "year": "2025",
+          "clientProblem": [
+            "A travel operator needed a full tour and package management system — catalog, booking flow, media, and role-managed admin — replacing manual catalog updates and bookings.",
+            "Package media (photos, itineraries) had to be stored reliably off-server.",
+            "The team wanted an automated CI/CD pipeline so releases stopped being manual rituals."
+          ],
+          "role": [
+            "Full-stack developer — Laravel tour/package system with Filament v5 admin, Sanctum API auth, AWS S3 media storage, Spatie roles, and CI/CD.",
+            "Designed the package, booking, and media schema."
+          ],
+          "architecture": [
+            "Laravel backend with Filament v5 admin panel for package, itinerary, and booking management.",
+            "Sanctum-based API authentication for booking and query endpoints.",
+            "AWS S3 media storage with signed uploads for package images and documents.",
+            "Spatie role/permission management across admin and operator accounts.",
+            "CI/CD pipeline for automated test, build, and deployment."
+          ],
+          "databaseDesign": [
+            "Schema for packages, itineraries, bookings, customers, and media.",
+            "Media morphs attach images/documents to packages and itineraries without schema churn.",
+            "Booking and package tables indexed for the catalog and availability queries."
+          ],
+          "apiArchitecture": [
+            "REST API exposing package catalog and booking endpoints with Sanctum auth.",
+            "Filament resources as the admin surface; API as the public surface."
+          ],
+          "authentication": [
+            "Sanctum token auth for the public booking API.",
+            "Spatie roles separating content editors, booking operators, and administrators."
+          ],
+          "realTime": [],
+          "payments": [],
+          "deployment": [
+            "AWS S3 for media storage; CI/CD pipeline automating build and deploy.",
+            "Laravel behind Nginx with SSL, MySQL database."
+          ],
+          "performance": [
+            "S3 media offloads files from the app server, keeping package page loads fast.",
+            "Signed upload URLs avoid streaming media through PHP."
+          ],
+          "problems": [
+            "Storing and serving package media efficiently as the catalog grows.",
+            "Automating a consistent release pipeline instead of manual deploys."
+          ],
+          "solutions": [
+            "AWS S3 with direct signed uploads and CDN-friendly URLs.",
+            "CI/CD pipeline that runs tests, builds assets, and deploys on merge."
+          ],
+          "results": [
+            "A production travel booking system with role-managed Filament admin, secure API, and reliable media storage."
+          ],
+          "lessons": [
+            "Offload media to object storage early — it is painful to retrofit.",
+            "A CI/CD pipeline converts release anxiety into a routine merge."
+          ]
+        }
       }
     ]
   },

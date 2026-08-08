@@ -1,6 +1,7 @@
 import type { MetadataRoute } from 'next'
 import portfolioData from '@/data/portfolio.json'
-import type { PortfolioData, BlogPost } from '@/lib/types'
+import { answers } from '@/data/answers'
+import type { PortfolioData, BlogPost, Project } from '@/lib/types'
 
 const data = portfolioData as PortfolioData
 
@@ -13,6 +14,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 1,
+    },
+    {
+      url: `${BASE_URL}/about`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.9,
     },
     {
       url: `${BASE_URL}/projects`,
@@ -33,6 +40,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     {
+      url: `${BASE_URL}/answers`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.9,
+    },
+    {
       url: `${BASE_URL}/contact`,
       lastModified: new Date(),
       changeFrequency: 'yearly',
@@ -47,5 +60,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }))
 
-  return [...staticRoutes, ...blogRoutes]
+  const projectRoutes: MetadataRoute.Sitemap = data.projects.items.map((project: Project) => ({
+    url: `${BASE_URL}/projects/${project.slug}`,
+    lastModified: new Date(),
+    changeFrequency: 'monthly',
+    priority: 0.9,
+  }))
+
+  const answerRoutes: MetadataRoute.Sitemap = answers.map((answer) => ({
+    url: `${BASE_URL}/answers/${answer.slug}`,
+    lastModified: new Date(),
+    changeFrequency: 'weekly',
+    priority: 0.8,
+  }))
+
+  return [...staticRoutes, ...blogRoutes, ...projectRoutes, ...answerRoutes]
 }

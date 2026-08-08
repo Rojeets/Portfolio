@@ -1,6 +1,6 @@
 'use client'
-import { useState, useCallback } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { ArrowUpRight, Code, Database, HardDrives, Cpu, Gear, Rocket } from '@/components/Icons'
 import About from '@/components/About'
 import ScrollReveal from '@/components/ScrollReveal'
@@ -9,12 +9,11 @@ import TerminalPrompt from '@/components/TerminalPrompt'
 import ExperienceCarousel from '@/components/ExperienceCarousel'
 import SkillConstellation from '@/components/SkillConstellation'
 import ProjectCard from '@/components/ProjectCard'
-import ProjectModal from '@/components/ProjectModal'
 import MagneticButton from '@/components/MagneticButton'
 import Services from '@/components/Services'
 import FaqSection from '@/components/FaqSection'
 import portfolioData from '@/data/portfolio.json'
-import type { PortfolioData, Project } from '@/lib/types'
+import type { PortfolioData } from '@/lib/types'
 
 const data = portfolioData as PortfolioData
 
@@ -28,15 +27,6 @@ const philosophySteps = [
 
 export default function HomePage() {
   const featuredProjects = data.projects.items.slice(0, 3)
-  const [selectedProject, setSelectedProject] = useState<Project | null>(null)
-
-  const handleSelectProject = useCallback((project: Project) => {
-    setSelectedProject(project)
-  }, [])
-
-  const handleCloseModal = useCallback(() => {
-    setSelectedProject(null)
-  }, [])
 
   return (
     <main className="">
@@ -50,11 +40,17 @@ export default function HomePage() {
             {data.personal.name} / {data.personal.title}
           </p>
 
-          <h1 className="text-5xl md:text-6xl lg:text-[68px] font-display font-light leading-[1.05] tracking-[-0.02em] mb-6">
-            Building systems{' '}
-            <b className="font-semibold">that scale</b>{' '}
-            across infrastructure.
+          <h1 className="text-5xl md:text-6xl lg:text-[68px] font-display font-light leading-[1.05] tracking-[-0.02em] mb-4">
+            Rojit <b className="font-semibold">Pokharel</b>
           </h1>
+
+          <p className="font-display text-xl md:text-2xl text-text-primary leading-snug mb-2">
+            Full-Stack Web Developer <span className="text-text-muted">&</span> System Architect
+          </p>
+
+          <p className="text-xs font-mono text-text-secondary tracking-wide mb-6">
+            <span className="text-green-live">●</span> {data.personal.location}
+          </p>
 
           <p className="text-body-md text-text-secondary leading-relaxed max-w-md">
             {data.personal.tagline}
@@ -242,17 +238,15 @@ export default function HomePage() {
               <ProjectCard
                 project={featuredProjects[0]}
                 variant="featured"
-                onSelect={handleSelectProject}
               />
             </ScrollReveal>
 
             {/* Stacked smaller projects */}
-            {featuredProjects.slice(1).map((project: Project, idx) => (
+            {featuredProjects.slice(1).map((project, idx) => (
               <ScrollReveal key={project.title} direction="right" delay={idx * 0.1}>
                 <ProjectCard
                   project={project}
                   variant="standard"
-                  onSelect={handleSelectProject}
                 />
               </ScrollReveal>
             ))}
@@ -298,10 +292,12 @@ export default function HomePage() {
                   <article className="card-blog group relative overflow-hidden group-hover:-translate-y-1 group-hover:border-blue-core/20 group-hover:shadow-lg group-hover:shadow-blue-core/5 transition-all duration-300 h-full flex flex-col">
                     {data.blog.items[0].image && (
                       <div className="aspect-[16/9] overflow-hidden relative">
-                        <img
+                        <Image
                           src={data.blog.items[0].image}
                           alt={data.blog.items[0].title}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                          fill
+                          className="object-cover group-hover:scale-105 transition-transform duration-700"
+                          sizes="(max-width: 768px) 100vw, 50vw"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-bg-void/80 via-transparent to-transparent" />
                         <div className="absolute bottom-4 left-4 right-4">
@@ -337,11 +333,13 @@ export default function HomePage() {
                   <Link href={`/blog/${blog.slug}`} className="block">
                     <article className="card-blog group relative overflow-hidden group-hover:-translate-y-1 group-hover:border-blue-core/20 group-hover:shadow-lg group-hover:shadow-blue-core/5 transition-all duration-300 flex flex-row">
                       {blog.image && (
-                        <div className="w-32 sm:w-40 shrink-0 overflow-hidden">
-                          <img
+                        <div className="w-32 sm:w-40 shrink-0 overflow-hidden relative">
+                          <Image
                             src={blog.image}
                             alt={blog.title}
-                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                            fill
+                            className="object-cover group-hover:scale-105 transition-transform duration-500"
+                            sizes="(max-width: 768px) 128px, 160px"
                           />
                         </div>
                       )}
@@ -427,9 +425,6 @@ export default function HomePage() {
           </ScrollReveal>
         </div>
       </SectionTransition>
-
-      {/* Project Modal */}
-      <ProjectModal project={selectedProject} onClose={handleCloseModal} />
     </main>
   )
 }

@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import { ArrowLeft } from '@/components/Icons'
 import CopyButton from '@/components/CopyButton'
+import Breadcrumbs from '@/components/Breadcrumbs'
 import { compileMDX } from 'next-mdx-remote/rsc'
 import matter from 'gray-matter'
 import fs from 'fs/promises'
@@ -112,21 +113,15 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ slu
   const articleJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'BlogPosting',
+    '@id': `${process.env.NEXT_PUBLIC_SITE_URL ?? 'https://portfolio.rojitpokharel.com.np'}/blog/${post.slug}#article`,
     mainEntityOfPage: `${process.env.NEXT_PUBLIC_SITE_URL ?? 'https://portfolio.rojitpokharel.com.np'}/blog/${post.slug}`,
     headline: post.title,
     description: post.excerpt,
     image: post.image,
     datePublished: post.date,
     dateModified: post.date,
-    author: {
-      '@type': 'Person',
-      name: 'Rojit Pokharel',
-      url: 'https://portfolio.rojitpokharel.com.np',
-    },
-    publisher: {
-      '@type': 'Person',
-      name: 'Rojit Pokharel',
-    },
+    author: { '@id': 'https://portfolio.rojitpokharel.com.np/#person' },
+    publisher: { '@id': 'https://portfolio.rojitpokharel.com.np/#person' },
     keywords: post.tags.join(', '),
   }
 
@@ -138,6 +133,10 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ slu
       />
       <article className="max-w-3xl mx-auto px-6">
         <div>
+          <div className="mb-8">
+            <Breadcrumbs items={[{ name: 'Home', href: '/' }, { name: 'Blog', href: '/blog' }, { name: post.title }]} />
+          </div>
+
           <Link
             href="/blog"
             className="inline-flex items-center gap-1.5 text-sm text-text-muted hover:text-blue-light transition-colors mb-8"

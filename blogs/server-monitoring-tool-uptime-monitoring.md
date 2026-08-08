@@ -13,7 +13,7 @@ keywords:
 date: 2026-05-13
 lastmod: 2026-05-13
 slug: server-monitoring-tool-uptime-monitoring
-author: "Server Monitor Team"
+author: "Rojit Pokharel"
 canonical: "https://github.com/Rojeets/ServerMonitorTool"
 og:
   title: "Server Monitor Tool — Website Uptime Monitoring Before Clients Report Downtime"
