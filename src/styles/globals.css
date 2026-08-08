@@ -336,6 +336,13 @@
   top: 0.5rem;
   left: 0.5rem;
   z-index: 9999;
+  width: auto;
+  height: auto;
+  margin: 0;
+  overflow: visible;
+  clip: auto;
+  clip-path: none;
+  white-space: normal;
   padding: 0.5rem 1rem;
   background: var(--color-bg-panel);
   border: 1px solid var(--color-blue-core);

@@ -273,14 +273,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className={`${spaceGrotesk.variable} ${geistSans.variable} ${geistMono.variable} min-h-screen bg-bg-void text-text-primary font-body flex flex-col antialiased`}>
         <Analytics />
         <SmoothScroll>
-          <a href="#hero" className="sr-only sr-only-focusable">
+          <a href="#hero-content" className="sr-only sr-only-focusable">
             Skip to content
           </a>
           <CustomCursor />
           <BootSequence />
           <SpatialCore />
           <Navigation />
-          <main id="hero-content" className="flex-1 relative z-10 max-w-[1440px] mx-auto w-full">{children}</main>
+          <main id="hero-content" tabIndex={-1} className="flex-1 relative z-10 max-w-[1440px] mx-auto w-full">{children}</main>
           <Footer />
         </SmoothScroll>
       </body>

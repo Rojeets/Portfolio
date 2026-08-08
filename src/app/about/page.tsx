@@ -175,8 +175,8 @@ export default function AboutPage() {
         <ScrollReveal className="mb-16">
           <SectionHeading eyebrow="Professional Experience" command="cat experience.md" />
           <div className="space-y-4">
-            {data.experience.roles.map((role) => (
-              <div key={`${role.title}-${role.company}`} className="card-base p-5">
+            {data.experience.roles.map((role, index) => (
+              <div key={`${role.title}-${role.company}-${index}`} className="card-base p-5">
                 <div className="flex flex-wrap items-baseline justify-between gap-2 mb-2">
                   <h3 className="font-display font-semibold text-text-primary">{role.title}</h3>
                   <span className="text-[11px] font-mono text-text-muted">{role.period}</span>
