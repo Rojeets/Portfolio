@@ -1,41 +1,21 @@
-'use client'
-import { useEffect, useRef, useState } from 'react'
 import ScrollReveal from '@/components/ScrollReveal'
 import SkillConstellation from '@/components/SkillConstellation'
 import ExperienceCarousel from '@/components/ExperienceCarousel'
+import { GitStats } from '@rojeets/git-stats'
 import portfolioData from '@/data/portfolio.json'
 import type { PortfolioData } from '@/lib/types'
 
 const data = portfolioData as PortfolioData
 
-function GitHeatmap() {
-  const iframeRef = useRef<HTMLIFrameElement>(null)
-  const [height, setHeight] = useState(500)
-
-  useEffect(() => {
-    function onMessage(e: MessageEvent) {
-      if (e.origin !== 'https://git-stats.rojitpokharel.com.np') return
-      if (typeof e.data === 'number') setHeight(e.data)
-      else if (e.data?.height) setHeight(e.data.height)
-    }
-    window.addEventListener('message', onMessage)
-    return () => window.removeEventListener('message', onMessage)
-  }, [])
-
-  return (
-    <div className="card-base overflow-hidden rounded-xl">
-      <iframe
-        ref={iframeRef}
-        src="https://git-stats.rojitpokharel.com.np/embed?github=Rojeets&gitlab=rojeets"
-        width="100%"
-        height={height}
-        style={{ border: 'none', transition: 'height 0.3s ease' }}
-        loading="lazy"
-        title="Git Productivity Heatmap"
-      />
-    </div>
-  )
+const GITSTATS_VARS = {
+  ['--gs-text' as string]: 'var(--color-text-primary)',
+  ['--gs-text-secondary' as string]: 'var(--color-text-secondary)',
+  ['--gs-bg' as string]: 'var(--color-panel-bg)',
+  ['--gs-border' as string]: 'var(--color-panel-border)',
+  ['--gs-label' as string]: 'var(--color-text-secondary)',
 }
+
+const GITSTATS_COLORS = ['#1a1a2e', '#20305e', '#2d4a8a', '#3d63ff', '#9fb4ff']
 
 export default function SkillsPage() {
   return (
@@ -68,7 +48,13 @@ export default function SkillsPage() {
               Contribution activity across GitHub and GitLab.
             </p>
           </div>
-          <GitHeatmap />
+          <div className="card-base overflow-hidden rounded-xl p-4 sm:p-6" style={GITSTATS_VARS}>
+            <GitStats
+              github="Rojeets"
+              gitlab="rojeets"
+              colors={GITSTATS_COLORS}
+            />
+          </div>
         </ScrollReveal>
 
         <ExperienceCarousel

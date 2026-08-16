@@ -108,7 +108,7 @@ export default function ExperienceTimeline({
 
             return (
               <div
-                key={`${role.company}-${role.title}`}
+                key={`${role.company}-${role.title}-${i}`}
                 className={`timeline-entry relative mb-10 md:mb-12 ${
                   isEven ? 'md:pr-[calc(50%+2rem)]' : 'md:pl-[calc(50%+2rem)]'
                 } pl-14 md:pl-0`}

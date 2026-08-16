@@ -73,6 +73,7 @@ export default function About() {
         value: targetNum,
         duration: 2,
         ease: 'power2.out',
+        immediateRender: false,
         onUpdate() {
           if (!statRef.current) return
           statRef.current.textContent = Math.round(obj.value).toString()

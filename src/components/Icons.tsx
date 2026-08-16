@@ -31,6 +31,14 @@ export function GithubLogo({ className, size }: IconProps) {
   )
 }
 
+export function GitlabLogo({ className, size }: IconProps) {
+  return (
+    <svg {...icon(size)} className={className} xmlns="http://www.w3.org/2000/svg">
+      <path d="M243.65 112.91 195.8 24.18a9.58 9.58 0 0 0-17.38-.28L142.13 98.67H113.9L77.6 23.9a9.58 9.58 0 0 0-17.38.28L12.35 112.91a38.33 38.33 0 0 0 12.37 45.42l88.4 67.13 2.05 1.56a14.21 14.21 0 0 0 16.93 0l2.05-1.56 88.4-67.13a38.33 38.33 0 0 0 21.1-45.42Zm-13.14 34.36a12.8 12.8 0 0 1-7 3.12l-95.21 69.29-95.21-69.29a12.8 12.8 0 0 1-7-3.12 12.24 12.24 0 0 1-4-13.51l15.54-41.22 10.65-28.27 24.69 62.47a9.28 9.28 0 0 0 8.55 5.75h93.73a9.28 9.28 0 0 0 8.55-5.75l24.69-62.47 10.65 28.27 15.54 41.22a12.24 12.24 0 0 1-4.17 13.51Z" />
+    </svg>
+  )
+}
+
 export function LinkedinLogo({ className, size }: IconProps) {
   return (
     <svg {...icon(size)} className={className} xmlns="http://www.w3.org/2000/svg">
