@@ -1,6 +1,7 @@
 import aiReferee from './ai-referee-football-player-tracking.json'
 import chooseWebDevelopment from './choose-web-development-company-kathmandu.json'
 import fullstack from './fullstack-developer-skills-2026.json'
+import gitStats from './git-stats-npm-package.json'
 import laravelVsDjango from './laravel-vs-django-vs-nodejs.json'
 import paymentGateway from './payment-gateway-integration-nepal.json'
 import realworld from './realworld-impact-projects.json'
@@ -13,6 +14,7 @@ const posts = [
   aiReferee,
   chooseWebDevelopment,
   fullstack,
+  gitStats,
   laravelVsDjango,
   paymentGateway,
   realworld,

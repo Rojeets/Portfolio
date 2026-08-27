@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useCallback } from 'react'
+import { useEffect, useRef } from 'react'
 import { usePathname } from 'next/navigation'
 import { ReactLenis, type LenisRef } from 'lenis/react'
 import gsap from 'gsap'
@@ -16,26 +16,6 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
   const lenisRef = useRef<LenisRef>(null)
   const pathname = usePathname()
 
-  const raf = useCallback((time: number) => {
-    lenisRef.current?.lenis?.raf(time)
-  }, [])
-
-  useEffect(() => {
-    let running = true
-
-    const loop = (time: number) => {
-      if (!running) return
-      raf(time)
-      requestAnimationFrame(loop)
-    }
-
-    requestAnimationFrame(loop)
-
-    return () => {
-      running = false
-    }
-  }, [raf])
-
   useEffect(() => {
     const lenis = lenisRef.current?.lenis
     if (!lenis) return
@@ -43,23 +23,15 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
     // Sync Lenis scroll with GSAP ScrollTrigger
     lenis.on('scroll', ScrollTrigger.update)
 
-    gsap.ticker.add((time) => {
-      lenis.raf(time * 1000)
-    })
-
-    gsap.ticker.lagSmoothing(0)
-
     return () => {
       lenis.off('scroll', ScrollTrigger.update)
-      gsap.ticker.remove(lenis.raf as any)
     }
   }, [])
 
-  // Recalculate trigger positions after client-side route navigation.
-  // Without this, reveals created on a freshly navigated page keep stale
-  // positions (document.fonts.ready / window.load already fired) and cards
-  // can stay stuck at opacity: 0.
+  // Reset scroll position and recalculate trigger positions after route navigation.
   useEffect(() => {
+    if (pathname === '/') return
+    lenisRef.current?.lenis?.scrollTo(0, { immediate: true })
     const t = setTimeout(() => ScrollTrigger.refresh(), 150)
     return () => clearTimeout(t)
   }, [pathname])
@@ -85,8 +57,6 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
         lerp: 0.08,
         duration: 1.2,
         smoothWheel: true,
-        autoRaf: false,
-        anchors: true,
       }}
     >
       {children}

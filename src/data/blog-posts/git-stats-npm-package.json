@@ -1,0 +1,108 @@
+{
+  "slug": "git-stats-npm-package",
+  "sections": [
+    {
+      "type": "paragraph",
+      "content": "I contribute to personal projects on **GitHub** and client work lives on **GitLab**. Every contribution heatmap I found only showed one platform — hiding half my actual activity. So I built **@rojeets/git-stats**, an npm package that merges both into a single view."
+    },
+    {
+      "type": "divider"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "The Problem: Distributed Contributions"
+    },
+    {
+      "type": "paragraph",
+      "content": "If you work across multiple Git platforms, your contribution history is split. A GitHub heatmap shows your open-source work. A GitLab heatmap shows your professional commits. Neither tells the full story."
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "Personal projects live on GitHub — the green squares stop there",
+        "Organization work lives on GitLab — invisible to your GitHub profile",
+        "No single heatmap shows your real coding activity across both"
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": "I wanted a **centralized heatmap** on my portfolio that merges both platforms into one view."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "What @rojeets/git-stats Does"
+    },
+    {
+      "type": "paragraph",
+      "content": "It fetches contribution calendars from GitHub and GitLab concurrently, merges them (summing counts on overlapping dates), and computes stats over the combined data."
+    },
+    {
+      "type": "code",
+      "lang": "typescript",
+      "content": "import { getStats } from \"@rojeets/git-stats\";\n\nconst { merged, stats } = await getStats({\n  github: \"rojeets\",\n  gitlab: \"rojeets\"\n});\n\nconsole.log(stats);\n// {\n//   total: 1234,\n//   currentStreak: 5,\n//   longestStreak: 42,\n//   bestDay: { date: \"2025-06-01\", count: 87 },\n//   dailyAverage: 3.4\n// }"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Add It to Your Portfolio in 3 Lines"
+    },
+    {
+      "type": "paragraph",
+      "content": "The package ships a **React server component**. Drop it in any Next.js page — no client-side JS, no API routes, no CORS issues:"
+    },
+    {
+      "type": "code",
+      "lang": "bash",
+      "content": "npm install @rojeets/git-stats"
+    },
+    {
+      "type": "code",
+      "lang": "tsx",
+      "content": "import { GitStats } from \"@rojeets/git-stats\";\n\nexport default function SkillsPage() {\n  return (\n    <GitStats\n      github=\"your-username\"\n      gitlab=\"your-username\"\n    />\n  );\n}"
+    },
+    {
+      "type": "paragraph",
+      "content": "The component fetches data on the server, renders the heatmap and stats, and sends zero JavaScript to the browser."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Customization"
+    },
+    {
+      "type": "paragraph",
+      "content": "Override colors with CSS variables for dark themes:"
+    },
+    {
+      "type": "code",
+      "lang": "css",
+      "content": ".git-stats {\n  --gs-text: #e5e5e5;\n  --gs-text-secondary: #a3a3a3;\n  --gs-bg: #18181b;\n  --gs-border: #27272a;\n  --gs-label: #a3a3a3;\n}"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Why This Matters for Portfolios"
+    },
+    {
+      "type": "paragraph",
+      "content": "A contribution heatmap is visual proof of consistency. When a recruiter or client visits your portfolio, they see real activity — not a static screenshot. Merging GitHub and GitLab shows the full picture."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Links"
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "[npm package](https://www.npmjs.com/package/@rojeets/git-stats)",
+        "[GitHub repository](https://github.com/rojeets/git-stats)",
+        "[Live demo on my portfolio](https://portfolio.rojitpokharel.com.np/skills)"
+      ]
+    }
+  ]
+}

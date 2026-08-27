@@ -2,12 +2,14 @@
   "meta": {
     "siteTitle": "Rojit Pokharel - Full-Stack Web Developer & System Architect",
     "description": "Full-Stack Web Developer and System Architect from Kathmandu, Nepal, building production web applications with Laravel, Django, React, and Next.js — including scalable infrastructure, real-time systems, and AI/ML pipelines.",
-    "keywords": ["PHP", "Python", "JavaScript", "Go", "Laravel", "Django", "React", "Next.js", "Docker", "Linux", "Server Management", "Computer Vision", "AI/ML"],
+    "keywords": ["PHP", "Python", "JavaScript", "Go", "Laravel", "Django", "React", "Next.js", "Docker", "Linux", "Server Management", "Computer Vision", "AI/ML", "@rojeets", "rojeets", "github heatmap", "git contribution stats"],
     "author": "Rojit Pokharel",
     "ogImage": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1200&q=80"
   },
   "personal": {
     "name": "Rojit Pokharel",
+    "username": "rojeets",
+    "handle": "@rojeets",
     "logoTag": "<Rojit />",
     "title": "Full-Stack Web Developer & System Architect",
     "subtitle": "Full-Stack Web Developer & System Architect",
@@ -79,6 +81,18 @@
       "url": "https://rojitpokharel.com.np",
       "display": "rojitpokharel.com.np",
       "icon": "Globe"
+    },
+    "medium": {
+      "label": "Medium",
+      "url": "https://medium.com/@rojeets",
+      "display": "medium.com/@rojeets",
+      "icon": "BookOpen"
+    },
+    "hashnode": {
+      "label": "Hashnode",
+      "url": "https://hashnode.com/@rojeets",
+      "display": "hashnode.com/@rojeets",
+      "icon": "FileText"
     }
   },
   "navigation": {
@@ -1149,6 +1163,33 @@
     "backgroundImage": "/images/blog-bg.jpg",
     "items": [
       {
+        "slug": "git-stats-npm-package",
+        "title": "How I Built a Git Contribution Heatmap for My Portfolio",
+        "date": "2026-08-27",
+        "readTime": "4 min read",
+        "excerpt": "Personal projects on GitHub, work on GitLab — one heatmap couldn't show the full picture. Here's how @rojeets/git-stats merges both into a single contribution view.",
+        "tags": ["Open Source", "React", "npm", "GitHub", "GitLab", "Portfolio"],
+        "image": "/images/blog-git-stats.jpg",
+        "keywords": [
+          "github heatmap react",
+          "git stats npm package",
+          "contribution heatmap component",
+          "github gitlab merged stats",
+          "react git contribution widget",
+          "rojeets git-stats"
+        ],
+        "faq": [
+          {
+            "question": "What is @rojeets/git-stats?",
+            "answer": "An npm package that fetches GitHub and GitLab contribution data and merges them into a single heatmap with stats — total contributions, current streak, longest streak, best day, and daily average."
+          },
+          {
+            "question": "How do I add a git heatmap to my portfolio?",
+            "answer": "Install @rojeets/git-stats, import the GitStats component, and add <GitStats github=\"username\" gitlab=\"username\" /> to your page. It renders server-side with no client-side JS."
+          }
+        ]
+      },
+      {
         "slug": "realworld-impact-projects",
         "title": "Production Web Applications: Six Real-World Projects That Deliver Results",
         "date": "2026-07-19",
@@ -1561,7 +1602,7 @@
       { "name": "Blog", "href": "/blog" },
       { "name": "Contact", "href": "/contact" }
     ],
-    "socialLinks": ["github", "linkedin", "gitlab"],
+    "socialLinks": ["github", "linkedin", "gitlab", "medium", "hashnode"],
     "builtWith": "Built with React & Tailwind CSS"
   },
   "experience": {

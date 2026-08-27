@@ -71,7 +71,10 @@ const jsonLd = {
         'https://github.com/rojeets',
         'https://gitlab.com/rojeets',
         'https://www.linkedin.com/in/rojit-pokharel/',
+        'https://medium.com/@rojeets',
+        'https://hashnode.com/@rojeets',
       ],
+      alternateName: ['@rojeets', 'rojeets'],
       knowsAbout: [
         'Web Development',
         'Web Application Development',
@@ -128,6 +131,8 @@ const jsonLd = {
         'https://github.com/rojeets',
         'https://gitlab.com/rojeets',
         'https://www.linkedin.com/in/rojit-pokharel/',
+        'https://medium.com/@rojeets',
+        'https://hashnode.com/@rojeets',
       ],
     },
     {
@@ -280,7 +285,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <BootSequence />
           <SpatialCore />
           <Navigation />
-          <main id="hero-content" tabIndex={-1} className="flex-1 relative z-10 max-w-[1440px] mx-auto w-full">{children}</main>
+          <main id="hero-content" className="flex-1 relative z-10 max-w-[1440px] mx-auto w-full">{children}</main>
           <Footer />
         </SmoothScroll>
       </body>

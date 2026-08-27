@@ -230,6 +230,32 @@ export default function AboutPage() {
           <SectionHeading eyebrow="Open Source & Technical Writing" command="cat oss.log" />
           <div className="space-y-4">
             <div className="card-base p-5">
+              <h3 className="font-display font-semibold text-text-primary mb-2">@rojeets/git-stats</h3>
+              <p className="text-sm text-text-secondary leading-relaxed mb-3">
+                An npm package that fetches GitHub and GitLab contribution data and merges them into
+                a single heatmap with stats — total contributions, current streak, longest streak,
+                best day, and daily average. Ships React server components with zero client-side JS.
+              </p>
+              <div className="flex flex-wrap gap-3">
+                <a
+                  href="https://www.npmjs.com/package/@rojeets/git-stats"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm text-blue-light hover:underline"
+                >
+                  npm package ↗
+                </a>
+                <a
+                  href="https://github.com/rojeets/git-stats"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm text-blue-light hover:underline"
+                >
+                  github.com/rojeets/git-stats ↗
+                </a>
+              </div>
+            </div>
+            <div className="card-base p-5">
               <h3 className="font-display font-semibold text-text-primary mb-2">Server Monitoring Tool (Go)</h3>
               <p className="text-sm text-text-secondary leading-relaxed mb-3">
                 An open-source website uptime monitoring tool built in Go with multi-site health

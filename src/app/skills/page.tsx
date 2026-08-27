@@ -5,6 +5,8 @@ import { GitStats } from '@rojeets/git-stats'
 import portfolioData from '@/data/portfolio.json'
 import type { PortfolioData } from '@/lib/types'
 
+export const dynamic = 'force-dynamic'
+
 const data = portfolioData as PortfolioData
 
 const GITSTATS_VARS = {
