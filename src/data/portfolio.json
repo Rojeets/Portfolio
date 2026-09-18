@@ -1163,6 +1163,39 @@
     "backgroundImage": "/images/blog-bg.jpg",
     "items": [
       {
+        "slug": "ssh-key-authentication-case-study",
+        "title": "Hardening SSH: How I Switched Server Access to Key-Based Authentication",
+        "date": "2026-09-18",
+        "readTime": "8 min read",
+        "excerpt": "Password login on port 22 is the most attacked service on the internet. A case study in what I did to lock down SSH — key-based authentication, a clean password-auth disable, and a port change without locking myself out.",
+        "tags": ["SSH", "Security", "Linux", "DevOps", "Server Hardening"],
+        "image": "/images/blog-ssh.jpg",
+        "keywords": [
+          "ssh key authentication",
+          "disable password authentication ssh",
+          "ssh hardening linux",
+          "ssh-copy-id add public key",
+          "change ssh port",
+          "ubuntu 22.04 ssh socket",
+          "secure server access",
+          "linux server security"
+        ],
+        "faq": [
+          {
+            "question": "Why switch from passwords to SSH keys?",
+            "answer": "Password authentication exposes your server to automated brute-force attacks on port 22, and passwords can be intercepted, phished, or reused from breaches. SSH keys use asymmetric cryptography — the private key never leaves your machine, so there is nothing to guess and nothing that travels over the wire."
+          },
+          {
+            "question": "Do I still need a password after enabling SSH keys?",
+            "answer": "Once key-based login is confirmed in a second terminal, disable password authentication with a drop-in config file (/etc/ssh/sshd_config.d/99-disable-password-auth.conf) that sets PasswordAuthentication no. After that, only keys can log in."
+          },
+          {
+            "question": "Is changing the SSH port necessary?",
+            "answer": "Not strictly — but it eliminates the overwhelming majority of automated scans aimed at port 22. Move SSH to any unused port above 1024, open it in your firewall and cloud security group, and remember Ubuntu 22.04's ssh.socket may need an override to release port 22."
+          }
+        ]
+      },
+      {
         "slug": "git-stats-npm-package",
         "title": "How I Built a Git Contribution Heatmap for My Portfolio",
         "date": "2026-08-27",

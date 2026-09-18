@@ -6,6 +6,7 @@ import laravelVsDjango from './laravel-vs-django-vs-nodejs.json'
 import paymentGateway from './payment-gateway-integration-nepal.json'
 import realworld from './realworld-impact-projects.json'
 import serverMonitoring from './server-monitoring-tool-uptime-monitoring.json'
+import sshAuth from './ssh-key-authentication-case-study.json'
 import webApp from './web-app-development-kathmandu.json'
 import websiteCost from './website-cost-nepal.json'
 import type { BlogPostContent } from '@/lib/types'
@@ -19,6 +20,7 @@ const posts = [
   paymentGateway,
   realworld,
   serverMonitoring,
+  sshAuth,
   webApp,
   websiteCost,
 ] as BlogPostContent[]

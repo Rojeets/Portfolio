@@ -24,6 +24,7 @@ const images = {
   'blog-choose.jpg': 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=80',
   'blog-webapp.jpg': 'https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=800&q=80',
   'blog-skills.jpg': 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&q=80',
+  'blog-ssh.jpg': 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800&q=80',
 }
 
 function download(url, dest) {

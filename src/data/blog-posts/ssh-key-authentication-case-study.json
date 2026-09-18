@@ -1,0 +1,293 @@
+{
+  "slug": "ssh-key-authentication-case-study",
+  "sections": [
+    {
+      "type": "paragraph",
+      "content": "Every server I deploy to starts with the same routine: kill password login, lock the door, and only let keys in. This is a case study in what I did, why I did it, and why the discipline matters — the actual commands I ran, the gotchas I hit, and the one rule that kept me from locking myself out."
+    },
+    {
+      "type": "divider"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "The Problem: Passwords Are the Weakest Lock"
+    },
+    {
+      "type": "paragraph",
+      "content": "Public-facing SSH with **PasswordAuthentication yes** is a liability. Bots scan the entire internet around the clock looking for open port 22, then brute-force weak credentials. A single weak password on any user account is all it takes for an attacker to walk into your server."
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "**Password guessing is automated** — botnets hammer port 22 continuously, testing default and weak passwords",
+        "**Passwords are replayable** — anything typed can be intercepted, phished, or reused from a breach elsewhere",
+        "**Passwords create support overhead** — every teammate needs one, every reset is a chore, every shared credential is a leak risk",
+        "**Port 22 is a beacon** — the default port tells attackers exactly where to aim"
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Why Key-Based Authentication"
+    },
+    {
+      "type": "paragraph",
+      "content": "An SSH key pair replaces the shared secret with **asymmetric cryptography**. The private key never leaves your machine. The public key lives in `~/.ssh/authorized_keys` on the server. A challenge-response exchange proves you hold the private key — no secret ever travels over the wire. No password to guess, nothing to intercept."
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "**Nothing to brute-force** — a 256-bit Ed25519 key is not guessable",
+        "**Nothing travels in transit** — the private key never leaves your machine",
+        "**Per-person accountability** — each key maps to exactly one person and can be revoked independently",
+        "**Optional passphrase** — even if the key file is stolen, it stays locked"
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "What I Did — Step by Step"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "content": "Step 1: Generate a key pair on my machine"
+    },
+    {
+      "type": "code",
+      "lang": "bash",
+      "content": "# Generate an Ed25519 key pair\nssh-keygen -t ed25519 -C \"your_email@example.com\"\n\n# Verify both files exist\nls -l ~/.ssh/id_ed25519 ~/.ssh/id_ed25519.pub"
+    },
+    {
+      "type": "paragraph",
+      "content": "Press Enter to accept the default path, and set a passphrase if you want the key itself protected. This creates `id_ed25519` (private key — never share it) and `id_ed25519.pub` (public key — this is what goes on the server)."
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "content": "Step 2: Push the public key to the first server"
+    },
+    {
+      "type": "code",
+      "lang": "bash",
+      "content": "ssh-copy-id -i ~/.ssh/id_ed25519.pub user@server_ip"
+    },
+    {
+      "type": "paragraph",
+      "content": "No `ssh-copy-id` available? Do it manually:"
+    },
+    {
+      "type": "code",
+      "lang": "bash",
+      "content": "cat ~/.ssh/id_ed25519.pub | ssh user@server_ip \"mkdir -p ~/.ssh && chmod 700 ~/.ssh && cat >> ~/.ssh/authorized_keys && chmod 600 ~/.ssh/authorized_keys\""
+    },
+    {
+      "type": "paragraph",
+      "content": "This uses the password once to install the key — then `ssh user@server_ip` logs straight in with no prompt."
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "content": "Step 3: Add every teammate the same way"
+    },
+    {
+      "type": "paragraph",
+      "content": "For each additional person, ask for the contents of their `id_ed25519.pub`, then append it — one line per key in `authorized_keys`."
+    },
+    {
+      "type": "code",
+      "lang": "bash",
+      "content": "ssh user@server_ip \"mkdir -p ~/.ssh && chmod 700 ~/.ssh && echo 'PASTE_THEIR_PUBLIC_KEY_HERE' >> ~/.ssh/authorized_keys && chmod 600 ~/.ssh/authorized_keys\""
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "content": "Step 4: Disable password authentication — without touching the main config"
+    },
+    {
+      "type": "paragraph",
+      "content": "Instead of editing `/etc/ssh/sshd_config` directly, add a **drop-in rule file**. Cleaner, and it survives package upgrades:"
+    },
+    {
+      "type": "code",
+      "lang": "bash",
+      "content": "sudo nano /etc/ssh/sshd_config.d/99-disable-password-auth.conf"
+    },
+    {
+      "type": "code",
+      "lang": "ini",
+      "content": "PasswordAuthentication no\nKbdInteractiveAuthentication no\nPubkeyAuthentication yes\nPermitRootLogin prohibit-password"
+    },
+    {
+      "type": "paragraph",
+      "content": "`PermitRootLogin prohibit-password` keeps root reachable by key but never by password. Verify the `Include` line exists at the top of `/etc/ssh/sshd_config` — modern OpenSSH auto-loads everything in `/etc/ssh/sshd_config.d/*.conf`."
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "content": "Step 5: Change the SSH port"
+    },
+    {
+      "type": "code",
+      "lang": "bash",
+      "content": "Port 2222"
+    },
+    {
+      "type": "paragraph",
+      "content": "Pick any unused port above 1024 — obscurity alone is not security, but it kills the overwhelming majority of automated scans. Open the port in the firewall *before* restarting:"
+    },
+    {
+      "type": "code",
+      "lang": "bash",
+      "content": "sudo ufw allow 2222/tcp"
+    },
+    {
+      "type": "paragraph",
+      "content": "Cloud hosts (AWS, DigitalOcean, etc.) also need the port opened in their **security group** — the server firewall alone is not enough."
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "content": "Step 6: Restart SSH — and the Ubuntu 22.04 socket gotcha"
+    },
+    {
+      "type": "paragraph",
+      "content": "On Ubuntu 22.04+, SSH is often **socket-activated** via `ssh.socket`, which listens independently of `sshd_config`. A plain restart changed nothing for me — the socket kept port 22. Check your mode first:"
+    },
+    {
+      "type": "code",
+      "lang": "bash",
+      "content": "systemctl status ssh.socket"
+    },
+    {
+      "type": "paragraph",
+      "content": "If it is active and enabled, override the socket to free port 22 before listening on the new one:"
+    },
+    {
+      "type": "code",
+      "lang": "bash",
+      "content": "sudo systemctl edit ssh.socket"
+    },
+    {
+      "type": "code",
+      "lang": "ini",
+      "content": "[Socket]\nListenStream=\nListenStream=2222"
+    },
+    {
+      "type": "code",
+      "lang": "bash",
+      "content": "sudo systemctl restart ssh.socket\nsudo systemctl restart ssh"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "content": "The one rule that saved me"
+    },
+    {
+      "type": "paragraph",
+      "content": "Every SSH change follows the same discipline: **the current session stays open until the new login works from a second terminal.** Whatever the config says on paper, the old session is the lifeline. Test key login on the new port first — only then close it."
+    },
+    {
+      "type": "code",
+      "lang": "bash",
+      "content": "# Test in a NEW terminal, from your machine\nssh -p 2222 user@server_ip"
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "**Keep the current session open** — it is your escape hatch",
+        "**Test key login on the new port** from a different terminal",
+        "**Only close the old session** once the new login is confirmed",
+        "**Remove the old port from the firewall last**: `sudo ufw delete allow 22/tcp`"
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "The Checklist I Used"
+    },
+    {
+      "type": "list",
+      "ordered": true,
+      "items": [
+        "Key pair generated on the local machine",
+        "Public key copied to the server with ssh-copy-id",
+        "Key-based login confirmed in a second terminal",
+        "PasswordAuthentication set to no via drop-in config",
+        "SSH port changed in config and socket override",
+        "Firewall and cloud security group updated for the new port",
+        "New connection tested before closing the old session"
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Verifying the Lockdown"
+    },
+    {
+      "type": "paragraph",
+      "content": "Verify the *effective* config — not what you think you wrote:"
+    },
+    {
+      "type": "code",
+      "lang": "bash",
+      "content": "sudo sshd -T | grep -Ei \"passwordauthentication|kbdinteractiveauthentication|pubkeyauthentication\"\nsudo ss -tlnp | grep sshd"
+    },
+    {
+      "type": "paragraph",
+      "content": "The first command should report `passwordauthentication no`, `kbdinteractiveauthentication no`, `pubkeyauthentication yes`. The second shows `sshd` listening on the new port."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Why This Matters"
+    },
+    {
+      "type": "table",
+      "header": [
+        "Reality",
+        "Before",
+        "After"
+      ],
+      "rows": [
+        [
+          "**Auth method**",
+          "Password typed over the wire",
+          "Key-only challenge-response"
+        ],
+        [
+          "**Attacker access**",
+          "Port 22 bots brute-forcing credentials",
+          "Nothing to guess; port 22 closed"
+        ],
+        [
+          "**Login experience**",
+          "Typed password every time",
+          "No prompt — the key proves identity"
+        ],
+        [
+          "**Accountability**",
+          "Shared or weak passwords",
+          "One key per person, revocable"
+        ],
+        [
+          "**Lockout risk**",
+          "Forgotten password",
+          "Lost key — solved with a spare backup key"
+        ]
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": "This is not SysAdmin paranoia. **SSH is the front door to every server** — the single most attacked service on the internet. A port-22 server with password auth enabled is a bet that no credential in your fleet is weak. Key-only auth is not more inconvenient; it removes an entire class of password attacks and makes access auditable. Five minutes of setup, one habit of discipline, and it is the highest-ROI security fix I know."
+    },
+    {
+      "type": "paragraph",
+      "content": "Have servers to lock down? I deploy and harden production infrastructure end-to-end — [**get in touch**](/contact) and we'll secure your stack."
+    }
+  ]
+}
