@@ -91,6 +91,51 @@ export default function AboutPage() {
           </header>
         </ScrollReveal>
 
+        {/* Known online as @rojeets */}
+        <ScrollReveal className="mb-16">
+          <SectionHeading eyebrow="Known online as @rojeets" command="echo $HANDLE" />
+          <div className="card-base p-6">
+            <p className="text-body-md text-text-secondary leading-relaxed mb-4">
+              Rojit Pokharel publishes code and writing under the handle{' '}
+              <strong className="text-text-primary">@rojeets</strong> across platforms:
+            </p>
+            <div className="flex flex-wrap gap-3">
+              <a
+                href="https://github.com/rojeets"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm text-blue-light hover:underline"
+              >
+                github.com/rojeets ↗
+              </a>
+              <a
+                href="https://gitlab.com/rojeets"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm text-blue-light hover:underline"
+              >
+                gitlab.com/rojeets ↗
+              </a>
+              <a
+                href="https://medium.com/@rojeets"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm text-blue-light hover:underline"
+              >
+                medium.com/@rojeets ↗
+              </a>
+              <a
+                href="https://hashnode.com/@rojeets"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm text-blue-light hover:underline"
+              >
+                hashnode.com/@rojeets ↗
+              </a>
+            </div>
+          </div>
+        </ScrollReveal>
+
         {/* Who is Rojit Pokharel? */}
         <ScrollReveal className="mb-16">
           <SectionHeading eyebrow="Who is Rojit Pokharel?" command="cat whoami.md" />

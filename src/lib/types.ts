@@ -10,6 +10,8 @@ export interface SocialLinks {
   gitlab: SocialLink
   email: SocialLink
   website: SocialLink
+  medium: SocialLink
+  hashnode: SocialLink
 }
 
 export interface NavItem {
@@ -192,6 +194,8 @@ export interface ExperienceData {
 
 export interface PersonalData {
   name: string
+  username: string
+  handle: string
   logoTag: string
   title: string
   subtitle: string

@@ -49,7 +49,7 @@ export default function HomePage() {
       <section id="hero" className="relative h-screen flex flex-col justify-center overflow-hidden pl-12 md:pl-20">
         <div className="max-w-3xl">
           <p className="text-xs tracking-[0.2em] uppercase text-text-eyebrow mb-5 font-mono">
-            {data.personal.name} / {data.personal.title}
+            {data.personal.name} / {data.personal.title} / {data.personal.handle}
           </p>
 
           <h1 className="text-5xl md:text-6xl lg:text-[68px] font-display font-light leading-[1.05] tracking-[-0.02em] mb-4">

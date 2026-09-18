@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'About Rojit Pokharel — Full-Stack Web Developer & System Architect in Kathmandu, Nepal',
+  title: 'About Rojit Pokharel (@rojeets) — Full-Stack Web Developer',
   description:
     'Who is Rojit Pokharel? A Full-Stack Web Developer and System Architect from Kathmandu, Nepal, building production web applications, SaaS platforms, and AI/ML systems with Laravel, Django, React, Next.js, and scalable infrastructure.',
   robots: {
@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'profile',
     url: '/about',
-    title: 'About Rojit Pokharel — Full-Stack Web Developer & System Architect in Kathmandu, Nepal',
+    title: 'About Rojit Pokharel (@rojeets) — Full-Stack Web Developer',
     description:
       'Who is Rojit Pokharel? A Full-Stack Web Developer and System Architect from Kathmandu, Nepal, building production web applications with Laravel, Django, React, and Next.js.',
     images: [{ url: '/images/og-image.jpg' }],

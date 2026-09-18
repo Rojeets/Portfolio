@@ -1,11 +1,10 @@
 import Link from 'next/link'
-import { GithubLogo, LinkedinLogo, EnvelopeSimple } from './Icons'
+import portfolioData from '@/data/portfolio.json'
+import type { PortfolioData } from '@/lib/types'
 
-const socialLinks = [
-  { icon: GithubLogo, url: 'https://github.com/rojeets', label: 'GitHub' },
-  { icon: LinkedinLogo, url: 'https://www.linkedin.com/in/rojit-pokharel/', label: 'LinkedIn' },
-  { icon: EnvelopeSimple, url: 'mailto:info@rojitpokharel.com.np', label: 'Email' },
-]
+const data = portfolioData as PortfolioData
+
+const socialOrder = ['github', 'gitlab', 'medium', 'hashnode', 'linkedin', 'email'] as const
 
 const footerNav = [
   { name: 'About', href: '/about' },
@@ -47,19 +46,21 @@ export default function Footer() {
             ))}
           </nav>
 
-          <div className="flex items-center gap-1">
-            {socialLinks.map((link) => (
-              <a
-                key={link.label}
-                href={link.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-2.5 text-text-muted hover:text-blue-light transition-colors"
-                aria-label={link.label}
-              >
-                <link.icon size={20} />
-              </a>
-            ))}
+          <div className="flex flex-col items-center md:items-start gap-1.5">
+            {socialOrder.map((key) => {
+              const link = data.social[key]
+              return (
+                <a
+                  key={key}
+                  href={link.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-xs font-mono text-text-muted hover:text-blue-light transition-colors"
+                >
+                  {link.display}
+                </a>
+              )
+            })}
           </div>
         </div>
       </div>

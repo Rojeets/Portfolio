@@ -11,6 +11,18 @@ export interface AnswerItem {
 
 export const answers: AnswerItem[] = [
   {
+    slug: 'who-is-rojeets',
+    category: 'about-roit',
+    question: 'Who is @rojeets?',
+    shortAnswer:
+      'Rojit Pokharel — known online as @rojeets — is a Full-Stack Web Developer and System Architect from Kathmandu, Nepal. His code and writing live on GitHub, GitLab, Medium, and Hashnode under the @rojeets handle.',
+    answer: [
+      '@rojeets is the online handle of Rojit Pokharel, a Full-Stack Web Developer and System Architect from Kathmandu, Nepal. It is the name he uses on GitHub, GitLab, Medium, and Hashnode.',
+      'On GitHub, @rojeets publishes open-source projects including the @rojeets/git-stats npm package and the ServerMonitorTool Go application. On GitLab, he maintains client work and CI/CD pipelines. He also writes engineering articles on Medium and Hashnode.',
+      'There is no second person behind @rojeets — the handle is the brand under which Rojit publishes, ships, and writes. His portfolio is the canonical home of the name: this site, portfolio.rojitpokharel.com.np.',
+    ],
+  },
+  {
     slug: 'what-does-roit-pokharel-specialize-in',
     category: 'about-roit',
     question: 'What does Rojit Pokharel specialize in?',

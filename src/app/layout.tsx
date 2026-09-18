@@ -140,6 +140,14 @@ const jsonLd = {
       mainEntity: [
         {
           '@type': 'Question',
+          name: 'Who is @rojeets?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'Rojit Pokharel — known online as @rojeets — is a Full-Stack Web Developer and System Architect from Kathmandu, Nepal. He publishes code under @rojeets on GitHub and GitLab, writes on Medium and Hashnode, and releases open-source packages such as @rojeets/git-stats.',
+          },
+        },
+        {
+          '@type': 'Question',
           name: 'Is Rojit Pokharel a web and web app developer in Kathmandu, Nepal?',
           acceptedAnswer: {
             '@type': 'Answer',
@@ -186,13 +194,15 @@ const jsonLd = {
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: 'Rojit Pokharel | Full-Stack Web Developer & System Architect in Kathmandu, Nepal',
+    default: 'Rojit Pokharel (@rojeets) | Full-Stack Web Developer',
     template: '%s | Rojit Pokharel',
   },
   description:
     'Rojit Pokharel is a Full-Stack Web Developer and System Architect from Kathmandu, Nepal. He builds production web applications, SaaS platforms, e-commerce systems, and AI/ML systems with Laravel, Django, React, Next.js, and scalable infrastructure.',
   keywords: [
     'Rojit Pokharel',
+    'rojeets',
+    '@rojeets',
     'Full-Stack Web Developer Nepal',
     'Web Developer Kathmandu',
     'Web App Developer Nepal',
@@ -222,7 +232,7 @@ export const metadata: Metadata = {
     locale: 'en_NP',
     url: '/',
     siteName: 'Rojit Pokharel',
-    title: 'Rojit Pokharel | Full-Stack Web Developer & System Architect in Kathmandu, Nepal',
+    title: 'Rojit Pokharel (@rojeets) | Full-Stack Web Developer',
     description: 'Rojit Pokharel is a Full-Stack Web Developer and System Architect from Kathmandu, Nepal, building production web applications with Laravel, Django, React, and Next.js.',
     images: [
       {
@@ -235,7 +245,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Rojit Pokharel | Full-Stack Web Developer & System Architect in Kathmandu, Nepal',
+    title: 'Rojit Pokharel (@rojeets) | Full-Stack Web Developer',
     description: 'Rojit Pokharel is a Full-Stack Web Developer and System Architect from Kathmandu, Nepal, building production web applications with Laravel, Django, React, and Next.js.',
     images: ['/images/og-image.jpg'],
   },
