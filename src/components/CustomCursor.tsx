@@ -23,7 +23,7 @@ export default function CustomCursor() {
 
     const pos = { x: window.innerWidth / 2, y: window.innerHeight / 2 }
     const mouse = { x: pos.x, y: pos.y }
-    const prevMouse = { x: pos.x, y: pos.y }
+    const prevPos = { x: pos.x, y: pos.y }
 
     // Initialize trail positions
     for (let i = 0; i < 3; i++) {
@@ -31,8 +31,6 @@ export default function CustomCursor() {
     }
 
     const handleMove = (e: MouseEvent) => {
-      prevMouse.x = mouse.x
-      prevMouse.y = mouse.y
       mouse.x = e.clientX
       mouse.y = e.clientY
 
@@ -98,23 +96,6 @@ export default function CustomCursor() {
       }
     }
 
-    // Track elements and update cursor state
-    const observeInteractive = () => {
-      document.querySelectorAll('a, button, [role="button"], input, textarea, select, .magnetic-btn, [data-cursor]').forEach(el => {
-        el.addEventListener('mouseenter', () => {
-          const state = getCursorState(el)
-          applyCursorState(state)
-        })
-        el.addEventListener('mouseleave', () => {
-          applyCursorState('default')
-        })
-      })
-    }
-
-    observeInteractive()
-    const observer = new MutationObserver(observeInteractive)
-    observer.observe(document.body, { childList: true, subtree: true })
-
     // Track mouse for state detection
     const handleMouseMove = (e: MouseEvent) => {
       const state = getCursorState(e.target as Element)
@@ -132,8 +113,10 @@ export default function CustomCursor() {
       gsap.set(ring, { x: pos.x - 16, y: pos.y - 16 })
 
       // Trail: shift positions back and draw fading copies
-      const speed = Math.hypot(mouse.x - prevMouse.x, mouse.y - prevMouse.y)
-      const showTrail = speed > 15
+      const speed = Math.hypot(mouse.x - prevPos.x, mouse.y - prevPos.y)
+      const showTrail = speed > 3
+      prevPos.x = mouse.x
+      prevPos.y = mouse.y
 
       trailRef.current.forEach((trail, i) => {
         const prev = i === 0 ? pos : trailPositions.current[i - 1]
@@ -166,7 +149,6 @@ export default function CustomCursor() {
       window.removeEventListener('mousemove', handleMouseMove)
       document.removeEventListener('mouseleave', handleLeave)
       document.removeEventListener('mouseenter', handleEnter)
-      observer.disconnect()
     }
   }, [])
 

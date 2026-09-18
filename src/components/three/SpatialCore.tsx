@@ -82,7 +82,11 @@ function SpatialScene({ activeSection }: SpatialSceneProps) {
 
   useFrame((state) => {
     if (prefersReducedMotion.current) {
+      // Reduced motion — fixed camera, slow drift instead of hard freeze
       state.camera.position.z = targetRef.current.cameraDist
+      if (coreRef.current) coreRef.current.rotation.y += 0.0003
+      if (innerRef.current) innerRef.current.rotation.y -= 0.0004
+      if (particlesRef.current) particlesRef.current.rotation.y += 0.0001
       return
     }
 

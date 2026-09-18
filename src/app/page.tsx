@@ -1,4 +1,3 @@
-'use client'
 import Link from 'next/link'
 import Image from 'next/image'
 import { ArrowUpRight, Code, Database, HardDrives, Cpu, Gear, Rocket } from '@/components/Icons'
@@ -7,7 +6,6 @@ import ScrollReveal from '@/components/ScrollReveal'
 import SectionTransition from '@/components/SectionTransition'
 import TerminalPrompt from '@/components/TerminalPrompt'
 import ExperienceCarousel from '@/components/ExperienceCarousel'
-import SkillConstellation from '@/components/SkillConstellation'
 import ProjectCard from '@/components/ProjectCard'
 import MagneticButton from '@/components/MagneticButton'
 import Services from '@/components/Services'
@@ -15,6 +13,8 @@ import FaqSection from '@/components/FaqSection'
 import portfolioData from '@/data/portfolio.json'
 import type { PortfolioData } from '@/lib/types'
 import { GitStats } from '@rojeets/git-stats'
+
+export const dynamic = 'force-dynamic'
 
 const data = portfolioData as PortfolioData
 
