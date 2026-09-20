@@ -3,7 +3,7 @@
   "sections": [
     {
       "type": "paragraph",
-      "content": "Every year developers re-litigate the same fight: which backend should you build your web application on? After shipping production systems in all three ecosystems — Laravel for agency clients, Django for AI/ML projects, and Node.js for real-time services — here is my honest 2026 take."
+      "content": "Three projects forced me to stop treating framework choice as a religion. For a Nepal restaurant SaaS, I needed tenant isolation, live kitchen updates, and three payment providers. For a UK insurance platform, I needed Python AI analysis and resilient background work. For an anonymous discussion platform, I needed encrypted real-time channels with a Next.js client. Here is how those constraints shaped my stack decisions."
     },
     {
       "type": "divider"
@@ -11,255 +11,72 @@
     {
       "type": "heading",
       "level": 2,
-      "content": "The TL;DR"
-    },
-    {
-      "type": "list",
-      "ordered": false,
-      "items": [
-        "**Laravel (PHP):** Best balance of speed-to-market, batteries-included features, and easy hiring. The workhorse of custom business apps.",
-        "**Django (Python):** Best when your app is **data-heavy or ML-adjacent** — admin interfaces, analytics, computer vision backends.",
-        "**Node.js (Express/Nest):** Best for **real-time**, high-concurrency, API-first products and when you want one language across front and back."
-      ]
+      "content": "Restaurant Management SaaS: Laravel carried the operational core"
     },
     {
       "type": "paragraph",
-      "content": "All three are production-proven. Pick based on your **team, your data, and your real-time needs** — not hype."
+      "content": "The restaurant chains had orders arriving from counters and online channels, but kitchen staff heard updates verbally. Owners also needed one view across outlets and a way to reconcile Khalti, eSewa, and Stripe. I built the SaaS in Laravel with separate tenant schemas, Filament admin panels, Livewire interactions, and Laravel Reverb for kitchen updates."
     },
     {
-      "type": "divider"
+      "type": "paragraph",
+      "content": "The hard part was not the admin UI. It was making three payment providers look like one reliable interface. Their webhook payloads and retry behavior differed, so a naive callback path could record the same payment twice. I wrote one adapter per provider, normalized payment state behind it, and added idempotency keys to webhook reconciliation."
+    },
+    {
+      "type": "code",
+      "lang": "php",
+      "content": "$gateway = match($restaurant->region) {\n    'nepal' => $restaurant->payment_method === 'khalti'\n        ? new KhaltiGateway()\n        : new eSewaGateway(),\n    default => new StripeGateway(),\n};\n\n$gateway->charge($order->total, $order->paymentMeta());"
+    },
+    {
+      "type": "paragraph",
+      "content": "Queue workers kept payment processing and notifications out of the request cycle. Reverb pushed order status to kitchen displays, with reconnection and catch-up logic for brief network drops. The platform now runs for multiple restaurant chains, handling daily orders while owners see reconciled payments in one dashboard."
     },
     {
       "type": "heading",
       "level": 2,
-      "content": "Laravel — the batteries-included workhorse"
+      "content": "Insurance Claim Platform: Django kept the AI workflow in Python"
     },
     {
       "type": "paragraph",
-      "content": "Laravel excels at the things most business apps actually need: auth, migrations, queues, scheduled jobs, and an elegant ORM."
+      "content": "The UK insurance platform had field assessors submitting room photos from poor connections. Claims then needed AI damage analysis, adjuster review, chat, and an auditable PDF. I built the API and workflow with Django REST Framework, Django Channels, Celery, PostgreSQL, Redis, and a React Native field app."
     },
     {
       "type": "paragraph",
-      "content": "**Strengths in 2026**"
+      "content": "The surprise was how quickly a synchronous vision call could block a claim. Ambiguous photos also made analysis fail occasionally. I moved image analysis and PDF generation into Celery tasks with retries and graceful degradation, while Channels ran on a separate ASGI worker so chat traffic did not block HTTP requests."
     },
     {
-      "type": "list",
-      "ordered": false,
-      "items": [
-        "**Faster iteration.** Eloquent, migrations, blade/Livewire, and artisan scaffolding get you to a working product quickly.",
-        "**Huge ecosystem.** Cashier (subscriptions), Horizon (queues), Filament (admin panels), Sanctum (API auth).",
-        "**Easy to hire and maintain.** PHP skills are abundant and cheap, especially in Nepal and South Asia.",
-        "**Mature server tooling.** Standard PHP-FPM + Nginx + Redis stacks are boring and reliable."
-      ]
+      "type": "code",
+      "lang": "python",
+      "content": "@shared_task(bind=True, max_retries=3)\ndef analyze_room_damage(self, assessment_id, image_paths):\n    assessment = ClaimAssessment.objects.get(id=assessment_id)\n    results = []\n\n    for image_path in image_paths:\n        response = cohere_client.generate(\n            model='command',\n            prompt=f'Analyze this insurance claim room photo for damage...',\n        )\n        results.append(parse_damage_response(response.text))\n\n    assessment.damage_analysis = results\n    assessment.save()\n    generate_claim_report.delay(assessment_id)"
     },
     {
       "type": "paragraph",
-      "content": "**Weaknesses**"
-    },
-    {
-      "type": "list",
-      "ordered": false,
-      "items": [
-        "Long-running jobs and WebSocket-heavy workloads need extra infrastructure (queues, Redis, or a separate Node/Python service).",
-        "PHP's concurrency model means you think in processes, not event loops."
-      ]
-    },
-    {
-      "type": "paragraph",
-      "content": "**Best for:** e-commerce, CMS-style business apps, admin panels, SaaS MVPs, marketplace backends."
-    },
-    {
-      "type": "divider"
+      "content": "The platform now handles 1000+ claims with full audit trails. AI analysis reduced average assessment time from hours to minutes, and automated reports removed manual report writing. My lesson was to keep slow, failure-prone AI work asynchronous and fail-soft."
     },
     {
       "type": "heading",
       "level": 2,
-      "content": "Django — the data and ML powerhouse"
+      "content": "Anonymous Discussion Platform: Next.js handled the client, Laravel handled the live backend"
     },
     {
       "type": "paragraph",
-      "content": "Django gives you an ORM, an auto-generated admin, and the Python ecosystem. If your product involves **models, analytics, or machine learning**, Django is a natural fit."
+      "content": "At R-Hackathon 2025, I built an anonymous discussion platform with topic channels, end-to-end encryption, and admin moderation. I used a Laravel backend with WebSockets and a Next.js/React client. The constraint was to let moderators remove harmful content without exposing anonymous identities."
     },
     {
       "type": "paragraph",
-      "content": "**Strengths in 2026**"
-    },
-    {
-      "type": "list",
-      "ordered": false,
-      "items": [
-        "**Best-in-class admin.** Django's built-in admin is still the fastest way to get a working back office.",
-        "**Python ecosystem.** For anything touching pandas, scikit-learn, or deep learning, you avoid awkward cross-language bridges.",
-        "**Strong security defaults.** Django ships with sensible protection against common web attacks.",
-        "**Async support has matured.** Django 4+/5+ async views and channels handle real-time needs when configured well."
-      ]
+      "content": "Encryption and moderation pulled in opposite directions. I separated encrypted message content from moderation actions, so a moderator could quarantine or remove a post without decrypting or linking the participant. Channel-scoped subscriptions limited broadcast fan-out, and anonymous sessions avoided persistent identity metadata."
     },
     {
       "type": "paragraph",
-      "content": "**Weaknesses**"
-    },
-    {
-      "type": "list",
-      "ordered": false,
-      "items": [
-        "Heavier to run than a Laravel app; async setups are more complex.",
-        "ORM is powerful but performance tuning takes care."
-      ]
-    },
-    {
-      "type": "paragraph",
-      "content": "**Best for:** analytics dashboards, ML/AI backends, data-heavy products, research tools."
-    },
-    {
-      "type": "divider"
+      "content": "The Next.js client ran on Node.js, while Laravel remained the WebSocket backend. I did not move the live backend to Node.js because Laravel already owned the channel, encryption, and moderation model. The result was a working real-time discussion platform demonstrated at the hackathon."
     },
     {
       "type": "heading",
       "level": 2,
-      "content": "Node.js — the real-time, API-first choice"
+      "content": "What the three projects changed"
     },
     {
       "type": "paragraph",
-      "content": "Node's event loop shines for I/O-heavy, concurrent workloads. With TypeScript, it also lets a single team own the full stack."
-    },
-    {
-      "type": "paragraph",
-      "content": "**Strengths in 2026**"
-    },
-    {
-      "type": "list",
-      "ordered": false,
-      "items": [
-        "**One language everywhere.** TypeScript on the server, React/Next.js on the client — fewer context switches.",
-        "**Excellent real-time story.** WebSockets, SSE, and event-driven services are natural.",
-        "**Vast package ecosystem.** Whatever you need, there's an npm package.",
-        "**High concurrency per process.** Great for APIs under load."
-      ]
-    },
-    {
-      "type": "paragraph",
-      "content": "**Weaknesses**"
-    },
-    {
-      "type": "list",
-      "ordered": false,
-      "items": [
-        "More decision fatigue — the framework is lighter, so architecture discipline matters more.",
-        "Some \"batteries\" you get for free in Laravel/Django must be assembled by hand.",
-        "Callback-heavy legacy codebases are common; TypeScript mitigates this."
-      ]
-    },
-    {
-      "type": "paragraph",
-      "content": "**Best for:** real-time apps, chat, live dashboards, API-first SaaS, serverless functions, microservices."
-    },
-    {
-      "type": "divider"
-    },
-    {
-      "type": "heading",
-      "level": 2,
-      "content": "Head-to-head"
-    },
-    {
-      "type": "table",
-      "header": [
-        "Criteria",
-        "Laravel",
-        "Django",
-        "Node.js"
-      ],
-      "rows": [
-        [
-          "Time-to-MVP",
-          "Fastest",
-          "Fast",
-          "Medium"
-        ],
-        [
-          "Admin panels",
-          "Great (Filament)",
-          "Great (built-in)",
-          "DIY"
-        ],
-        [
-          "Real-time / WebSockets",
-          "Needs extras",
-          "Good (channels)",
-          "Native"
-        ],
-        [
-          "ML / data integration",
-          "Via APIs",
-          "Native",
-          "Via libraries"
-        ],
-        [
-          "Hiring ease (Nepal/SA)",
-          "Very easy",
-          "Easy",
-          "Easy"
-        ],
-        [
-          "Long-run cost",
-          "Low",
-          "Medium",
-          "Medium"
-        ]
-      ]
-    },
-    {
-      "type": "divider"
-    },
-    {
-      "type": "heading",
-      "level": 2,
-      "content": "What I actually use, and why"
-    },
-    {
-      "type": "paragraph",
-      "content": "There is no \"best framework\" — there is the right tool per project. My default is **Laravel** for client-facing business apps because it ships fastest and stays maintainable. I reach for **Django** whenever a project touches AI/ML, computer vision, or heavy analytics — that's where Python pays for itself. I use **Node.js** for the real-time and event-driven pieces (WebSockets, background workers) that sit alongside those systems."
-    },
-    {
-      "type": "paragraph",
-      "content": "Most products in 2026 are **polyglot under the hood** anyway. A Laravel API, a Node real-time service, and a Python ML worker is a completely normal production architecture."
-    },
-    {
-      "type": "divider"
-    },
-    {
-      "type": "heading",
-      "level": 2,
-      "content": "How to decide for your project"
-    },
-    {
-      "type": "paragraph",
-      "content": "Ask three questions:"
-    },
-    {
-      "type": "list",
-      "ordered": true,
-      "items": [
-        "**Where does your data live?** ML/analytics-heavy → Django. CRUD-heavy business logic → Laravel.",
-        "**Do you need real-time?** Yes → Node.js or Django channels, with a dedicated service.",
-        "**Who will maintain it?** Choose the stack your (future) team can actually hire for."
-      ]
-    },
-    {
-      "type": "paragraph",
-      "content": "If you are still unsure, start with the stack you can ship fastest, and keep the architecture clean enough to split services later."
-    },
-    {
-      "type": "divider"
-    },
-    {
-      "type": "heading",
-      "level": 3,
-      "content": "Final word"
-    },
-    {
-      "type": "paragraph",
-      "content": "I've built insurance platforms, restaurant SaaS, server monitoring tools, and AI pipelines across these ecosystems. If you want a no-hype recommendation for your specific product, [let's talk](/contact)."
+      "content": "These projects did not produce a universal ranking. Laravel fit the restaurant's tenant, admin, payment, and live-order workflow. Django fit the insurance platform's Python AI and async task pipeline. Next.js/Node handled the anonymous platform's client, while Laravel kept the encrypted realtime backend. The decision came from the constraint in front of me, and the outcome was three systems that shipped with the hard parts isolated."
     }
   ]
 }

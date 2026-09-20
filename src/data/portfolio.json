@@ -2,7 +2,25 @@
   "meta": {
     "siteTitle": "Rojit Pokharel - Full-Stack Web Developer & System Architect",
     "description": "Full-Stack Web Developer and System Architect from Kathmandu, Nepal, building production web applications with Laravel, Django, React, and Next.js — including scalable infrastructure, real-time systems, and AI/ML pipelines.",
-    "keywords": ["PHP", "Python", "JavaScript", "Go", "Laravel", "Django", "React", "Next.js", "Docker", "Linux", "Server Management", "Computer Vision", "AI/ML", "@rojeets", "rojeets", "github heatmap", "git contribution stats"],
+    "keywords": [
+      "PHP",
+      "Python",
+      "JavaScript",
+      "Go",
+      "Laravel",
+      "Django",
+      "React",
+      "Next.js",
+      "Docker",
+      "Linux",
+      "Server Management",
+      "Computer Vision",
+      "AI/ML",
+      "@rojeets",
+      "rojeets",
+      "github heatmap",
+      "git contribution stats"
+    ],
     "author": "Rojit Pokharel",
     "ogImage": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1200&q=80"
   },
@@ -35,9 +53,18 @@
       "pulse": "pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite"
     },
     "keyframes": {
-      "float": { "0%, 100%": "translateY(0)", "50%": "translateY(-20px)" },
-      "glow": { "0%, 100%": "0 0 5px rgba(99, 102, 241, 0.4)", "50%": "0 0 20px rgba(99, 102, 241, 0.7)" },
-      "slideUp": { "0%": "opacity 0, translateY(30px)", "100%": "opacity 1, translateY(0)" }
+      "float": {
+        "0%, 100%": "translateY(0)",
+        "50%": "translateY(-20px)"
+      },
+      "glow": {
+        "0%, 100%": "0 0 5px rgba(99, 102, 241, 0.4)",
+        "50%": "0 0 20px rgba(99, 102, 241, 0.7)"
+      },
+      "slideUp": {
+        "0%": "opacity 0, translateY(30px)",
+        "100%": "opacity 1, translateY(0)"
+      }
     },
     "gradients": {
       "text": "linear-gradient(135deg, #818CF8 0%, #6366F1 100%)",
@@ -97,23 +124,56 @@
   },
   "navigation": {
     "items": [
-      { "name": "Home", "href": "/" },
-      { "name": "About", "href": "/#about" },
-      { "name": "Experience", "href": "/#experience" },
-      { "name": "Skills", "href": "/#skills" },
-      { "name": "Projects", "href": "/projects" },
-      { "name": "Blog", "href": "/blog" },
-      { "name": "Contact", "href": "/contact" }
+      {
+        "name": "Home",
+        "href": "/"
+      },
+      {
+        "name": "About",
+        "href": "/#about"
+      },
+      {
+        "name": "Experience",
+        "href": "/#experience"
+      },
+      {
+        "name": "Skills",
+        "href": "/#skills"
+      },
+      {
+        "name": "Projects",
+        "href": "/projects"
+      },
+      {
+        "name": "Blog",
+        "href": "/blog"
+      },
+      {
+        "name": "Contact",
+        "href": "/contact"
+      }
     ]
   },
   "hero": {
     "badgeText": "Full-Stack Web Developer & System Architect",
     "backgroundImage": "/images/hero-bg.jpg",
     "ctaButtons": [
-      { "text": "View My Work", "href": "/projects", "style": "primary" },
-      { "text": "Get In Touch", "href": "/contact", "style": "outline" }
+      {
+        "text": "View My Work",
+        "href": "/projects",
+        "style": "primary"
+      },
+      {
+        "text": "Get In Touch",
+        "href": "/contact",
+        "style": "outline"
+      }
     ],
-    "socialLinks": ["github", "linkedin", "gitlab"],
+    "socialLinks": [
+      "github",
+      "linkedin",
+      "gitlab"
+    ],
     "scrollText": "Scroll to explore",
     "animation": {
       "staggerDelay": 0.2,
@@ -133,7 +193,11 @@
       "I handle Nginx, Certbot SSL, Supervisor queue workers, and PM2 so the code actually stays running."
     ],
     "stats": [
-      { "value": "12", "suffix": "+", "label": "Client Projects Delivered" }
+      {
+        "value": "12",
+        "suffix": "+",
+        "label": "Client Projects Delivered"
+      }
     ],
     "badges": [
       "DataCamp Donates Fellow",
@@ -146,11 +210,26 @@
     "sectionTitleHighlight": "Arsenal",
     "sectionSubtitle": "Production-proven competencies across full-stack development, server infrastructure, and AI/ML systems.",
     "filters": [
-      { "id": "all", "label": "All" },
-      { "id": "backend", "label": "Backend" },
-      { "id": "frontend", "label": "Frontend" },
-      { "id": "ai-ml", "label": "AI / ML" },
-      { "id": "devops", "label": "DevOps" }
+      {
+        "id": "all",
+        "label": "All"
+      },
+      {
+        "id": "backend",
+        "label": "Backend"
+      },
+      {
+        "id": "frontend",
+        "label": "Frontend"
+      },
+      {
+        "id": "ai-ml",
+        "label": "AI / ML"
+      },
+      {
+        "id": "devops",
+        "label": "DevOps"
+      }
     ],
     "categories": [
       {
@@ -162,61 +241,106 @@
             "name": "Laravel",
             "level": "Expert",
             "levelColor": "text-emerald-400",
-            "subSkills": ["Filament Panels & Resources", "Eloquent ORM & Relationships", "Reverb WebSockets", "Sanctum Auth", "Spatie Permissions", "Queue Workers & Scheduler"]
+            "subSkills": [
+              "Filament Panels & Resources",
+              "Eloquent ORM & Relationships",
+              "Reverb WebSockets",
+              "Sanctum Auth",
+              "Spatie Permissions",
+              "Queue Workers & Scheduler"
+            ]
           },
           {
             "name": "PHP",
             "level": "Expert",
             "levelColor": "text-emerald-400",
-            "subSkills": ["OOP Patterns & SOLID", "PSR Standards", "Composer Ecosystem"]
+            "subSkills": [
+              "OOP Patterns & SOLID",
+              "PSR Standards",
+              "Composer Ecosystem"
+            ]
           },
           {
             "name": "Laravel Filament",
             "level": "Expert",
             "levelColor": "text-emerald-400",
-            "subSkills": ["Custom Panels & Resources", "Form Builder & Tables", "Widgets & Notifications", "Shield Role Management"]
+            "subSkills": [
+              "Custom Panels & Resources",
+              "Form Builder & Tables",
+              "Widgets & Notifications",
+              "Shield Role Management"
+            ]
           },
           {
             "name": "Django",
             "level": "Advanced",
             "levelColor": "text-sky-400",
-            "subSkills": ["Django REST Framework", "Django Channels & WebSockets", "Celery + Redis", "SimpleJWT Auth"]
+            "subSkills": [
+              "Django REST Framework",
+              "Django Channels & WebSockets",
+              "Celery + Redis",
+              "SimpleJWT Auth"
+            ]
           },
           {
             "name": "Flask",
             "level": "Expert",
             "levelColor": "text-emerald-400",
-            "subSkills": ["RESTful Route Design", "SQLAlchemy ORM", "Blueprint Architecture"]
+            "subSkills": [
+              "RESTful Route Design",
+              "SQLAlchemy ORM",
+              "Blueprint Architecture"
+            ]
           },
           {
             "name": "MySQL",
             "level": "Advanced",
             "levelColor": "text-sky-400",
-            "subSkills": ["Schema Design & Migrations", "Complex Joins & Indexing", "Connection Pooling"]
+            "subSkills": [
+              "Schema Design & Migrations",
+              "Complex Joins & Indexing",
+              "Connection Pooling"
+            ]
           },
           {
             "name": "PostgreSQL",
             "level": "Advanced",
             "levelColor": "text-sky-400",
-            "subSkills": ["Query Optimization", "Foreign Keys & Constraints", "Aggregation Pipelines"]
+            "subSkills": [
+              "Query Optimization",
+              "Foreign Keys & Constraints",
+              "Aggregation Pipelines"
+            ]
           },
           {
             "name": "Redis & Celery",
             "level": "Proficient",
             "levelColor": "text-indigo-400",
-            "subSkills": ["Async Task Processing", "Message Broker Config", "Result Backend"]
+            "subSkills": [
+              "Async Task Processing",
+              "Message Broker Config",
+              "Result Backend"
+            ]
           },
           {
             "name": "Express.js",
             "level": "Proficient",
             "levelColor": "text-indigo-400",
-            "subSkills": ["RESTful Route Design", "Middleware Pipeline", "Puppeteer Integration"]
+            "subSkills": [
+              "RESTful Route Design",
+              "Middleware Pipeline",
+              "Puppeteer Integration"
+            ]
           },
           {
             "name": "RESTful APIs",
             "level": "Expert",
             "levelColor": "text-emerald-400",
-            "subSkills": ["JWT Authentication", "API Documentation", "CORS & Security Headers"]
+            "subSkills": [
+              "JWT Authentication",
+              "API Documentation",
+              "CORS & Security Headers"
+            ]
           }
         ]
       },
@@ -229,55 +353,91 @@
             "name": "React.js",
             "level": "Advanced",
             "levelColor": "text-sky-400",
-            "subSkills": ["Component Composition", "Custom Hooks & State", "Performance Optimization"]
+            "subSkills": [
+              "Component Composition",
+              "Custom Hooks & State",
+              "Performance Optimization"
+            ]
           },
           {
             "name": "Next.js",
             "level": "Advanced",
             "levelColor": "text-sky-400",
-            "subSkills": ["App Router & SSR/SSG", "API Routes & Middleware", "Image & Font Optimization"]
+            "subSkills": [
+              "App Router & SSR/SSG",
+              "API Routes & Middleware",
+              "Image & Font Optimization"
+            ]
           },
           {
             "name": "TypeScript",
             "level": "Advanced",
             "levelColor": "text-sky-400",
-            "subSkills": ["Type Safety & Generics", "Interface Design", "Advanced Type Utilities"]
+            "subSkills": [
+              "Type Safety & Generics",
+              "Interface Design",
+              "Advanced Type Utilities"
+            ]
           },
           {
             "name": "Tailwind CSS",
             "level": "Expert",
             "levelColor": "text-emerald-400",
-            "subSkills": ["Custom Config & Themes", "Tailwind v4 Features", "Responsive Design Patterns"]
+            "subSkills": [
+              "Custom Config & Themes",
+              "Tailwind v4 Features",
+              "Responsive Design Patterns"
+            ]
           },
           {
             "name": "Framer Motion",
             "level": "Advanced",
             "levelColor": "text-sky-400",
-            "subSkills": ["AnimatePresence & Layout", "Scroll/Viewport Animations", "Gesture & Drag"]
+            "subSkills": [
+              "AnimatePresence & Layout",
+              "Scroll/Viewport Animations",
+              "Gesture & Drag"
+            ]
           },
           {
             "name": "shadcn/ui & Radix UI",
             "level": "Advanced",
             "levelColor": "text-sky-400",
-            "subSkills": ["Component Primitives", "Custom Theming", "Accessibility Patterns"]
+            "subSkills": [
+              "Component Primitives",
+              "Custom Theming",
+              "Accessibility Patterns"
+            ]
           },
           {
             "name": "React Hook Form & Zod",
             "level": "Advanced",
             "levelColor": "text-sky-400",
-            "subSkills": ["Schema Validation", "Complex Form Handling", "Controlled Components"]
+            "subSkills": [
+              "Schema Validation",
+              "Complex Form Handling",
+              "Controlled Components"
+            ]
           },
           {
             "name": "TanStack Query",
             "level": "Proficient",
             "levelColor": "text-indigo-400",
-            "subSkills": ["Server State Management", "Caching & Invalidation", "Optimistic Updates"]
+            "subSkills": [
+              "Server State Management",
+              "Caching & Invalidation",
+              "Optimistic Updates"
+            ]
           },
           {
             "name": "JavaScript (ES6+)",
             "level": "Expert",
             "levelColor": "text-emerald-400",
-            "subSkills": ["Async/Await & Promises", "DOM Manipulation", "Event-Driven Architecture"]
+            "subSkills": [
+              "Async/Await & Promises",
+              "DOM Manipulation",
+              "Event-Driven Architecture"
+            ]
           }
         ]
       },
@@ -290,49 +450,82 @@
             "name": "PyTorch",
             "level": "Advanced",
             "levelColor": "text-sky-400",
-            "subSkills": ["Torch Hub Model Loading", "Custom Training Pipelines", "GPU Inference"]
+            "subSkills": [
+              "Torch Hub Model Loading",
+              "Custom Training Pipelines",
+              "GPU Inference"
+            ]
           },
           {
             "name": "YOLO Object Detection",
             "level": "Advanced",
             "levelColor": "text-sky-400",
-            "subSkills": ["YOLOv5 & YOLOv8 Models", "Custom Model Fine-tuning", "Real-time Video Inference"]
+            "subSkills": [
+              "YOLOv5 & YOLOv8 Models",
+              "Custom Model Fine-tuning",
+              "Real-time Video Inference"
+            ]
           },
           {
             "name": "OpenCV",
             "level": "Expert",
             "levelColor": "text-emerald-400",
-            "subSkills": ["Video Frame Processing", "Edge Detection & Hough", "HSV Masking", "Perspective Transform"]
+            "subSkills": [
+              "Video Frame Processing",
+              "Edge Detection & Hough",
+              "HSV Masking",
+              "Perspective Transform"
+            ]
           },
           {
             "name": "Object Tracking",
             "level": "Advanced",
             "levelColor": "text-sky-400",
-            "subSkills": ["SORT (Kalman Filter)", "IoU-based ID Assignment", "Multi-Object Tracking"]
+            "subSkills": [
+              "SORT (Kalman Filter)",
+              "IoU-based ID Assignment",
+              "Multi-Object Tracking"
+            ]
           },
           {
             "name": "scikit-learn",
             "level": "Advanced",
             "levelColor": "text-sky-400",
-            "subSkills": ["Classification & Regression", "KMeans Clustering", "LDA Dimensionality"]
+            "subSkills": [
+              "Classification & Regression",
+              "KMeans Clustering",
+              "LDA Dimensionality"
+            ]
           },
           {
             "name": "3D Reconstruction",
             "level": "Proficient",
             "levelColor": "text-indigo-400",
-            "subSkills": ["COLMAP SfM Pipeline", "NeRF (Nerfstudio)", "Trimesh Export"]
+            "subSkills": [
+              "COLMAP SfM Pipeline",
+              "NeRF (Nerfstudio)",
+              "Trimesh Export"
+            ]
           },
           {
             "name": "LLM Integration",
             "level": "Proficient",
             "levelColor": "text-indigo-400",
-            "subSkills": ["Google Gemini API", "HuggingFace Transformers", "GPT4All Inference"]
+            "subSkills": [
+              "Google Gemini API",
+              "HuggingFace Transformers",
+              "GPT4All Inference"
+            ]
           },
           {
             "name": "Data Science Stack",
             "level": "Advanced",
             "levelColor": "text-sky-400",
-            "subSkills": ["Pandas & NumPy", "Matplotlib & Seaborn", "Statsmodels & Scipy"]
+            "subSkills": [
+              "Pandas & NumPy",
+              "Matplotlib & Seaborn",
+              "Statsmodels & Scipy"
+            ]
           }
         ]
       },
@@ -345,49 +538,81 @@
             "name": "Docker",
             "level": "Advanced",
             "levelColor": "text-sky-400",
-            "subSkills": ["Multi-stage Builds", "Docker Compose (Dev + Prod)", "Container Networking"]
+            "subSkills": [
+              "Multi-stage Builds",
+              "Docker Compose (Dev + Prod)",
+              "Container Networking"
+            ]
           },
           {
             "name": "Nginx & Certbot",
             "level": "Advanced",
             "levelColor": "text-sky-400",
-            "subSkills": ["SSL Termination & Certbot", "Reverse Proxy Config", "Static File Serving"]
+            "subSkills": [
+              "SSL Termination & Certbot",
+              "Reverse Proxy Config",
+              "Static File Serving"
+            ]
           },
           {
             "name": "Supervisor",
             "level": "Proficient",
             "levelColor": "text-indigo-400",
-            "subSkills": ["Queue Worker Management", "Process Control", "Auto-restart Config"]
+            "subSkills": [
+              "Queue Worker Management",
+              "Process Control",
+              "Auto-restart Config"
+            ]
           },
           {
             "name": "PM2",
             "level": "Proficient",
             "levelColor": "text-indigo-400",
-            "subSkills": ["Node Process Management", "Graceful Restarts", "Cluster Mode"]
+            "subSkills": [
+              "Node Process Management",
+              "Graceful Restarts",
+              "Cluster Mode"
+            ]
           },
           {
             "name": "Git & GitLab CI",
             "level": "Expert",
             "levelColor": "text-emerald-400",
-            "subSkills": ["Branching Strategies", "GitLab CI Pipelines", "Collaborative Workflows"]
+            "subSkills": [
+              "Branching Strategies",
+              "GitLab CI Pipelines",
+              "Collaborative Workflows"
+            ]
           },
           {
             "name": "Linux",
             "level": "Advanced",
             "levelColor": "text-sky-400",
-            "subSkills": ["File Permissions & Users", "Process Management", "Shell Scripting"]
+            "subSkills": [
+              "File Permissions & Users",
+              "Process Management",
+              "Shell Scripting"
+            ]
           },
           {
             "name": "CI/CD",
             "level": "Proficient",
             "levelColor": "text-indigo-400",
-            "subSkills": ["GitHub Actions", "GitLab CI", "Automated Testing"]
+            "subSkills": [
+              "GitHub Actions",
+              "GitLab CI",
+              "Automated Testing"
+            ]
           },
           {
             "name": "Puppeteer",
             "level": "Proficient",
             "levelColor": "text-indigo-400",
-            "subSkills": ["SSR Prerendering", "Headless Browser Automation", "Cache Management"]
+            "subSkills": [
+              "SSR Prerendering",
+              "Headless Browser Automation",
+              "Cache Management"
+            ]
           }
         ]
       }
@@ -405,9 +630,18 @@
     "realWorldTitle": "Real-World Applications",
     "realWorldSubtitle": "Every competency backed by working production code — from full-stack web applications and server infrastructure to computer vision pipelines and DevOps tooling:",
     "levelStyles": {
-      "Expert": { "borderColor": "border-emerald-500", "bgColor": "bg-emerald-950/40" },
-      "Advanced": { "borderColor": "border-sky-400", "bgColor": "bg-sky-950/40" },
-      "Proficient": { "borderColor": "border-indigo-400", "bgColor": "bg-indigo-950/40" }
+      "Expert": {
+        "borderColor": "border-emerald-500",
+        "bgColor": "bg-emerald-950/40"
+      },
+      "Advanced": {
+        "borderColor": "border-sky-400",
+        "bgColor": "bg-sky-950/40"
+      },
+      "Proficient": {
+        "borderColor": "border-indigo-400",
+        "bgColor": "bg-indigo-950/40"
+      }
     }
   },
   "projects": {
@@ -416,22 +650,61 @@
     "backgroundImage": "/images/hero-bg.jpg",
     "ctaText": "Want to see more? Check out my GitHub",
     "ctaButtonText": "Explore GitHub 🐙",
-    "headerTypes": ["metrics", "code", "terminal", "workflow", "layers", "blueprint"],
+    "headerTypes": [
+      "metrics",
+      "code",
+      "terminal",
+      "workflow",
+      "layers",
+      "blueprint"
+    ],
     "headerPatterns": {
-      "workflow": { "name": "WorkflowNodesPattern", "description": "Connected circles representing workflow stages" },
-      "code": { "name": "CodeSnippetBg", "description": "Code snippet text pattern" },
-      "layers": { "name": "LayeredArchPattern", "description": "Stacked rectangles representing layered architecture" },
-      "metrics": { "name": "MetricsPattern", "description": "Bar chart lines representing performance metrics" },
-      "terminal": { "name": "TerminalHeader", "description": "Terminal prompt overlay" },
-      "blueprint": { "name": "BlueprintGridPattern", "description": "Grid with dots resembling architectural blueprints" }
+      "workflow": {
+        "name": "WorkflowNodesPattern",
+        "description": "Connected circles representing workflow stages"
+      },
+      "code": {
+        "name": "CodeSnippetBg",
+        "description": "Code snippet text pattern"
+      },
+      "layers": {
+        "name": "LayeredArchPattern",
+        "description": "Stacked rectangles representing layered architecture"
+      },
+      "metrics": {
+        "name": "MetricsPattern",
+        "description": "Bar chart lines representing performance metrics"
+      },
+      "terminal": {
+        "name": "TerminalHeader",
+        "description": "Terminal prompt overlay"
+      },
+      "blueprint": {
+        "name": "BlueprintGridPattern",
+        "description": "Grid with dots resembling architectural blueprints"
+      }
     },
     "items": [
       {
         "slug": "insurance-claim-platform",
         "title": "Insurance Claim Platform",
         "description": "Multi-subsystem UK insurance platform with real-time AI-powered room analysis via Cohere Vision, Django Channels chat, Celery async pipelines, automated PDF report generation, and a React Native mobile app for field assessors.",
-        "tech": ["Django", "DRF", "Django Channels", "Celery", "React Native", "PostgreSQL", "Redis", "Cohere Vision"],
-        "highlights": ["AI Room Analysis", "Real-time Chat", "PDF Reports", "Mobile Field App"],
+        "tech": [
+          "Django",
+          "DRF",
+          "Django Channels",
+          "Celery",
+          "React Native",
+          "PostgreSQL",
+          "Redis",
+          "Cohere Vision"
+        ],
+        "highlights": [
+          "AI Room Analysis",
+          "Real-time Chat",
+          "PDF Reports",
+          "Mobile Field App"
+        ],
         "headerType": "workflow",
         "icon": "ShieldCheck",
         "metric": "Claims: 1000+",
@@ -529,8 +802,19 @@
         "slug": "restaurant-management-saas",
         "title": "Restaurant Management SaaS",
         "description": "Multi-restaurant SaaS platform with real-time kitchen display via Laravel Reverb, multi-gateway payment integration (Khalti, eSewa, Stripe), and full admin panels for menu, orders, and staff management.",
-        "tech": ["Laravel", "Filament", "Reverb", "Livewire", "MySQL", "Stripe"],
-        "highlights": ["Multi-gateway Payments", "Real-time Kitchen Display", "Filament Admin Panel"],
+        "tech": [
+          "Laravel",
+          "Filament",
+          "Reverb",
+          "Livewire",
+          "MySQL",
+          "Stripe"
+        ],
+        "highlights": [
+          "Multi-gateway Payments",
+          "Real-time Kitchen Display",
+          "Filament Admin Panel"
+        ],
         "headerType": "workflow",
         "icon": "ClipboardText",
         "metric": "Live Orders",
@@ -629,8 +913,20 @@
         "slug": "servicelink-marketplace",
         "title": "ServiceLink Marketplace",
         "description": "Home repair marketplace with Django REST Framework backend, React Native Expo mobile app, offline-first sync, text-to-speech accessibility, and Stripe payment integration with WCAG compliance.",
-        "tech": ["Django", "DRF", "React Native", "Expo", "Stripe", "PostgreSQL"],
-        "highlights": ["Offline Sync", "TTS Accessibility", "WCAG Compliance", "Stripe Payments"],
+        "tech": [
+          "Django",
+          "DRF",
+          "React Native",
+          "Expo",
+          "Stripe",
+          "PostgreSQL"
+        ],
+        "highlights": [
+          "Offline Sync",
+          "TTS Accessibility",
+          "WCAG Compliance",
+          "Stripe Payments"
+        ],
         "headerType": "layers",
         "icon": "Wrench",
         "metric": "Active Users",
@@ -708,8 +1004,19 @@
         "slug": "ai-referee-football-analytics",
         "title": "AI Referee: Football Analytics",
         "description": "Computer vision pipeline using YOLOv5 + SORT tracking for player detection, SSIM template matching for team classification, and pitch mapping for real-time football analytics with a Flask dashboard.",
-        "tech": ["Python", "YOLOv5", "OpenCV", "SORT", "Flask", "PyTorch"],
-        "highlights": ["Real-time Tracking", "Team Classification", "Pitch Mapping"],
+        "tech": [
+          "Python",
+          "YOLOv5",
+          "OpenCV",
+          "SORT",
+          "Flask",
+          "PyTorch"
+        ],
+        "highlights": [
+          "Real-time Tracking",
+          "Team Classification",
+          "Pitch Mapping"
+        ],
         "headerType": "metrics",
         "icon": "ChartBar",
         "metric": "FPS: 30+",
@@ -766,8 +1073,18 @@
         "slug": "server-uptime-monitoring",
         "title": "Server Uptime Monitoring",
         "description": "Lightweight Go-based uptime monitoring tool with multi-site health checks, Slack alerts, and Prometheus metrics. Detects downtime before clients report it.",
-        "tech": ["Go", "Prometheus", "Docker", "REST API", "YAML"],
-        "highlights": ["Multi-site Checks", "Slack Alerts", "Prometheus Metrics"],
+        "tech": [
+          "Go",
+          "Prometheus",
+          "Docker",
+          "REST API",
+          "YAML"
+        ],
+        "highlights": [
+          "Multi-site Checks",
+          "Slack Alerts",
+          "Prometheus Metrics"
+        ],
         "headerType": "terminal",
         "icon": "ChartBar",
         "terminal": "./servermonitor --config sites.yaml",
@@ -827,8 +1144,18 @@
         "slug": "ecommerce-multi-vendor-platform",
         "title": "E-commerce Multi-Vendor Platform",
         "description": "Multi-vendor marketplace with real-time notifications via Laravel Reverb, automated PDF invoicing, Filament admin panels, and role-based dashboards for vendors and administrators.",
-        "tech": ["Laravel", "Filament", "Reverb", "React", "MySQL"],
-        "highlights": ["Multi-vendor Architecture", "Real-time Notifications", "PDF Invoicing"],
+        "tech": [
+          "Laravel",
+          "Filament",
+          "Reverb",
+          "React",
+          "MySQL"
+        ],
+        "highlights": [
+          "Multi-vendor Architecture",
+          "Real-time Notifications",
+          "PDF Invoicing"
+        ],
         "headerType": "blueprint",
         "icon": "Store",
         "metric": "Vendors: 50+",
@@ -911,8 +1238,18 @@
         "slug": "gold-exchange-mis",
         "title": "Gold Exchange MIS",
         "description": "Operations and inventory management system for a gold exchange with transaction tracking, Excel/PDF reporting, Redis caching, and comprehensive Filament admin panels.",
-        "tech": ["Laravel", "Filament", "Livewire", "Redis", "MySQL"],
-        "highlights": ["Inventory Tracking", "Excel/PDF Reports", "Redis Caching"],
+        "tech": [
+          "Laravel",
+          "Filament",
+          "Livewire",
+          "Redis",
+          "MySQL"
+        ],
+        "highlights": [
+          "Inventory Tracking",
+          "Excel/PDF Reports",
+          "Redis Caching"
+        ],
         "headerType": "code",
         "icon": "Calculator",
         "metric": "Transactions",
@@ -970,8 +1307,17 @@
         "slug": "chatbot-api",
         "title": "Chat-bot API",
         "description": "Multi-modal chatbot API built with Flask and Google Gemini, featuring speech recognition, image understanding, and context-aware conversations through a clean REST interface.",
-        "tech": ["Flask", "Gemini API", "Python", "REST API"],
-        "highlights": ["Multi-modal Chat", "Speech Recognition", "Image Understanding"],
+        "tech": [
+          "Flask",
+          "Gemini API",
+          "Python",
+          "REST API"
+        ],
+        "highlights": [
+          "Multi-modal Chat",
+          "Speech Recognition",
+          "Image Understanding"
+        ],
         "headerType": "code",
         "icon": "Bot",
         "metric": "API Latency",
@@ -1029,8 +1375,18 @@
         "slug": "anonymous-discussion-platform",
         "title": "Anonymous Discussion Platform",
         "description": "Encrypted anonymous discussion platform with topic-based channels, real-time messaging, admin moderation tools, and end-to-end encryption for privacy.",
-        "tech": ["Laravel", "Next.js", "React", "MySQL", "WebSockets"],
-        "highlights": ["End-to-end Encryption", "Topic Channels", "Admin Moderation"],
+        "tech": [
+          "Laravel",
+          "Next.js",
+          "React",
+          "MySQL",
+          "WebSockets"
+        ],
+        "highlights": [
+          "End-to-end Encryption",
+          "Topic Channels",
+          "Admin Moderation"
+        ],
         "headerType": "layers",
         "icon": "Lock",
         "metric": "Channels",
@@ -1092,8 +1448,19 @@
         "slug": "travel-booking-admin-panel",
         "title": "Travel Booking & Admin Panel",
         "description": "Full tour and package management system with Filament v5 admin panel, Sanctum API authentication, AWS S3 media storage, Spatie role management, and CI/CD deployment pipeline.",
-        "tech": ["Laravel", "Filament", "Sanctum", "AWS S3", "Spatie"],
-        "highlights": ["Package Management", "API Auth", "S3 Media Storage", "CI/CD"],
+        "tech": [
+          "Laravel",
+          "Filament",
+          "Sanctum",
+          "AWS S3",
+          "Spatie"
+        ],
+        "highlights": [
+          "Package Management",
+          "API Auth",
+          "S3 Media Storage",
+          "CI/CD"
+        ],
         "headerType": "terminal",
         "icon": "Backpack",
         "metric": "Bookings",
@@ -1163,12 +1530,57 @@
     "backgroundImage": "/images/blog-bg.jpg",
     "items": [
       {
+        "slug": "would-have-landed-the-job-junior-dev-nepal",
+        "title": "I Would Have Landed the Job If I Knew This Before — A Junior Dev's Reality Check in Nepal",
+        "date": "2026-09-20",
+        "readTime": "6 min read",
+        "excerpt": "My CV and portfolio got me into a mid-level Laravel interview with only 1.5 years of experience. What happened next taught me more than a year and a half of shipping ever did — and none of it was about code.",
+        "tags": [
+          "Career",
+          "Interviews",
+          "Laravel",
+          "Junior Developer",
+          "Nepal"
+        ],
+        "image": "/images/blog-interview-experience.jpg",
+        "keywords": [
+          "junior developer interview experience",
+          "self taught developer nepal",
+          "startup vs corporate developer",
+          "laravel developer interview questions",
+          "dependency injection explained",
+          "hr round interview nepal",
+          "mid level developer interview",
+          "self taught programmer job interview"
+        ],
+        "faq": [
+          {
+            "question": "Can a self-taught developer pass a mid-level interview with under 2 years of experience?",
+            "answer": "Yes — a strong CV and portfolio can get you into the room even when your experience is well below the stated requirement. What determines the outcome from there is usually vocabulary and process familiarity, not raw ability: knowing the formal names for things you already do, and understanding how corporate interview stages like technical rounds and HR rounds actually work."
+          },
+          {
+            "question": "Why do self-taught developers know how something works but not what it's called?",
+            "answer": "Startup environments reward shipping over terminology. You solve real problems — like initializing services in a constructor or splitting data across databases per client — without ever needing the formal name for the pattern, because nobody around you stops to teach it. The gap surfaces the moment an interviewer asks you to name what you're already doing, such as dependency injection or a model mutator."
+          },
+          {
+            "question": "What is an HR round in a corporate interview process?",
+            "answer": "It's a separate stage from the technical interview, usually focused on fit, expectations, and logistics rather than code. Developers coming from startup backgrounds, where hiring can happen informally, often encounter this stage for the first time with no idea what to expect — which can be more disorienting than the technical questions themselves."
+          }
+        ]
+      },
+      {
         "slug": "ssh-key-authentication-case-study",
         "title": "Hardening SSH: How I Switched Server Access to Key-Based Authentication",
         "date": "2026-09-18",
         "readTime": "8 min read",
         "excerpt": "Password login on port 22 is the most attacked service on the internet. A case study in what I did to lock down SSH — key-based authentication, a clean password-auth disable, and a port change without locking myself out.",
-        "tags": ["SSH", "Security", "Linux", "DevOps", "Server Hardening"],
+        "tags": [
+          "SSH",
+          "Security",
+          "Linux",
+          "DevOps",
+          "Server Hardening"
+        ],
         "image": "/images/blog-ssh.jpg",
         "keywords": [
           "ssh key authentication",
@@ -1201,7 +1613,14 @@
         "date": "2026-08-27",
         "readTime": "4 min read",
         "excerpt": "Personal projects on GitHub, work on GitLab — one heatmap couldn't show the full picture. Here's how @rojeets/git-stats merges both into a single contribution view.",
-        "tags": ["Open Source", "React", "npm", "GitHub", "GitLab", "Portfolio"],
+        "tags": [
+          "Open Source",
+          "React",
+          "npm",
+          "GitHub",
+          "GitLab",
+          "Portfolio"
+        ],
         "image": "/images/blog-git-stats.jpg",
         "keywords": [
           "github heatmap react",
@@ -1228,7 +1647,14 @@
         "date": "2026-07-19",
         "readTime": "12 min read",
         "excerpt": "Explore six production web applications that solve real business problems — restaurant SaaS, insurance platforms, multi-vendor marketplaces, and real-time systems.",
-        "tags": ["Full-Stack", "Laravel", "Django", "Docker", "Real-Time", "Production"],
+        "tags": [
+          "Full-Stack",
+          "Laravel",
+          "Django",
+          "Docker",
+          "Real-Time",
+          "Production"
+        ],
         "image": "/images/blog-rbac.jpg",
         "keywords": [
           "production web applications",
@@ -1267,7 +1693,13 @@
         "date": "2026-05-13",
         "readTime": "10 min read",
         "excerpt": "Deploy a lightweight open source server monitoring tool built in Go for website uptime monitoring — detect downtime before clients report it, with health checks, Slack alerts, and Prometheus metrics.",
-        "tags": ["Go", "Monitoring", "DevOps", "Open Source", "Infrastructure"],
+        "tags": [
+          "Go",
+          "Monitoring",
+          "DevOps",
+          "Open Source",
+          "Infrastructure"
+        ],
         "image": "/images/blog-server-monitor.jpg",
         "keywords": [
           "server monitoring tool",
@@ -1306,7 +1738,15 @@
         "date": "2026-05-17",
         "readTime": "14 min read",
         "excerpt": "How to build a football player tracking system with computer vision — YOLOv5 detection, SORT tracking, SSIM team classification, pitch mapping, and a live AI football analytics dashboard.",
-        "tags": ["Computer Vision", "AI", "Football Analytics", "YOLOv5", "OpenCV", "Flask", "Machine Learning"],
+        "tags": [
+          "Computer Vision",
+          "AI",
+          "Football Analytics",
+          "YOLOv5",
+          "OpenCV",
+          "Flask",
+          "Machine Learning"
+        ],
         "image": "/images/blog-ai-referee.jpg",
         "keywords": [
           "football player tracking",
@@ -1345,7 +1785,13 @@
         "date": "2026-08-05",
         "readTime": "9 min read",
         "excerpt": "A realistic 2026 pricing guide to the website cost in Nepal — how much a website costs from landing pages to custom web apps, what drives web development cost, and what silently inflates the price.",
-        "tags": ["Web Development", "Nepal", "Pricing", "E-commerce", "Business"],
+        "tags": [
+          "Web Development",
+          "Nepal",
+          "Pricing",
+          "E-commerce",
+          "Business"
+        ],
         "image": "/images/blog-cost.jpg",
         "keywords": [
           "website cost in Nepal",
@@ -1384,88 +1830,95 @@
       },
       {
         "slug": "payment-gateway-integration-nepal",
-        "title": "Payment Gateway Integration in Nepal: eSewa, Khalti, ConnectIPS & International",
+        "title": "How I Integrated Khalti, eSewa, and Stripe for a Restaurant SaaS",
         "date": "2026-08-01",
-        "readTime": "10 min read",
-        "excerpt": "How to integrate payment gateways in Nepal — eSewa, Khalti, ConnectIPS, FonePay — plus Stripe and PayPal for international customers, and how NRB rules shape online payment integration.",
-        "tags": ["Payments", "eSewa", "Khalti", "E-commerce", "Nepal", "Laravel"],
+        "readTime": "5 min read",
+        "excerpt": "How I built one payment interface for a Nepal restaurant SaaS using Khalti, eSewa, and Stripe, with provider adapters, webhook reconciliation, and idempotency keys.",
+        "tags": [
+          "Payments",
+          "Laravel",
+          "Restaurant SaaS",
+          "Nepal",
+          "Webhooks"
+        ],
         "image": "/images/blog-payments.jpg",
         "keywords": [
-          "payment gateway Nepal",
-          "payment gateway integration Nepal",
-          "eSewa integration",
-          "Khalti payment gateway",
-          "ConnectIPS integration",
-          "online payment Nepal",
-          "e-commerce payment gateway Nepal",
-          "payment gateway integration guide",
-          "digital wallet integration",
-          "accept online payments Nepal",
-          "international payments from Nepal"
+          "restaurant payment gateway integration",
+          "khalti esewa stripe integration",
+          "multi gateway payment laravel",
+          "payment webhook reconciliation",
+          "restaurant management saas payments",
+          "nepal restaurant payments",
+          "payment idempotency keys",
+          "laravel payment abstraction",
+          "online payments nepal",
+          "restaurant checkout integration"
         ],
         "faq": [
           {
-            "question": "How to integrate a payment gateway in Nepal?",
-            "answer": "To integrate a payment gateway in Nepal: create a merchant account and get API keys, build an order in your backend, initiate payment, redirect the customer to the gateway, then verify the callback signature server-side before updating the order. Always use an NRB-licensed gateway."
+            "question": "Which payment gateways did the restaurant SaaS integrate?",
+            "answer": "The platform integrated Khalti and eSewa for Nepal-based restaurants and Stripe for international orders."
           },
           {
-            "question": "Which payment gateways are available in Nepal?",
-            "answer": "The main payment gateways in Nepal are eSewa (largest wallet), Khalti (wallet + card, developer-friendly), ConnectIPS (direct bank transfer), and FonePay (QR + wallet). For international customers, add Stripe or PayPal for USD transactions."
+            "question": "What problem did the payment layer solve?",
+            "answer": "Khalti, eSewa, and Stripe returned different webhook payloads and retry behavior. The payment layer normalized those differences so the application could reconcile one order state safely."
           },
           {
-            "question": "How does eSewa integration work?",
-            "answer": "eSewa integration follows the standard flow: your server initiates a payment with your product code and a unique reference ID, the customer pays on eSewa's hosted page, and eSewa calls back with a signed response you verify server-side using your secret key."
+            "question": "How did the system prevent duplicate payments?",
+            "answer": "Each provider had its own adapter, and webhook endpoints used idempotency keys. Repeated callbacks could update the same payment record without marking the order paid twice."
           },
           {
-            "question": "Can I accept international payments from Nepal?",
-            "answer": "Yes — use Stripe or PayPal alongside Nepali gateways to accept USD from foreign customers. Plan for currency conversion and fee costs, and route domestic payments through eSewa or Khalti where wallet adoption is high."
-          },
-          {
-            "question": "What are the common payment gateway integration mistakes?",
-            "answer": "Trusting the frontend callback (always verify server-side), missing idempotency keys, ignoring webhooks, skipping daily reconciliation, and storing merchant secrets in frontend code are the most common and expensive mistakes in production."
+            "question": "What was the outcome?",
+            "answer": "The platform runs for multiple restaurant chains, handles daily orders, and gives owners one dashboard with reconciled multi-gateway payments."
           }
         ]
       },
       {
         "slug": "laravel-vs-django-vs-nodejs",
-        "title": "Laravel vs Django vs Node.js: Best Backend Framework for 2026",
+        "title": "How I Chose Laravel, Django, and Node.js Across Three Projects",
         "date": "2026-07-28",
-        "readTime": "10 min read",
-        "excerpt": "A practical 2026 comparison of Laravel vs Django vs Node.js — performance, developer experience, hiring, and which backend framework to choose for your web application or SaaS.",
-        "tags": ["Laravel", "Django", "Node.js", "Backend", "Web Development"],
+        "readTime": "7 min read",
+        "excerpt": "Three production projects forced three stack decisions: Laravel for a multi-tenant restaurant SaaS, Django for an AI insurance workflow, and Next.js/Node for an encrypted real-time discussion client.",
+        "tags": [
+          "Laravel",
+          "Django",
+          "Node.js",
+          "Case Study",
+          "Production"
+        ],
         "image": "/images/blog-frameworks.jpg",
         "keywords": [
-          "Laravel vs Django vs Node.js",
-          "best backend framework",
-          "Laravel vs Django",
-          "Node.js vs Laravel",
-          "Django vs Node.js",
-          "backend framework comparison",
-          "backend framework 2026",
-          "web framework comparison",
-          "best backend for web applications",
-          "best backend for SaaS"
+          "laravel django nodejs project decisions",
+          "restaurant management saas laravel",
+          "insurance claim platform django",
+          "anonymous discussion platform next.js",
+          "multi project backend architecture",
+          "laravel payment gateway abstraction",
+          "django celery ai workflow",
+          "next.js laravel websockets",
+          "production framework decisions",
+          "backend framework case study"
         ],
         "faq": [
           {
-            "question": "Which backend framework should I use?",
-            "answer": "Choose Laravel for fast, batteries-included business apps and easy hiring; Django for data-heavy, ML-adjacent products with a built-in admin; and Node.js for real-time, high-concurrency, API-first systems or a single TypeScript stack."
+            "question": "Why did the restaurant SaaS use Laravel?",
+            "answer": "The project needed tenant isolation, Filament admin workflows, Reverb kitchen updates, and a payment abstraction across Khalti, eSewa, and Stripe. Laravel kept those pieces in one operational core."
           },
           {
-            "question": "Is Laravel better than Django?",
-            "answer": "Laravel ships business apps faster with Eloquent, migrations, and Filament admin panels, and hiring PHP developers is easy in South Asia. Django is stronger when your product needs Python — analytics, machine learning, or computer vision."
+            "question": "Why did the insurance platform use Django?",
+            "answer": "The claim workflow needed Python AI analysis, Celery retries, Django Channels chat, and auditable PDF generation. Django kept the API and asynchronous work in one Python ecosystem."
           },
           {
-            "question": "Is Node.js better than Laravel or Django for web apps?",
-            "answer": "Node.js excels at real-time features, WebSockets, and high concurrency per process, and TypeScript lets one team own the full stack. Laravel and Django provide more batteries out of the box — Node assembles more by hand."
+            "question": "Where did Node.js fit in the discussion platform?",
+            "answer": "Next.js supplied the client application runtime, while Laravel handled WebSocket channels, encryption, and moderation. I kept the live backend where the project model already lived."
           },
           {
-            "question": "What is the best backend for a SaaS in 2026?",
-            "answer": "Most SaaS products in 2026 are polyglot: a Laravel API for the business logic, a Node.js real-time service for WebSockets, and a Python worker for ML tasks. Start with the stack you can ship fastest and keep services cleanly separated."
+            "question": "What was the hardest part of choosing these stacks?",
+            "answer": "Each project had a different failure mode: payment webhook differences in the restaurant SaaS, slow or ambiguous AI analysis in the insurance platform, and encryption versus moderation in the discussion platform."
           },
           {
-            "question": "How do I compare backend frameworks for my project?",
-            "answer": "Ask three questions: where does your data live (ML-heavy means Django, CRUD-heavy means Laravel), do you need real-time (then Node.js or Django channels), and who will maintain it (choose a stack your future team can hire for)."
+            "question": "What did the three projects teach you about framework choice?",
+            "answer": "The constraint came first. Laravel fit the restaurant workflow, Django fit the Python AI pipeline, and Next.js/Node fit the discussion client while Laravel kept the realtime backend."
           }
         ]
       },
@@ -1475,7 +1928,13 @@
         "date": "2026-07-22",
         "readTime": "8 min read",
         "excerpt": "How to choose a web development company or web developer in Kathmandu — portfolio checks, contracts, payment gateways, support, and the red flags to avoid before you sign.",
-        "tags": ["Web Development", "Kathmandu", "Nepal", "Freelance", "Business"],
+        "tags": [
+          "Web Development",
+          "Kathmandu",
+          "Nepal",
+          "Freelance",
+          "Business"
+        ],
         "image": "/images/blog-choose.jpg",
         "keywords": [
           "web development company Kathmandu",
@@ -1518,7 +1977,13 @@
         "date": "2026-07-14",
         "readTime": "9 min read",
         "excerpt": "What businesses should know before web application development in Kathmandu or Nepal — custom vs off-the-shelf software, scoping, budgets, timelines, and how to avoid costly failures.",
-        "tags": ["Web Apps", "SaaS", "Kathmandu", "Nepal", "Custom Software"],
+        "tags": [
+          "Web Apps",
+          "SaaS",
+          "Kathmandu",
+          "Nepal",
+          "Custom Software"
+        ],
         "image": "/images/blog-webapp.jpg",
         "keywords": [
           "web app development Kathmandu",
@@ -1561,7 +2026,14 @@
         "date": "2026-07-08",
         "readTime": "9 min read",
         "excerpt": "The essential full stack developer skills for 2026 — backend, databases, frontend, DevOps, AI integration, and security — with a self-assessment to find your gaps.",
-        "tags": ["Full-Stack", "Skills", "Career", "DevOps", "AI", "Web Development"],
+        "tags": [
+          "Full-Stack",
+          "Skills",
+          "Career",
+          "DevOps",
+          "AI",
+          "Web Development"
+        ],
         "image": "/images/blog-skills.jpg",
         "keywords": [
           "full stack developer skills",
@@ -1604,7 +2076,11 @@
     "sectionTitle": "Get In Touch",
     "sectionSubtitle": "Let's work together on something amazing",
     "backgroundImage": "/images/contact-bg.jpg",
-    "contactMethods": ["linkedin", "github", "email"],
+    "contactMethods": [
+      "linkedin",
+      "github",
+      "email"
+    ],
     "availability": {
       "title": "Full Stack Developer Skills for 2026: The Complete Checklist",
       "text": "Open to freelance projects and full-time opportunities where I can contribute to building scalable, enterprise-grade applications.",
@@ -1617,9 +2093,28 @@
       "thankYouText": "Thanks for reaching out! I'll get back to you soon.",
       "errorText": "Something went wrong. Please try again.",
       "fields": [
-        { "name": "name", "label": "Name", "type": "text", "placeholder": "Your name", "required": true },
-        { "name": "email", "label": "Email", "type": "email", "placeholder": "your@email.com", "required": true },
-        { "name": "message", "label": "Message", "type": "textarea", "placeholder": "Your message...", "rows": 5, "required": true }
+        {
+          "name": "name",
+          "label": "Name",
+          "type": "text",
+          "placeholder": "Your name",
+          "required": true
+        },
+        {
+          "name": "email",
+          "label": "Email",
+          "type": "email",
+          "placeholder": "your@email.com",
+          "required": true
+        },
+        {
+          "name": "message",
+          "label": "Message",
+          "type": "textarea",
+          "placeholder": "Your message...",
+          "rows": 5,
+          "required": true
+        }
       ],
       "mailtoSubject": "Contact from",
       "mailtoBodyTemplate": "Name: {name}\nEmail: {email}\n\n{message}"
@@ -1627,15 +2122,42 @@
   },
   "footer": {
     "quickLinks": [
-      { "name": "Home", "href": "/" },
-      { "name": "About", "href": "/#about" },
-      { "name": "Experience", "href": "/#experience" },
-      { "name": "Skills", "href": "/#skills" },
-      { "name": "Projects", "href": "/projects" },
-      { "name": "Blog", "href": "/blog" },
-      { "name": "Contact", "href": "/contact" }
+      {
+        "name": "Home",
+        "href": "/"
+      },
+      {
+        "name": "About",
+        "href": "/#about"
+      },
+      {
+        "name": "Experience",
+        "href": "/#experience"
+      },
+      {
+        "name": "Skills",
+        "href": "/#skills"
+      },
+      {
+        "name": "Projects",
+        "href": "/projects"
+      },
+      {
+        "name": "Blog",
+        "href": "/blog"
+      },
+      {
+        "name": "Contact",
+        "href": "/contact"
+      }
     ],
-    "socialLinks": ["github", "linkedin", "gitlab", "medium", "hashnode"],
+    "socialLinks": [
+      "github",
+      "linkedin",
+      "gitlab",
+      "medium",
+      "hashnode"
+    ],
     "builtWith": "Built with React & Tailwind CSS"
   },
   "experience": {

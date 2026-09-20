@@ -3,7 +3,7 @@
   "sections": [
     {
       "type": "paragraph",
-      "content": "Accepting online payments in Nepal is no longer a luxury — it is table stakes for any serious e-commerce or booking business. But integrating Nepali payment gateways is different from wiring up Stripe. This guide explains the landscape, the NRB rules that shape it, and how to pick the right gateway for your product."
+      "content": "A Nepal restaurant SaaS needed to accept Khalti and eSewa for domestic outlets and Stripe for international orders. The chains also needed owners to reconcile all three without double-counting a payment. I built the payment layer for that system instead of treating gateway integration as a generic checkout tutorial."
     },
     {
       "type": "divider"
@@ -11,193 +11,42 @@
     {
       "type": "heading",
       "level": 2,
-      "content": "The Nepali payment landscape"
+      "content": "The real constraint: one payment model, three provider behaviors"
     },
     {
       "type": "paragraph",
-      "content": "Nepal's digital payment ecosystem is small but active. Four gateways dominate e-commerce checkout:"
-    },
-    {
-      "type": "table",
-      "header": [
-        "Gateway",
-        "Best for",
-        "Type"
-      ],
-      "rows": [
-        [
-          "**eSewa**",
-          "Wallet payments, wide merchant base",
-          "Digital wallet"
-        ],
-        [
-          "**Khalti**",
-          "Wallet + card, developer-friendly docs",
-          "Digital wallet"
-        ],
-        [
-          "**ConnectIPS**",
-          "Bank-account direct transfers",
-          "Bank transfer"
-        ],
-        [
-          "**FonePay**",
-          "QR + wallet, growing",
-          "Digital wallet"
-        ],
-        [
-          "**Stripe/PayPal (international)**",
-          "Foreign customers / USD",
-          "Card"
-        ]
-      ]
+      "content": "The platform served restaurant chains and multi-outlet food businesses in Nepal. Orders came from counters and online channels, while owners wanted a single revenue view across outlets. An off-the-shelf POS did not fit the payment landscape or the operating flow, so I designed a gateway abstraction before adding the second provider."
     },
     {
       "type": "paragraph",
-      "content": "For a domestic customer base, your checkout will usually need **eSewa or Khalti first**, and **ConnectIPS** for users who prefer direct bank transfers."
-    },
-    {
-      "type": "divider"
+      "content": "Khalti, eSewa, and Stripe each returned different webhook payloads and retry semantics. A callback could arrive more than once, and a naive update could create a duplicate financial record. That was the hard part: the app needed one payment state while each provider described success differently."
     },
     {
       "type": "heading",
       "level": 2,
-      "content": "The NRB factor you must understand"
+      "content": "What I built"
     },
     {
       "type": "paragraph",
-      "content": "Nepal Rastra Bank (NRB) regulates payment service providers. The practical consequences for developers and business owners:"
-    },
-    {
-      "type": "list",
-      "ordered": false,
-      "items": [
-        "Payment providers must be **licensed** by NRB — use only licensed gateways for real money.",
-        "Settlement is **not instant**. Funds typically reach your bank account on **T+1 or T+2** days. Plan your reconciliation accordingly.",
-        "You are responsible for **matching transactions** between your database and the gateway's ledger — implement idempotency keys and webhooks carefully.",
-        "Merchant onboarding requires **business documents** (PAN, company registration) — gateways approve merchants, not developers."
-      ]
-    },
-    {
-      "type": "divider"
-    },
-    {
-      "type": "heading",
-      "level": 2,
-      "content": "Integration basics (the patterns are the same)"
-    },
-    {
-      "type": "paragraph",
-      "content": "Whatever gateway you choose, the flow is nearly identical:"
-    },
-    {
-      "type": "list",
-      "ordered": true,
-      "items": [
-        "**Create a merchant account** and get API keys (public + secret).",
-        "**Build an order** in your backend, then request a payment **initiation** from the gateway.",
-        "**Redirect** the customer to the gateway's hosted page (or open their app via deep link).",
-        "Receive the **verification callback** (webhook or redirect with signed params).",
-        "**Verify the signature server-side** before trusting it — never trust the frontend.",
-        "**Update the order status** and reconcile with the settlement report."
-      ]
-    },
-    {
-      "type": "heading",
-      "level": 3,
-      "content": "Signed callback example (pseudo-flow)"
+      "content": "I wrote a provider adapter for each gateway and a normalization layer behind it. The order service called one payment interface; the adapter handled initiation, callback verification, status mapping, and retry behavior. Webhook endpoints used idempotency keys so repeated delivery could not mark the same order paid twice."
     },
     {
       "type": "code",
       "lang": "php",
-      "content": "// 1. Initiate payment from server\n$payment = $gateway->initiate([\n    'amount'   => $order->total,\n    'ref_id'   => $order->uuid,   // your idempotency key\n    'callback' => route('payment.verify'),\n]);\n\n// 2. Redirect customer\nreturn redirect($payment->payment_url);\n\n// 3. Verify callback signature BEFORE updating the order\nif ($gateway->verifySignature($request)) {\n    $order->markAsPaid($request->transaction_id);\n}"
+      "content": "$gateway = match($restaurant->region) {\n    'nepal' => $restaurant->payment_method === 'khalti'\n        ? new KhaltiGateway()\n        : new eSewaGateway(),\n    default => new StripeGateway(),\n};\n\n$gateway->charge($order->total, $order->paymentMeta());"
     },
     {
       "type": "paragraph",
-      "content": "The single most important rule: **always verify the callback signature on the server** and make sure the `amount` and `ref_id` match your order. Otherwise you leave the door open for forged callbacks."
-    },
-    {
-      "type": "divider"
+      "content": "Nepal-based restaurants routed to Khalti or eSewa; international orders routed to Stripe. Queue workers processed payment updates and notifications outside the HTTP request, while webhook reconciliation kept the order ledger aligned with provider state."
     },
     {
       "type": "heading",
       "level": 2,
-      "content": "Choosing the right gateway"
-    },
-    {
-      "type": "list",
-      "ordered": false,
-      "items": [
-        "**Selling goods to Nepali customers?** Start with eSewa + Khalti. High wallet adoption.",
-        "**B2B or high-value invoices?** Add ConnectIPS so customers can pay directly from their bank account.",
-        "**Selling to foreigners or in USD?** Stripe or PayPal, with a pricing strategy that accounts for fees and currency conversion.",
-        "**Restaurant or physical store?** FonePay QR codes at the counter pair well with a web checkout."
-      ]
-    },
-    {
-      "type": "heading",
-      "level": 3,
-      "content": "Watch the fees"
+      "content": "What changed in production"
     },
     {
       "type": "paragraph",
-      "content": "Gateway fees in Nepal typically range from **1% to 3%** per transaction, sometimes with a minimum per transaction. Compare total cost (setup + per-transaction + settlement) rather than just headline rates."
-    },
-    {
-      "type": "divider"
-    },
-    {
-      "type": "heading",
-      "level": 2,
-      "content": "Common mistakes I see in production"
-    },
-    {
-      "type": "list",
-      "ordered": true,
-      "items": [
-        "**Trusting the frontend callback.** Always verify server-side.",
-        "**No idempotency.** A customer double-clicking \"Pay\" can create two orders.",
-        "**Ignoring webhooks.** Redirect-based callbacks are lost if the browser closes — implement webhooks for reliable updates.",
-        "**Forgetting reconciliation.** Settlement files differ from your DB totals; build a daily reconciliation job early.",
-        "**Storing secrets in the frontend.** Merchant secret keys must live on the server only."
-      ]
-    },
-    {
-      "type": "divider"
-    },
-    {
-      "type": "heading",
-      "level": 2,
-      "content": "Beyond checkout: payments as a feature"
-    },
-    {
-      "type": "paragraph",
-      "content": "In my agency work, payment logic rarely stays a simple \"pay for order\" step. I've built:"
-    },
-    {
-      "type": "list",
-      "ordered": false,
-      "items": [
-        "**Multi-currency booking engines** with departure-based fare rules and partial payments.",
-        "**Automated invoicing** that generates sequential invoice numbers and triggers payment reminders.",
-        "**Vendor earnings dashboards** that aggregate payouts from marketplace orders."
-      ]
-    },
-    {
-      "type": "paragraph",
-      "content": "Each of these adds moving parts — which is exactly why a payment-savvy developer saves you far more than the invoice suggests."
-    },
-    {
-      "type": "divider"
-    },
-    {
-      "type": "heading",
-      "level": 3,
-      "content": "Getting help"
-    },
-    {
-      "type": "paragraph",
-      "content": "If you are planning a store or platform with Nepali payments, I've integrated eSewa, Khalti, ConnectIPS, and international gateways across production systems. [Contact me](/contact) and I can help you pick the right stack and avoid the expensive mistakes above."
+      "content": "The platform now runs for multiple restaurant chains and handles daily orders. Owners get one dashboard across outlets and reconciled multi-gateway payments. The real lesson was timing: the abstraction had to exist before the second gateway, not after payment behavior started leaking into orders, reports, and support workflows."
     }
   ]
 }

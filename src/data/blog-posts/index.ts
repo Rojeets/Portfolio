@@ -9,6 +9,7 @@ import serverMonitoring from './server-monitoring-tool-uptime-monitoring.json'
 import sshAuth from './ssh-key-authentication-case-study.json'
 import webApp from './web-app-development-kathmandu.json'
 import websiteCost from './website-cost-nepal.json'
+import interviewExperience from './would-have-landed-the-job-junior-dev-nepal.json'
 import type { BlogPostContent } from '@/lib/types'
 
 const posts = [
@@ -23,6 +24,7 @@ const posts = [
   sshAuth,
   webApp,
   websiteCost,
+  interviewExperience
 ] as BlogPostContent[]
 
 export const blogPosts: Record<string, BlogPostContent> = Object.fromEntries(
