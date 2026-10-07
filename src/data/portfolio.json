@@ -1530,41 +1530,35 @@
     "backgroundImage": "/images/blog-bg.jpg",
     "items": [
       {
-        "slug": "would-have-landed-the-job-junior-dev-nepal",
-        "title": "I Would Have Landed the Job If I Knew This Before — A Junior Dev's Reality Check in Nepal",
-        "date": "2026-09-20",
-        "readTime": "6 min read",
-        "excerpt": "My CV and portfolio got me into a mid-level Laravel interview with only 1.5 years of experience. What happened next taught me more than a year and a half of shipping ever did — and none of it was about code.",
-        "tags": [
-          "Career",
-          "Interviews",
-          "Laravel",
-          "Junior Developer",
-          "Nepal"
-        ],
-        "image": "/images/blog-interview-experience.jpg",
+        "slug": "minio-s3-object-storage-nginx",
+        "title": "MinIO as S3-Compatible Object Storage, Served Behind Nginx",
+        "date": "2026-10-07",
+        "readTime": "8 min read",
+        "excerpt": "How two production Laravel apps — a Nepali travel agency and a gold exchange — moved file storage to self-hosted MinIO, proved the S3 driver on play.min.io, and made presigned URLs work behind Nginx.",
+        "tags": ["MinIO", "S3", "Laravel", "Nginx", "DevOps", "Object Storage"],
+        "image": "/images/blog-minio.jpg",
         "keywords": [
-          "junior developer interview experience",
-          "self taught developer nepal",
-          "startup vs corporate developer",
-          "laravel developer interview questions",
-          "dependency injection explained",
-          "hr round interview nepal",
-          "mid level developer interview",
-          "self taught programmer job interview"
+          "minio s3 compatible object storage",
+          "minio behind nginx reverse proxy",
+          "minio presigned url not working",
+          "laravel s3 driver minio",
+          "filament fileupload minio",
+          "minio vs aws s3 cost",
+          "play.min.io test s3",
+          "self hosted object storage"
         ],
         "faq": [
           {
-            "question": "Can a self-taught developer pass a mid-level interview with under 2 years of experience?",
-            "answer": "Yes — a strong CV and portfolio can get you into the room even when your experience is well below the stated requirement. What determines the outcome from there is usually vocabulary and process familiarity, not raw ability: knowing the formal names for things you already do, and understanding how corporate interview stages like technical rounds and HR rounds actually work."
+            "question": "Why MinIO instead of AWS S3?",
+            "answer": "Data residency and cost. Regulated documents (KYC files, gold-trade compliance paperwork) stay inside Nepal, storage on an existing server costs nothing, and the S3 API contract means the Laravel driver code never changed — only the endpoint, keys, and bucket name."
           },
           {
-            "question": "Why do self-taught developers know how something works but not what it's called?",
-            "answer": "Startup environments reward shipping over terminology. You solve real problems — like initializing services in a constructor or splitting data across databases per client — without ever needing the formal name for the pattern, because nobody around you stops to teach it. The gap surfaces the moment an interviewer asks you to name what you're already doing, such as dependency injection or a model mutator."
+            "question": "How do you run MinIO behind an Nginx reverse proxy?",
+            "answer": "Keep MinIO's API and Console on their local ports (9000 and 9001), then expose each on its own TLS virtual host — for example storage.example.com proxying to 127.0.0.1:9000 and console-storage.example.com proxying to 127.0.0.1:9001, with proxy_set_header Host preserved so MinIO signs correct URLs."
           },
           {
-            "question": "What is an HR round in a corporate interview process?",
-            "answer": "It's a separate stage from the technical interview, usually focused on fit, expectations, and logistics rather than code. Developers coming from startup backgrounds, where hiring can happen informally, often encounter this stage for the first time with no idea what to expect — which can be more disorienting than the technical questions themselves."
+            "question": "MinIO presigned URL not working — what causes that?",
+            "answer": "The most common cause is endpoint mismatch: MinIO stamps the endpoint the SDK used into every signed URL, so a 127.0.0.1 default endpoint generates links that only work on the server itself. Point both the filesystem endpoint and the public URL at the external hostname (e.g. https://s3.example.com:9000), and keep use_path_style_endpoint=true for custom domains."
           }
         ]
       },

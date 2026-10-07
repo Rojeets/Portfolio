@@ -3,13 +3,13 @@ import chooseWebDevelopment from './choose-web-development-company-kathmandu.jso
 import fullstack from './fullstack-developer-skills-2026.json'
 import gitStats from './git-stats-npm-package.json'
 import laravelVsDjango from './laravel-vs-django-vs-nodejs.json'
+import minioStorage from './minio-s3-object-storage-nginx.json'
 import paymentGateway from './payment-gateway-integration-nepal.json'
 import realworld from './realworld-impact-projects.json'
 import serverMonitoring from './server-monitoring-tool-uptime-monitoring.json'
 import sshAuth from './ssh-key-authentication-case-study.json'
 import webApp from './web-app-development-kathmandu.json'
 import websiteCost from './website-cost-nepal.json'
-import interviewExperience from './would-have-landed-the-job-junior-dev-nepal.json'
 import type { BlogPostContent } from '@/lib/types'
 
 const posts = [
@@ -18,13 +18,13 @@ const posts = [
   fullstack,
   gitStats,
   laravelVsDjango,
+  minioStorage,
   paymentGateway,
   realworld,
   serverMonitoring,
   sshAuth,
   webApp,
   websiteCost,
-  interviewExperience
 ] as BlogPostContent[]
 
 export const blogPosts: Record<string, BlogPostContent> = Object.fromEntries(
