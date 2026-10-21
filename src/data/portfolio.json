@@ -1530,12 +1530,12 @@
     "backgroundImage": "/images/blog-bg.jpg",
     "items": [
       {
-        "slug": "minio-s3-object-storage-nginx",
-        "title": "MinIO as S3-Compatible Object Storage, Served Behind Nginx",
+        "slug": "how-i-built-s3-compatible-object-storage-minio-nginx",
+        "title": "How I Built S3-Compatible Object Storage with MinIO and Nginx for Production Laravel Apps",
         "date": "2026-10-07",
-        "readTime": "8 min read",
-        "excerpt": "How two production Laravel apps — a Nepali travel agency and a gold exchange — moved file storage to self-hosted MinIO, proved the S3 driver on play.min.io, and made presigned URLs work behind Nginx.",
-        "tags": ["MinIO", "S3", "Laravel", "Nginx", "DevOps", "Object Storage"],
+        "readTime": "12 min read",
+        "excerpt": "Self-hosted object storage, secure document management, and the real-world challenges of making S3-compatible storage work behind an Nginx reverse proxy.",
+        "tags": ["MinIO", "Laravel", "Nginx", "S3", "DevOps"],
         "image": "/images/blog-minio.jpg",
         "keywords": [
           "minio s3 compatible object storage",
@@ -1545,20 +1545,22 @@
           "filament fileupload minio",
           "minio vs aws s3 cost",
           "play.min.io test s3",
-          "self hosted object storage"
+          "self hosted object storage",
+          "minio cors configuration",
+          "path style endpoint minio"
         ],
         "faq": [
           {
-            "question": "Why MinIO instead of AWS S3?",
-            "answer": "Data residency and cost. Regulated documents (KYC files, gold-trade compliance paperwork) stay inside Nepal, storage on an existing server costs nothing, and the S3 API contract means the Laravel driver code never changed — only the endpoint, keys, and bucket name."
-          },
-          {
             "question": "How do you run MinIO behind an Nginx reverse proxy?",
-            "answer": "Keep MinIO's API and Console on their local ports (9000 and 9001), then expose each on its own TLS virtual host — for example storage.example.com proxying to 127.0.0.1:9000 and console-storage.example.com proxying to 127.0.0.1:9001, with proxy_set_header Host preserved so MinIO signs correct URLs."
+            "answer": "Keep MinIO's API and Console on their local ports (9000 and 9001), then expose each on its own TLS virtual host — for example storage.example.com proxying to 127.0.0.1:9000 and console-storage.example.com proxying to 127.0.0.1:9001, with proxy_set_header Host preserved so MinIO signs correct URLs. Raise client_max_body_size for large uploads and disable proxy_request_buffering so request bodies stream to the upstream."
           },
           {
             "question": "MinIO presigned URL not working — what causes that?",
-            "answer": "The most common cause is endpoint mismatch: MinIO stamps the endpoint the SDK used into every signed URL, so a 127.0.0.1 default endpoint generates links that only work on the server itself. Point both the filesystem endpoint and the public URL at the external hostname (e.g. https://s3.example.com:9000), and keep use_path_style_endpoint=true for custom domains."
+            "answer": "The most common cause is endpoint mismatch: MinIO stamps the endpoint the SDK used into every signed URL, so an internal endpoint such as http://127.0.0.1:9000 generates links that only work on the server itself. Point both the filesystem endpoint and the public URL at the external hostname (https://storage.example.com), and keep use_path_style_endpoint=true for custom domains. A successful upload does not prove presigned URLs work — test URL generation separately."
+          },
+          {
+            "question": "Why does MinIO need path-style URLs and CORS?",
+            "answer": "Behind a custom domain MinIO cannot answer virtual-host-style bucket.host requests without a wildcard MINIO_DOMAIN, so use_path_style_endpoint=true is mandatory. And because the app, API, and console live on different hostnames, they are different browser origins — the bucket must return CORS headers for the trusted application origins, the required methods, and the exposed response headers. CORS is not an authorization mechanism."
           }
         ]
       },

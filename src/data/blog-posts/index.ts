@@ -2,8 +2,8 @@ import aiReferee from './ai-referee-football-player-tracking.json'
 import chooseWebDevelopment from './choose-web-development-company-kathmandu.json'
 import fullstack from './fullstack-developer-skills-2026.json'
 import gitStats from './git-stats-npm-package.json'
+import howIBuiltMinio from './how-i-built-s3-compatible-object-storage-minio-nginx.json'
 import laravelVsDjango from './laravel-vs-django-vs-nodejs.json'
-import minioStorage from './minio-s3-object-storage-nginx.json'
 import paymentGateway from './payment-gateway-integration-nepal.json'
 import realworld from './realworld-impact-projects.json'
 import serverMonitoring from './server-monitoring-tool-uptime-monitoring.json'
@@ -17,8 +17,8 @@ const posts = [
   chooseWebDevelopment,
   fullstack,
   gitStats,
+  howIBuiltMinio,
   laravelVsDjango,
-  minioStorage,
   paymentGateway,
   realworld,
   serverMonitoring,

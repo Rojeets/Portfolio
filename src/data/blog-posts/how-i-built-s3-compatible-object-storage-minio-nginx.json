@@ -1,0 +1,474 @@
+{
+  "slug": "how-i-built-s3-compatible-object-storage-minio-nginx",
+  "sections": [
+    {
+      "type": "paragraph",
+      "content": "As developers, we often start by storing uploaded files directly on the application server. It works well in the beginning — images, PDFs, user documents, and other assets live inside a local storage directory, and everything seems simple. But as an application grows, local file storage starts to become a limitation."
+    },
+    {
+      "type": "paragraph",
+      "content": "Recently, I worked on two production Laravel applications that needed a better approach to file storage: a travel platform and a gold exchange management information system (MIS). The travel platform handled tour images, destination galleries, review photos, and CSV imports. The gold exchange system handled sensitive documents, including identity cards, passports, PAN documents, and purchase compliance paperwork."
+    },
+    {
+      "type": "paragraph",
+      "content": "Both applications needed reliable object storage, but they also had different security requirements. Instead of relying entirely on a cloud storage provider, I decided to use **MinIO** as a self-hosted, S3-compatible object storage solution and **Nginx** as the reverse proxy. This article covers the architecture, implementation, Laravel configuration, migration process, and the problems I encountered while getting everything working in production."
+    },
+    {
+      "type": "divider"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Why I Needed Something Better Than Local Storage"
+    },
+    {
+      "type": "paragraph",
+      "content": "Initially, storing uploaded files on the application server was convenient. Laravel's filesystem abstraction made it easy to upload and retrieve files, and public files could be accessed through the familiar `public/storage` path. However, this approach introduced several concerns."
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "**Storage limitations** — application files and user uploads competed for the same server disk space",
+        "**Deployment complexity** — moving or replacing a server also meant planning how to migrate uploaded files",
+        "**Security concerns** — sensitive documents needed stronger access controls than a publicly accessible storage directory",
+        "**Scalability** — separating file storage from application servers would make future scaling easier",
+        "**Operational flexibility** — an S3-compatible API without tightly coupling the applications to a single storage provider"
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": "I needed a solution that could support both public assets and private documents while keeping changes to the existing Laravel applications minimal. That's where MinIO came in."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Why I Chose MinIO"
+    },
+    {
+      "type": "paragraph",
+      "content": "MinIO provides S3-compatible object storage, allowing applications that already use an S3 API to communicate with a self-hosted storage service. One of the biggest advantages was that both Laravel applications already used Laravel's S3 filesystem driver — so I didn't need to redesign the upload logic or replace the existing filesystem abstraction. I could keep the application code largely unchanged and update the storage configuration."
+    },
+    {
+      "type": "list",
+      "ordered": true,
+      "items": [
+        "**S3 compatibility** — Laravel's S3 filesystem driver could communicate with MinIO using an endpoint, access key, secret key, and bucket configuration",
+        "**Control over data placement** — hosting storage within infrastructure I control gives me greater control over where data resides, though actual data residency still depends on the server location and the infrastructure provider",
+        "**Predictable infrastructure costs** — self-hosting avoids the usual per-gigabyte cloud storage and data-transfer billing model, although server capacity, backups, bandwidth, and maintenance still have costs",
+        "**Minimal application changes** — the existing S3-compatible filesystem integration allowed me to switch storage backends primarily through configuration",
+        "**Flexibility** — because the applications use an S3-compatible API, moving to another compatible storage service can be easier than rewriting application-specific upload logic"
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Step 1: Validate the S3 Integration Before Deploying"
+    },
+    {
+      "type": "paragraph",
+      "content": "Before setting up my own MinIO instance, I wanted to validate the S3 integration. I used **play.min.io**, MinIO's public demonstration endpoint, to test the storage integration from the application stack. The objective was straightforward: verify that the S3 client could connect, upload files, and generate URLs correctly before introducing the additional complexity of self-hosting and reverse-proxy configuration."
+    },
+    {
+      "type": "code",
+      "lang": "php",
+      "content": "'minio' => [\n    'driver' => 's3',\n    'key' => env('MINIO_ACCESS_KEY_ID'),\n    'secret' => env('MINIO_SECRET_ACCESS_KEY'),\n    'region' => env('MINIO_REGION', 'us-east-1'),\n    'bucket' => env('MINIO_BUCKET'),\n    'endpoint' => env('MINIO_ENDPOINT'),\n    'use_path_style_endpoint' => true,\n],"
+    },
+    {
+      "type": "paragraph",
+      "content": "The exact configuration depends on the Laravel version and filesystem adapter in use. This preliminary test helped isolate application-level integration issues from infrastructure-level issues. One important lesson: **prove the storage client works before adding networking, TLS, and reverse-proxy variables to the equation.** For production systems, I would use dedicated credentials and private buckets rather than rely on a public demonstration service for real application data."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Step 2: Design the MinIO and Nginx Architecture"
+    },
+    {
+      "type": "paragraph",
+      "content": "I wanted the storage service to remain separate from the Laravel applications while being accessible through stable hostnames. The basic architecture looked like this:"
+    },
+    {
+      "type": "code",
+      "lang": "text",
+      "content": "                  Laravel Applications\n                   /              \\\n                  /                \\\n          Public Assets       Private Documents\n                  \\                /\n                   \\              /\n                     MinIO Storage\n                           |\n                    Internal Network\n                           |\n                         Nginx\n                           |\n                  HTTPS / Custom Domains"
+    },
+    {
+      "type": "paragraph",
+      "content": "In the deployed configuration, MinIO used its familiar ports — **9000** for the S3-compatible API and **9001** for the MinIO Console. Nginx handled HTTPS termination and forwarded requests to the appropriate internal MinIO service."
+    },
+    {
+      "type": "paragraph",
+      "content": "I used separate hostnames for the API and management console: `https://storage.example.com` and `https://console-storage.example.com`. These are illustrative hostnames; replace them with your own domains. Keeping the API and Console on separate hostnames made the routing configuration easier to understand and maintain."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Step 3: Configure Nginx as a Reverse Proxy"
+    },
+    {
+      "type": "paragraph",
+      "content": "The reverse proxy was an important part of the setup because applications needed a consistent HTTPS endpoint rather than direct access to MinIO's internal ports."
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "content": "S3 API configuration"
+    },
+    {
+      "type": "code",
+      "lang": "nginx",
+      "content": "server {\n    listen 443 ssl;\n    server_name storage.example.com;\n\n    client_max_body_size 200m;\n    proxy_request_buffering off;\n\n    location / {\n        proxy_pass http://127.0.0.1:9000;\n\n        proxy_set_header Host $host;\n        proxy_set_header X-Real-IP $remote_addr;\n        proxy_set_header X-Forwarded-Proto $scheme;\n\n        proxy_connect_timeout 60s;\n        proxy_read_timeout 300s;\n    }\n}"
+    },
+    {
+      "type": "paragraph",
+      "content": "A few settings deserve attention."
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "content": "client_max_body_size"
+    },
+    {
+      "type": "paragraph",
+      "content": "This controls the maximum request body size accepted by Nginx. I increased it to accommodate larger image and PDF uploads. The appropriate value depends on your application and upload requirements."
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "content": "proxy_request_buffering off"
+    },
+    {
+      "type": "paragraph",
+      "content": "This allows request bodies to be streamed to the upstream service rather than fully buffered by Nginx first. It can be useful for larger uploads."
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "content": "proxy_set_header Host $host"
+    },
+    {
+      "type": "paragraph",
+      "content": "This forwards the original hostname to the upstream service. Host handling matters when applications generate URLs or use host-dependent routing."
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "content": "Timeout settings"
+    },
+    {
+      "type": "paragraph",
+      "content": "Larger uploads and slower storage operations may take longer than ordinary HTTP requests, so the proxy timeouts should reflect the expected workload."
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "content": "MinIO Console configuration"
+    },
+    {
+      "type": "code",
+      "lang": "nginx",
+      "content": "server {\n    listen 443 ssl;\n    server_name console-storage.example.com;\n\n    location / {\n        proxy_pass http://127.0.0.1:9001;\n\n        proxy_set_header Host $host;\n        proxy_set_header X-Forwarded-Proto $scheme;\n\n        proxy_read_timeout 300s;\n    }\n}"
+    },
+    {
+      "type": "paragraph",
+      "content": "This is a starting point, not a complete production TLS configuration. Certificates, renewal, upstream reachability, and any required WebSocket or streaming behavior should be verified for your deployment."
+    },
+    {
+      "type": "paragraph",
+      "content": "**Security note:** I would not leave the MinIO Console openly accessible to everyone on the internet. For production, restrict it through a VPN, IP allowlist, or another suitable access-control layer."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Step 4: Connect Laravel to MinIO"
+    },
+    {
+      "type": "paragraph",
+      "content": "Once the endpoint was ready, the next step was configuring Laravel. The important part was reusing the existing S3 filesystem driver instead of introducing a custom storage implementation. A typical environment configuration looks like this:"
+    },
+    {
+      "type": "code",
+      "lang": "bash",
+      "content": "MINIO_ACCESS_KEY_ID=your-access-key\nMINIO_SECRET_ACCESS_KEY=your-secret-key\nMINIO_REGION=us-east-1\nMINIO_BUCKET=your-bucket\nMINIO_ENDPOINT=https://storage.example.com"
+    },
+    {
+      "type": "paragraph",
+      "content": "Use secrets managed through your deployment environment rather than committing credentials to source control. For a private S3-compatible disk, the Laravel filesystem configuration could look like this:"
+    },
+    {
+      "type": "code",
+      "lang": "php",
+      "content": "'minio_private' => [\n    'driver' => 's3',\n    'key' => env('MINIO_ACCESS_KEY_ID'),\n    'secret' => env('MINIO_SECRET_ACCESS_KEY'),\n    'region' => env('MINIO_REGION', 'us-east-1'),\n    'bucket' => env('MINIO_PRIVATE_BUCKET'),\n    'endpoint' => env('MINIO_ENDPOINT'),\n    'use_path_style_endpoint' => true,\n    'visibility' => 'private',\n],"
+    },
+    {
+      "type": "paragraph",
+      "content": "The `use_path_style_endpoint` setting was particularly important in my configuration. With path-style addressing, an object URL generally follows this structure: `https://storage.example.com/my-bucket/documents/file.pdf`. With virtual-host-style addressing, the bucket becomes part of the hostname instead. When using a custom endpoint without the necessary bucket-domain and DNS configuration, virtual-host-style requests can fail. Explicitly enabling path-style addressing avoids that class of problem in compatible setups."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Step 5: Separate Public Assets From Private Documents"
+    },
+    {
+      "type": "paragraph",
+      "content": "The two applications did not have the same storage requirements. The travel platform needed assets that could be displayed publicly, while the gold exchange MIS needed to protect sensitive documents. I therefore used separate storage disks for different access patterns."
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "content": "Public storage"
+    },
+    {
+      "type": "paragraph",
+      "content": "The public disk handled content such as destination images, tour package images, gallery photos, review images, and category images. A simplified configuration might look like this:"
+    },
+    {
+      "type": "code",
+      "lang": "php",
+      "content": "'minio_public' => [\n    'driver' => 's3',\n    'key' => env('MINIO_ACCESS_KEY_ID'),\n    'secret' => env('MINIO_SECRET_ACCESS_KEY'),\n    'region' => env('MINIO_REGION', 'us-east-1'),\n    'bucket' => env('MINIO_PUBLIC_BUCKET'),\n    'endpoint' => env('MINIO_ENDPOINT'),\n    'use_path_style_endpoint' => true,\n    'visibility' => 'public',\n],"
+    },
+    {
+      "type": "paragraph",
+      "content": "Public access should be enabled only when intended, using appropriate bucket policies and access controls."
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "content": "Private storage"
+    },
+    {
+      "type": "paragraph",
+      "content": "The private disk handled sensitive records such as KYC documents, PAN and identity card images, passport scans, purchase compliance documents, and other confidential business records. For private storage, the important principle was to avoid making these objects publicly addressable."
+    },
+    {
+      "type": "code",
+      "lang": "php",
+      "content": "'minio_private' => [\n    'driver' => 's3',\n    'key' => env('MINIO_ACCESS_KEY_ID'),\n    'secret' => env('MINIO_SECRET_ACCESS_KEY'),\n    'region' => env('MINIO_REGION', 'us-east-1'),\n    'bucket' => env('MINIO_PRIVATE_BUCKET'),\n    'endpoint' => env('MINIO_ENDPOINT'),\n    'use_path_style_endpoint' => true,\n    'visibility' => 'private',\n    'url' => null,\n],"
+    },
+    {
+      "type": "paragraph",
+      "content": "In the Laravel S3 adapter configuration I used, leaving the URL unset helped Laravel generate temporary URLs instead of relying on a fixed public object URL. The exact behavior should be verified against the installed adapter version. For example:"
+    },
+    {
+      "type": "code",
+      "lang": "php",
+      "content": "$url = Storage::disk('minio_private')\n    ->temporaryUrl(\n        'kyc/document.pdf',\n        now()->addMinutes(5)\n    );"
+    },
+    {
+      "type": "paragraph",
+      "content": "This generates a time-limited URL when supported by the configured S3-compatible adapter. However, a signed URL is a **bearer credential**: anyone who obtains it may be able to access the object until it expires. Sensitive documents should therefore use short expiration periods and appropriate application-level authorization."
+    },
+    {
+      "type": "paragraph",
+      "content": "The key lesson: public and private storage should be designed as **separate security models**, not simply as two folders inside the same bucket."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Bucket Setup With the MinIO Client (mc)"
+    },
+    {
+      "type": "paragraph",
+      "content": "Every bucket operation — aliases, bucket creation, visibility, policy, and lifecycle — goes through **mc**, the MinIO Client CLI. It talks the same S3 API the apps use, so the same endpoint hostname appears here:"
+    },
+    {
+      "type": "code",
+      "lang": "bash",
+      "content": "# Register the server as an alias (same endpoint the Laravel driver uses)\nmc alias set storage https://storage.example.com ACCESS_KEY SECRET_KEY\n\n# Create the private and public buckets\nmc mb --ignore-existing storage/private\nmc mb --ignore-existing storage/public\n\n# Public bucket: make objects downloadable without credentials\nmc anonymous set download storage/public\n\n# Alt migration path: mirror the old local disk into MinIO\nmc mirror /var/www/storage/app/public storage/public\n\n# Lifecycle: expire stale KYC files after a year\nmc ilm rule add --expiry-days 365 storage/private/kyc\n\n# Versioning: keep last N versions of overwritten objects\nmc version enable storage/private"
+    },
+    {
+      "type": "paragraph",
+      "content": "Three rules I keep: **never** set an anonymous policy on the private bucket — that is what forces every access through presigned temporary URLs; set the public policy with `mc anonymous set download` only on the bucket the application treats as public; and encode retention with `mc ilm` rules plus `mc version enable` instead of trusting application code to remember to delete. The `mc alias` endpoint must match the same external hostname the filesystem driver uses — an alias pointing at `127.0.0.1:9000` quietly recreates the broken-URL problem all over again."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Step 6: Integrate MinIO With Laravel Filament"
+    },
+    {
+      "type": "paragraph",
+      "content": "Both Laravel applications used Filament for their administrative interfaces. I wanted uploads to use the correct storage disk without having to configure every upload field individually. For the travel platform, I configured Filament's file upload components to use the MinIO disk by default. A simplified example is:"
+    },
+    {
+      "type": "code",
+      "lang": "php",
+      "content": "use Filament\\Forms\\Components\\FileUpload;\n\nFileUpload::configureUsing(function (FileUpload $component) {\n    $component->disk('minio');\n});"
+    },
+    {
+      "type": "paragraph",
+      "content": "The exact hook and component namespace depend on your Filament version. This approach made the storage integration easier to maintain because newly added upload fields could inherit the same default configuration."
+    },
+    {
+      "type": "paragraph",
+      "content": "For sensitive KYC documents, I explicitly selected the private disk:"
+    },
+    {
+      "type": "code",
+      "lang": "php",
+      "content": "FileUpload::make('document')\n    ->disk('minio_private')\n    ->visibility('private')\n    ->directory('kyc');"
+    },
+    {
+      "type": "paragraph",
+      "content": "The same principle applied to purchase-related compliance documents. Explicitly configuring private document fields reduced the risk of accidentally placing sensitive uploads on the public disk."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Step 7: Migrate Existing Files Without Breaking the Application"
+    },
+    {
+      "type": "paragraph",
+      "content": "One of the biggest challenges was migrating the travel platform's existing files. The application already had uploads stored on Laravel's local public disk. Simply switching the default disk would not move those files. I implemented an Artisan command to migrate existing objects from local storage to MinIO. The command was designed to be repeatable, stream files to the destination, and optionally delete local copies after successful migration. The migration could then be run with:"
+    },
+    {
+      "type": "code",
+      "lang": "bash",
+      "content": "php artisan storage:move-to-minio --delete-local"
+    },
+    {
+      "type": "paragraph",
+      "content": "This is a project-specific command, not a built-in Laravel Artisan command. For a safe migration, the important steps are:"
+    },
+    {
+      "type": "list",
+      "ordered": true,
+      "items": [
+        "Enumerate the files on the existing disk",
+        "Upload each file to the destination bucket",
+        "Verify that the upload completed successfully",
+        "Preserve the expected object paths so existing database references continue to work",
+        "Delete the local copy only after confirming the remote copy is valid",
+        "Log failures and allow the process to resume without duplicating or losing data"
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": "I would also take a backup and run a dry run before enabling deletion in a production environment. The goal was to make the migration predictable and reduce the risk of losing existing uploads."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Step 8: Fix the Presigned URL Problem Behind Nginx"
+    },
+    {
+      "type": "paragraph",
+      "content": "This was one of the most important lessons from the implementation. After configuring MinIO behind Nginx, I encountered a problem with presigned URLs. The application could communicate with the storage service, but some generated URLs pointed to an internal address such as `http://127.0.0.1:9091/...`. That address was valid only from the server's own network perspective — a browser or external client could not use it."
+    },
+    {
+      "type": "code",
+      "lang": "text",
+      "content": "Internal endpoint:  http://127.0.0.1:9000\nExternal endpoint:  https://storage.example.com"
+    },
+    {
+      "type": "paragraph",
+      "content": "The underlying issue was the difference between the endpoint the application used internally and the endpoint that clients needed to access. Internal and external endpoints are not interchangeable. If a URL-signing process uses the wrong endpoint, the resulting URL can contain the wrong hostname or scheme. My fix was to make the application and S3 client configuration use an endpoint that matched the intended externally reachable hostname for URL generation. The precise setup depends on how the application reaches MinIO, how the S3 SDK signs requests, and whether the internal and external endpoints differ."
+    },
+    {
+      "type": "paragraph",
+      "content": "The important thing to remember is: **a successful upload does not prove that presigned URLs will work.** I tested both operations independently — uploading and retrieving objects through the application, and generating and opening temporary URLs from an external browser or client. I also checked the hostname, scheme, path, expiration, and signature when troubleshooting failed requests. This small distinction can save a lot of debugging time when running S3-compatible storage behind a reverse proxy."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Step 9: Handle CORS Correctly"
+    },
+    {
+      "type": "paragraph",
+      "content": "Another issue appeared when browser-based administrative interfaces interacted with the storage service. The browser treats different origins as separate, even when they belong to the same domain family. For example:"
+    },
+    {
+      "type": "code",
+      "lang": "text",
+      "content": "https://app.example.com\nhttps://storage.example.com\nhttps://console-storage.example.com"
+    },
+    {
+      "type": "paragraph",
+      "content": "These are different origins because their hostnames differ. When a browser sends cross-origin requests, the storage service must return appropriate CORS headers for the requesting origin and the operations being performed. I explicitly reviewed the allowed origins for the application and storage integration rather than allowing every origin indiscriminately. For production, configure CORS according to the actual upload workflow:"
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "Allow only trusted application origins",
+        "Permit only the necessary HTTP methods and request headers",
+        "Ensure any required response headers are exposed to browser code",
+        "Configure bucket-level CORS when required by the client workflow",
+        "Avoid treating CORS as an authentication or authorization mechanism"
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": "CORS controls which browser origins can make certain cross-origin requests. It does not replace bucket policies, access keys, or application-level permissions."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "What I Learned From This Implementation"
+    },
+    {
+      "type": "list",
+      "ordered": true,
+      "items": [
+        "**S3 compatibility simplifies application integration** — when an application already uses Laravel's S3 filesystem driver, MinIO can often be introduced without rewriting upload logic. Most of the complexity shifts to endpoint configuration, credentials, network access, and storage policies.",
+        "**Storage URLs deserve as much attention as uploads** — applications also need to retrieve objects, generate temporary links, and serve assets through the correct hostname. A mismatch between internal and external endpoints can break those workflows even when uploads succeed.",
+        "**Public and private files should have different defaults** — public images and confidential identity documents should not share the same access assumptions. Separate disks, buckets, or policies make the intended security boundaries clearer, and sensitive files should stay private unless there is a deliberate, reviewed reason to expose them.",
+        "**Reverse proxies introduce another configuration layer** — Nginx makes it possible to expose MinIO through HTTPS and stable hostnames, but it also introduces considerations around request sizes, buffering, timeouts, host headers, and URL generation. Those details should be tested with the actual application workflow.",
+        "**Self-hosting still requires operational discipline** — you still need backups, monitoring, capacity planning, access controls, updates, recovery testing, and a plan for hardware or server failure. The infrastructure is yours to manage, which gives you control but also makes you responsible for keeping it reliable."
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "What I Would Improve Next"
+    },
+    {
+      "type": "paragraph",
+      "content": "There are a few areas I would focus on as the infrastructure evolves."
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "**Bucket versioning and lifecycle policies** — these can help with recovery and storage management when configured to match the application's retention requirements",
+        "**Automated backups and restore tests** — a backup strategy is only useful if restoration has been tested",
+        "**Restricted Console access** — the management interface should be available only to authorized operators, ideally through a VPN or IP allowlist",
+        "**Monitoring and alerting** — disk usage, failed requests, storage availability, and backup status should be monitored",
+        "**A more deliberate disaster-recovery plan** — if the server fails, I want a clear process for restoring data and returning the applications to service"
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": "For sensitive business records, I would also document retention and deletion policies so the storage lifecycle matches the application's legal and operational requirements."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Final Thoughts"
+    },
+    {
+      "type": "paragraph",
+      "content": "Setting up MinIO behind Nginx was more than a storage configuration exercise. It required thinking through the entire file lifecycle: uploading, storing, retrieving, authorizing, signing URLs, and migrating existing data."
+    },
+    {
+      "type": "paragraph",
+      "content": "For the travel platform, the main objective was to move application uploads away from the local filesystem while keeping the existing Laravel and Filament workflow intact. For the gold exchange MIS, the challenge was broader: sensitive documents needed a private storage model with controlled access. MinIO gave me an S3-compatible foundation for both applications, while Nginx provided the HTTPS entry point and routing layer."
+    },
+    {
+      "type": "paragraph",
+      "content": "The most valuable lesson was that getting object storage working is not just about connecting an S3 client. It is about making the endpoint, proxy, permissions, and URL-signing behavior work together consistently. For teams that need control over their infrastructure and already use S3-compatible tooling, MinIO is worth evaluating. Just remember that the benefits of self-hosting come with the responsibility of operating the storage system properly."
+    },
+    {
+      "type": "paragraph",
+      "content": "That is the balance I aim for in production engineering: keep the application simple, make the infrastructure predictable, and treat security and reliability as part of the implementation rather than something to add later."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "About the Author"
+    },
+    {
+      "type": "paragraph",
+      "content": "I'm Rojeets, a full-stack developer interested in building production-ready applications, backend systems, and practical infrastructure solutions. I enjoy working with Laravel, modern web technologies, and DevOps tools to solve real-world engineering problems. I share lessons from projects, implementation challenges, and the technical decisions that make applications more reliable."
+    }
+  ]
+}
